@@ -1,0 +1,15 @@
+:host {
+    height: 100vh;
+    .card-container {
+        background-color: #eaeaea;
+        position: relative;
+        width: 50%;
+        height: 100%;
+    }
+
+    .card-form {
+        background: #fff;
+        width: 50%;
+        height: 100%;
+    }
+}

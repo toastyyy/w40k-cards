@@ -1,0 +1,16 @@
+{
+  "name": "w40k-renderer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "electron-pdf": "electron-pdf $PWD/doc.html $PWD/doc.pdf -l --pageSize A5"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron-pdf": "^15.0.0",
+    "express": "^4.18.1"
+  }
+}

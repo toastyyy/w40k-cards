@@ -1,0 +1,314 @@
+<div class="flex w-full h-full" *ngIf="(card$ | async) as card">
+    <div class="card-container">
+        <div class="absolute left-0 right-0 vertical-center text-center">
+            <div class="inline-block w-2/3">
+                <app-unit-basic #cardContainer [card]="card"></app-unit-basic>
+            </div>
+        </div>
+        <div [routerLink]="['/roster', rosterId]" class="absolute top-0 left-0 p-4 text-blue-500 text-lg cursor-pointer hover:underline">
+            &laquo; Zurück zum Roster
+        </div>
+
+        <div class="absolute top-0 right-0 p-4 text-blue-500 text-lg cursor-pointer hover:underline" (click)="showPDF(cardContainer)">
+            PDF anzeigen
+        </div>
+    </div>
+    <div class="card-form">
+        <mat-tab-group>
+            <mat-tab label="Grundeinstellungen">
+                <div class="p-4">
+                    <div class="flex flex-wrap -mx-2">
+                        <div class="w-full px-2">
+                            <mat-form-field class="w-full">
+                                <mat-label>Kartentitel</mat-label>
+                                <input type="text" matInput [(ngModel)]="card.title" (ngModelChange)="changed()"/>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-full px-2">
+                            <mat-form-field class="w-full">
+                                <mat-label>Zitat / Untertitel</mat-label>
+                                <textarea rows="3" matInput [(ngModel)]="card.quote" (ngModelChange)="changed()"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-1/4 p-2">
+                            <mat-label>Fraktions-Emblem</mat-label>
+                            <app-medium (changed)="card.factionLogo = $event;changed()" [medium]="card.factionLogo"></app-medium>
+                        </div>
+                        <div class="w-1/4 p-2">
+                            <mat-label>Hintergrund</mat-label>
+                            <app-medium (changed)="card.backgroundImage = $event;changed()" [medium]="card.backgroundImage"></app-medium>
+                        </div>
+                        <div class="w-1/4 p-2">
+                            <mat-label>Box-Hintergrund</mat-label>
+                            <app-medium (changed)="card.boxBackground = $event;changed()" [medium]="card.boxBackground"></app-medium>
+                        </div>
+                        <div class="w-1/4 p-2">
+                            <mat-label>Einheitenbild</mat-label>
+                            <app-medium (changed)="card.unitImage = $event;changed()" [medium]="card.unitImage"></app-medium>
+                        </div>
+                        <div class="w-1/2 px-2">
+                            <mat-form-field class="w-full">
+                                <mat-label>Textfarbe</mat-label>
+                                <input type="text" matInput [(ngModel)]="card.textColor" (ngModelChange)="changed()"/>
+                            </mat-form-field>
+                        </div>
+                        <div class="w-1/2 px-2">
+                            <mat-form-field class="w-full">
+                                <mat-label>Rahmenfarbe</mat-label>
+                                <input type="text" matInput [(ngModel)]="card.borderColor" (ngModelChange)="changed()"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    
+                </div>
+            </mat-tab>
+            <mat-tab label="Einheiten">
+                <mat-accordion [multi]="false">
+                    <mat-expansion-panel *ngFor="let unit of card.units" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>{{ unit.name }}</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div>
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput type="text" [(ngModel)]="unit.name" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>M</mat-label>
+                                        <input matInput type="text" [(ngModel)]="unit.movementSpeed" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>WS</mat-label>
+                                        <input matInput type="text" [(ngModel)]="unit.weaponSkill" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>BS</mat-label>
+                                        <input matInput type="text" [(ngModel)]="unit.ballisticSkill" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>S</mat-label>
+                                        <input matInput type="text" [(ngModel)]="unit.strength" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>T</mat-label>
+                                        <input matInput type="text" [(ngModel)]="unit.toughness" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>A</mat-label>
+                                        <input matInput type="text" [(ngModel)]="unit.attacks" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>LD</mat-label>
+                                        <input matInput type="text" [(ngModel)]="unit.leadership" (ngModelChange)="changed()"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Save</mat-label>
+                                        <input matInput type="text" [(ngModel)]="unit.save" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-full px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Ref</mat-label>
+                                        <input matInput type="text" [(ngModel)]="unit.ref" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+                
+            </mat-tab>
+            <mat-tab label="Attacken">
+                <mat-accordion [multi]="false">
+                    <mat-expansion-panel *ngFor="let weapon of card.weapons" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>{{ weapon.name }}</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div>
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput type="text" [(ngModel)]="weapon.name" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-full px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Typ</mat-label>
+                                        <input matInput type="text" [(ngModel)]="weapon.type" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-full px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Fähigkeit</mat-label>
+                                        <textarea matInput rows="3" [(ngModel)]="weapon.abilities" (ngModelChange)="changed()"></textarea>
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Reichweite</mat-label>
+                                        <input matInput type="text" [(ngModel)]="weapon.range" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>S</mat-label>
+                                        <input matInput type="text" [(ngModel)]="weapon.strength" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>AP</mat-label>
+                                        <input matInput type="text" [(ngModel)]="weapon.penetration" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Schaden</mat-label>
+                                        <input matInput type="text" [(ngModel)]="weapon.damage" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-tab>
+            <mat-tab label="Fähigkeiten">
+                <mat-accordion [multi]="false">
+                    <mat-expansion-panel *ngFor="let ability of card.abilities" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>{{ ability.name }}</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div>
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput type="text" [(ngModel)]="ability.name" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-full px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Text</mat-label>
+                                        <textarea matInput [(ngModel)]="ability.description" (ngModelChange)="changed()"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-tab>
+            <mat-tab label="Psy">
+                <div class="p-4">
+                    <div class="text-lg font-bold">Psyker</div>
+                </div>
+                
+                <mat-accordion [multi]="false">
+                    <mat-expansion-panel *ngFor="let psyker of card.psykers" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>{{ psyker.name }}</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div>
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput type="text" [(ngModel)]="psyker.name" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/3 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Cast</mat-label>
+                                        <input matInput type="text" [(ngModel)]="psyker.cast" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/3 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Deny</mat-label>
+                                        <input matInput type="text" [(ngModel)]="psyker.deny" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/3 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Other</mat-label>
+                                        <input matInput type="text" [(ngModel)]="psyker.other" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <div class="p-4">
+                    <div class="text-lg font-bold">Psychic Powers</div>
+                </div>
+                
+                <mat-accordion [multi]="false">
+                    <mat-expansion-panel *ngFor="let power of card.psychicPowers" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>{{ power.name }}</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div>
+                            <div class="flex flex-wrap -mx-2">
+                                <div class="w-full px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput type="text" [(ngModel)]="power.name" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-full px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Details</mat-label>
+                                        <textarea matInput [(ngModel)]="power.details" (ngModelChange)="changed()"></textarea>
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/3 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Reichweite</mat-label>
+                                        <input matInput type="text" [(ngModel)]="power.range" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/3 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Warp Charge</mat-label>
+                                        <input matInput type="text" [(ngModel)]="power.warpCharge" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-1/3 px-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>Ref</mat-label>
+                                        <input matInput type="text" [(ngModel)]="power.ref" (ngModelChange)="changed()" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-tab>
+        </mat-tab-group>
+        <div class="p-4">
+            <div (click)="delete()" class="py-2 px-4 inline-block bg-red-500 text-white font-bold rounded cursor-pointer hover:bg-red-600">
+                Karte löschen
+            </div>
+        </div>
+        
+    </div>
+</div>

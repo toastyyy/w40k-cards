@@ -1,0 +1,101 @@
+<div #cardWrapper class="card-wrapper unit-basic" [style.--border-color]="card.borderColor" [style.--text-color]="card.textColor">
+  <div class="card" [style.background-image]="'url(' + (card.backgroundImage?.file ? card.backgroundImage?.file : (card.backgroundImage?.content ? card.backgroundImage.content : ''))  + ')'">
+    <div class="card-border"></div>
+    <div class="card-image-wrapper" [style.background-image]="'url(' + (card.unitImage?.file ? card.unitImage?.file : (card.unitImage?.content ? card.unitImage.content : '')) + ')'">
+      <div class="card-title-box-wrapper">
+        <div class="card-title-box">
+          <div class="card-title">{{ card.title }}</div>
+          <div class="card-quote">{{ card.quote }}</div>
+        </div>
+        <div class="card-faction-icon" [style.background-image]="'url(' + (card.factionLogo?.file ? card.factionLogo?.file : (card.factionLogo?.content ? card.factionLogo.content : '')) + ')'"></div>
+        <div class="card-psyker" *ngIf="card.psykers.length == 1">
+            <div class="psyker-cast">
+              <div class="dirt">
+                
+              </div>
+              {{ card.psykers[0].cast }}
+            </div>
+            <div class="psyker-cast">
+              {{ card.psykers[0].deny }}
+            </div>
+        </div>
+      </div>
+
+      <div class="card-units">
+        <div *ngFor="let unit of card.units" class="unit" [style.background-image]="'url(' + (card.boxBackground?.file ? card.boxBackground?.file : (card.boxBackground?.content ? card.boxBackground.content : '')) + ')'">
+            <div class="title-row">
+              <span class="name">{{ unit.name }}</span>
+              <span class="ref">{{ unit.ref }}</span>
+            </div>
+            <div class="characteristic">
+              <div class="characteristic-label">M</div>
+              <div class="characteristic-value">{{ unit.movementSpeed }}</div>
+            </div>
+            <div class="characteristic">
+              <div class="characteristic-label">WS</div>
+              <div class="characteristic-value">{{ unit.weaponSkill }}</div>
+            </div>
+            <div class="characteristic">
+              <div class="characteristic-label">BS</div>
+              <div class="characteristic-value">{{ unit.ballisticSkill }}</div>
+            </div>
+            <div class="characteristic">
+              <div class="characteristic-label">S</div>
+              <div class="characteristic-value">{{ unit.strength }}</div>
+            </div>
+            <div class="characteristic">
+              <div class="characteristic-label">T</div>
+              <div class="characteristic-value">{{ unit.toughness }}</div>
+            </div>
+            <div class="characteristic">
+              <div class="characteristic-label">A</div>
+              <div class="characteristic-value">{{ unit.attacks }}</div>
+            </div>
+            <div class="characteristic">
+              <div class="characteristic-label">LD</div>
+              <div class="characteristic-value">{{ unit.leadership }}</div>
+            </div>
+            <div class="characteristic">
+              <div class="characteristic-label">Save</div>
+              <div class="characteristic-value">{{ unit.save }}</div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-content-wrapper">
+      <div class="card-weapons">
+          <div *ngFor="let weapon of card.weapons" class="card-weapon" [style.background-image]="'url(' + (card.boxBackground?.file ? card.boxBackground?.file : (card.boxBackground?.content ? card.boxBackground.content : '')) + ')'">
+              <div class="card-weapon-icon"></div>
+              <div class="card-weapon-name">{{ weapon.name }}</div>
+              <div class="card-weapon-type">{{ weapon.type }}</div>
+              <div class="card-weapon-ability">{{ weapon.abilities }}</div>
+              <div class="card-weapon-characteristics">
+                <div class="weapon-characteristic">
+                  <div class="characteristic-label">Range</div>
+                  <div class="characteristic-value">{{ weapon.range }}</div>
+                </div>
+                <div class="weapon-characteristic">
+                  <div class="characteristic-label">S</div>
+                  <div class="characteristic-value">{{ weapon.strength }}</div>
+                </div>
+                <div class="weapon-characteristic">
+                  <div class="characteristic-label">AP</div>
+                  <div class="characteristic-value">{{ weapon.penetration }}</div>
+                </div>
+                <div class="weapon-characteristic">
+                  <div class="characteristic-label">D</div>
+                  <div class="characteristic-value">{{ weapon.damage }}</div>
+                </div>
+            
+              </div>
+          </div>
+          <div style="clear: both;"></div>
+      </div>
+      <div class="card-abilities" *ngIf="card.abilities.length > 0">
+          <div *ngFor="let ability of card.abilities" class="card-ability" [style.background-image]="'url(' + (card.boxBackground?.file ? card.boxBackground?.file : (card.boxBackground?.content ? card.boxBackground.content : '')) + ')'">
+            <span class="ability-name">{{ ability.name }}</span> {{ ability.description }}
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+{% if unit.profiles is defined %}
+    {% if unit.profiles.profile['@attributes'] is defined %}
+        {% if unit.profiles.profile['@attributes'].typeName == 'Weapon' %}
+            {% include 'weapon.html.twig' with { unit: unit, catalogColors: catalogColors, force: force, owner: owner, profile: unit.profiles.profile } %}
+        {% endif %}
+    {% else %}
+        {% for profile in unit.profiles.profile %}
+            {% if profile['@attributes'].typeName == 'Weapon' %}
+                {% include 'weapon.html.twig' with { unit: unit, catalogColors: catalogColors, force: force, owner: owner, profile: profile } %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+{% endif %}

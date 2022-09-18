@@ -1,0 +1,51 @@
+{% if unit | unitPoints > 0 %}
+    {% if unit.profiles is defined %}
+        {% if hasCategory(unit, 'Primarch') or hasCategory(unit, 'Supreme Commander') %}
+            {% include 'megaunit.html.twig' with { unit: unit, catalogColors: catalogColors, force: force } %}
+        {% else %}
+            {% include 'normalunit.html.twig' with { unit: unit, catalogColors: catalogColors, force: force } %}
+        {% endif %}
+    {% elseif inherited is defined and inherited.profiles is defined %}
+        {% if hasCategory(inherited, 'Primarch') or hasCategory(inherited, 'Supreme Commander') %}
+            {% include 'megaunit.html.twig' with { unit: unit, catalogColors: catalogColors, force: force, inherited: inherited } %}
+        {% else %}
+            {% include 'normalunit.html.twig' with { unit: unit, catalogColors: catalogColors, force: force, inherited: inherited } %}
+        {% endif %}
+    {% endif %}
+
+{% else %}
+    {# must be a whole squad of units, so render the nested ones #}
+    {% if unit.selections is defined %}
+        {% for u in unit.selections.selection %}
+
+            {% if u['@attributes'] is defined and (u['@attributes'].type == 'model' or u['@attributes'].type == 'unit') %}
+
+                {% if u['@attributes'].number is defined %}
+                    {% for i in range(1, u['@attributes'].number) %}
+                        {% include 'unit.html.twig' with { unit: u, catalogColors: catalogColors, force: force, inherited: unit } %}
+                    {% endfor %}
+                {% else %}
+                    {% include 'unit.html.twig' with { unit: u, catalogColors: catalogColors, force: force, inherited: unit } %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endif %}
+
+{# render the upgrades for this unit #}
+{% for w in unit.selections.selection %}
+    {% if w['@attributes'] is defined and (w['@attributes'].type == 'upgrade') %}
+        {% include 'upgrade.html.twig' with { unit: w, catalogColors: catalogColors, force: force, owner: unit } %}
+    {% endif %}
+{% endfor %}
+{#
+
+
+#}
+{% if unit.profiles is defined %}
+{% for p in unit.profiles.profile %}
+    {% if p['@attributes'] is defined and (p['@attributes'].typeName == 'Abilities') %}
+        {% include 'ability.html.twig' with { unit: p, catalogColors: catalogColors, force: force, owner: unit } %}
+    {% endif %}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,236 @@
+<div class="container">
+  <h1>W40k Card Generator</h1>
+  <div class="flex flex-wrap w-full -mx-2">
+    <div class="px-2 w-full">
+      <h2>Characteristics</h2>
+    </div>
+    <div class="flex flex-wrap -mx-2 w-full">
+      <div class="w-full lg:w-1/4 px-2">
+        <div [style.backgroundImage]="'url(' + unit.image + ')'" class="w-full bg-cover bg-center bg-gray-200 cursor-pointer rounded hover:bg-gray-300" (click)="chooseImage()" style="padding-top: 100%;">
+
+        </div>
+        <input #fileInput (change)="onFileChanged($event)" class="hidden" type="file" />
+      </div>
+      <div class="w-full lg:w-3/4 px-2">
+        <div class="flex flex-wrap">
+          <div class="px-2 w-full">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Unit Name</mat-label>
+              <input type="text" matInput [(ngModel)]="unit.unitName" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Wounds (W)</mat-label>
+              <input type="number" matInput [(ngModel)]="unit.wounds" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Movement speed (M)</mat-label>
+              <input type="text" matInput [(ngModel)]="unit.movementSpeed" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Weapon Skill (WS)</mat-label>
+              <input type="text" matInput [(ngModel)]="unit.weaponSkill" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Ballistic Skill (BS)</mat-label>
+              <input type="text" matInput [(ngModel)]="unit.ballisticSkill" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Strength (S)</mat-label>
+              <input type="number" matInput [(ngModel)]="unit.strength" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Toughness (T)</mat-label>
+              <input type="number" matInput [(ngModel)]="unit.toughness" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Attack (A)</mat-label>
+              <input type="number" matInput [(ngModel)]="unit.attack" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Save</mat-label>
+              <input type="text" matInput [(ngModel)]="unit.save" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Leadership (LS)</mat-label>
+              <input type="text" matInput [(ngModel)]="unit.leadership" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Points</mat-label>
+              <input type="text" matInput [(ngModel)]="unit.points" />
+            </mat-form-field>
+          </div>
+          <div class="px-2 w-full lg:w-1/2">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Powerlevel</mat-label>
+              <input type="text" matInput [(ngModel)]="unit.powerLevel" />
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="px-2 w-full">
+      <h2>Attacks</h2>
+    </div>
+    <div *ngFor="let attack of unit.attacks" class="px-2 w-full mb-2 border-b-2 border-gray-400">
+      <div class="flex flex-wrap -mx-1">
+        <div class="w-1/3 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput [(ngModel)]="attack.name" />
+          </mat-form-field>
+        </div>
+        <div class="w-1/6 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Type</mat-label>
+            <input placeholder="e.g. Assault 1" type="text" matInput [(ngModel)]="attack.type" />
+          </mat-form-field>
+        </div>
+        <div class="w-1/6 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Strength (S)</mat-label>
+            <input type="text" matInput [(ngModel)]="attack.strength" />
+          </mat-form-field>
+        </div>
+        <div class="w-1/6 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>AP</mat-label>
+            <input type="number" matInput [(ngModel)]="attack.penetration" />
+          </mat-form-field>
+        </div>
+        <div class="w-1/6 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Damage</mat-label>
+            <input type="text" matInput [(ngModel)]="attack.damage" />
+          </mat-form-field>
+        </div>
+        <div class="w-1/3 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Distance</mat-label>
+            <input type="text" matInput [(ngModel)]="attack.distance" />
+          </mat-form-field>
+        </div>
+        <div class="w-2/3 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Abilities</mat-label>
+            <input type="text" matInput [(ngModel)]="attack.abilities" />
+          </mat-form-field>
+        </div>
+        <div class="w-full px-2">
+          <div class="-mt-2 text-red-700 cursor-pointer inline-block hover:underline" (click)="removeAttack(attack)">
+            Löschen
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="px-2 w-full">
+      <button (click)="addAttack()" mat-button color="primary">+ Add Attack</button>
+    </div>
+
+    <div class="mt-8 px-2 w-full">
+      <h2>Abilities</h2>
+    </div>
+    <div *ngFor="let ability of unit.abilities" class="px-2 w-full mb-2 border-b-2 border-gray-400">
+      <div class="flex flex-wrap -mx-1">
+        <div class="w-1/3 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput [(ngModel)]="ability.name" />
+          </mat-form-field>
+        </div>
+        <div class="w-2/3 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Text</mat-label>
+            <input placeholder="" type="text" matInput [(ngModel)]="ability.text" />
+          </mat-form-field>
+        </div>
+        <div class="w-full px-2">
+          <div class="-mt-2 text-red-700 cursor-pointer inline-block hover:underline" (click)="removeAbility(ability)">
+            Löschen
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="px-2 w-full">
+      <button (click)="addAbility()" mat-button color="primary">+ Add Ability</button>
+    </div>
+
+    <div class="mt-8 px-2 w-full">
+      <h2>Infos</h2>
+    </div>
+    <div *ngFor="let info of unit.infos" class="px-2 w-full mb-2 border-b-2 border-gray-400">
+      <div class="flex flex-wrap -mx-1">
+        <div class="w-1/3 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Title</mat-label>
+            <input type="text" matInput [(ngModel)]="info.title" />
+          </mat-form-field>
+        </div>
+        <div class="w-2/3 px-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Text</mat-label>
+            <input placeholder="" type="text" matInput [(ngModel)]="info.text" />
+          </mat-form-field>
+        </div>
+        <div class="w-full px-2">
+          <div class="-mt-2 text-red-700 cursor-pointer inline-block hover:underline" (click)="removeInfo(info)">
+            Löschen
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="px-2 w-full">
+      <button (click)="addInfo()" mat-button color="primary">+ Add Info</button>
+    </div>
+  </div>
+  <div class="w-full px-2">
+    <h2>Colors</h2>
+  </div>
+  <div class="w-1/3 px-2">
+    <mat-form-field>
+      <mat-label>Color (Light)</mat-label>
+      <input matInput [ngxMatColorPicker]="picker1" [(ngModel)]="unit.colorLight">
+      <ngx-mat-color-toggle matSuffix [for]="picker1"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker #picker1 [touchUi]="false"></ngx-mat-color-picker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Color (Normal)</mat-label>
+      <input matInput [ngxMatColorPicker]="picker2" [(ngModel)]="unit.color">
+      <ngx-mat-color-toggle matSuffix [for]="picker2"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker #picker2 [touchUi]="false"></ngx-mat-color-picker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Color (Dark)</mat-label>
+      <input matInput [ngxMatColorPicker]="picker3" [(ngModel)]="unit.colorDark">
+      <ngx-mat-color-toggle matSuffix [for]="picker3"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker #picker3 [touchUi]="false"></ngx-mat-color-picker>
+    </mat-form-field>
+  </div>
+
+  <button (click)="generate()" mat-raised-button color="primary">Generate</button>
+  <button (click)="downloadModelData()" mat-raised-button color="accent">Save Model Data</button>
+  <button (click)="loadModelInput.click()" mat-raised-button color="accent">Load Model Data</button>
+  <input class="hidden" type="file" #loadModelInput (change)="loadModelData($event)" />
+</div>

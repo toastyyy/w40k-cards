@@ -1,0 +1,33 @@
+.medium {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    border-radius: .5rem;
+    box-shadow: 0 0 3px 1px rgba(0,0,0,0.2);
+    background-size: cover;
+    background-position: center center;
+    cursor: pointer;
+
+    .upload-image-placeholder {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        transform: translate(0, -50%);
+    }
+
+    .overlay-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .overlay-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}

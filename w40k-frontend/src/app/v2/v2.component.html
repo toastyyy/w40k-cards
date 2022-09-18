@@ -1,0 +1,64 @@
+<div class="w-full h-screen flex flex-wrap">
+  <div class="w-1/2 h-full overflow-hidden wrapper">
+    <div class="w-full text-center pt-6 lg:pt-16 h-full bg-cover" style="background-image: url(assets/bg-texture.png)">
+      <div class="container">
+        <div class="text-center">
+          <img src="assets/logo.png" class="h-16 lg:h-32 mb-6 inline-block" />
+        </div>
+
+        <div class="font-bold bangers text-white text-3xl lg:text-6xl title">Warhammer 40k Card Generator</div>
+
+        <ngx-slick-carousel #slick [config]="config">
+          <div ngxSlickItem>
+            <div class="text-white text-lg lg:text-2xl font-bold mt-4">
+              Schritt 1: Wähle eine Roster-Datei
+            </div>
+            <div class="text-white text-base lg:text-xl mb-4">
+              Du kannst deine Roster-Datei direkt aus BattleScribe exportieren, indem du dein Roster öffnest und dann im Menü
+              unter "Share roster..." den Punkt "BattleScribe roster file" auswählst. Die Datei hat die Endung <strong>.rosz</strong>
+            </div>
+            <div (click)="loadRosterInput.click()" class="py-3 px-6 inline-block rounded bg-blue-600 cursor-pointer text-white font-bold">
+              <span *ngIf="loaded">{{ fileName }}</span>
+              <span *ngIf="!loaded">Hier klicken um Roster-Datei zu laden</span>
+            </div>
+            <br>
+
+            <input type="file" style="visibility:hidden;" #loadRosterInput (change)="loadRosterData($event)" /><br>
+          </div>
+          <div ngxSlickItem>
+            <div class="text-white text-lg lg:text-2xl font-bold mt-4">
+              Schritt 2: Deine Karten werden generiert
+            </div>
+            <div class="text-white text-base lg:text-xl mb-4">
+              <strong>Schließe nicht dieses Fenster!</strong><br>
+              Klicke auf "Start" um den Erstellungsprozess zu starten. Der Prozess kann einige Minuten dauern.
+              Danach stehen deine Karten zum Download bereit.
+            </div>
+            <div class="progress-bar-wrapper" *ngIf="generating && cards.length > 0">
+              <div class="progress" [style.width]="(((imageGeneratorIndex + 20) / (cards.length + 19)) * 100) + '%'"></div>
+            </div>
+            <div *ngIf="rosterKey" class="text-center text-white text-sm">
+              Erstelle Karte {{ imageGeneratorIndex + 1 }} von {{ cards.length }}
+            </div>
+            <div *ngIf="!generating" (click)="generate()" [class.hidden]="!loaded" [class.inline-block]="loaded" class="py-3 px-8 bg-white text-blue-800 text-lg rounded cursor-pointer text-white font-bold">
+              Start
+            </div>
+          </div>
+          <div ngxSlickItem>
+            <div class="text-white text-lg lg:text-2xl font-bold mt-4">
+              Schritt 3: Lade deine Karten herunter
+            </div>
+            <div class="text-white text-base lg:text-xl mb-4">
+              Die Erstellung deiner Karten wurde abgeschlossen!<br>
+              Tipp: Die Karten sind in einem Standard-Spielkarten Format und können zum Beispiel bei <a href="https://www.meinspiel.de/">meinspiel.de</a>
+              in sehr guter Qualität gedruckt werden (Individuelles Kartenspiel, 59x91mm).
+            </div>
+            <div (click)="download()" class="py-3 px-8 bg-white text-blue-800 text-lg rounded cursor-pointer text-white font-bold">
+              Download
+            </div>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+  </div>
+</div>

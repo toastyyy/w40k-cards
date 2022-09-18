@@ -1,0 +1,38 @@
+:host {
+  .wrapper {
+    background-color: #053061;
+  }
+}
+
+.bangers {
+  font-family: 'Bangers', cursive;
+}
+.title {
+  letter-spacing: 1px;
+}
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.progress-bar-wrapper {
+  width: 100%;
+  overflow: hidden;
+  height: 1.5rem;
+  background: #fff;
+  padding: 1px;
+  border-radius: .75rem;
+}
+
+.progress-bar-wrapper {
+  .progress {
+    height: 100%;
+    border-radius: .75rem;
+    background: #3CA55C;
+    background: -webkit-linear-gradient(to right, #B5AC49, #3CA55C);
+    background: linear-gradient(to right, #B5AC49, #3CA55C);
+    transition: width .7s;
+  }
+}

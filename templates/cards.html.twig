@@ -1,0 +1,13 @@
+{% extends 'base_v2.html.twig' %}
+{% block stylesheets %}
+    <style>{{ stylesheet | raw }}</style>
+{% endblock %}
+{% block body %}
+{% for force in data.forces.force %}
+    {% for unit in force.selections.selection %}
+        {% if unit['@attributes'].type == 'model' or unit['@attributes'].type == 'unit' %}
+            {% include 'unit.html.twig' with { unit: unit, catalogColors: catalogColors, force: force } %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% endblock %}

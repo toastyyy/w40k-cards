@@ -1,0 +1,257 @@
+.card-wrapper {
+    width: 74rem;
+    height: 52.32323rem;
+    border-radius: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-overlay {
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-radius: 1rem;
+    background-size: cover;
+    background-image: url(/assets/bg-texture.png);
+}
+
+.card-wrapper::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    position: absolute;
+    border-radius: 1rem;
+    border: 1.25rem solid rgba(0, 0, 0, 0.85)
+}
+
+.card-wrapper .card {
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.25rem;
+    border-radius: 10mm
+}
+
+.card-wrapper .card .card-image {
+    border-bottom-right-radius: 2rem;
+    background-size: cover;
+    background-position: center center;
+    border-bottom: 0.5rem solid rgba(43, 117, 134, 0.5);
+    border-right: 0.5rem solid rgba(43, 117, 134, 0.5)
+}
+
+.card-wrapper .card .unit-name {
+    font-family: 'Cinzel', serif;
+    color: #fff;
+    font-size: 3rem;
+    padding-left: 2rem;
+    padding-top: 1rem;
+    font-weight: 900;
+    text-shadow: 0 0 5px 2px var(--color);
+    display: inline-block
+}
+
+.card-wrapper .card .unit-points {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 5px 2px var(--color);
+    display: inline-block;
+    margin-left: .5rem
+}
+
+.card-wrapper .card .life-box {
+    font-size: 4rem;
+    position: relative;
+    display: inline-block;
+}
+
+.card-wrapper .card .life-box .life-amount {
+    font-size: 1.8rem;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    color: #fff;
+    font-family: 'Cinzel', serif;
+    font-weight: 900
+}
+
+.card-wrapper .card .movement-box {
+    height: 3rem;
+    width: 3rem;
+    margin-top: .5rem;
+    border-radius: .5rem;
+    vertical-align: top;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+    background: #3f51b5;
+    color: #fff;
+
+}
+
+.card-wrapper .card .movement-box .movement-icon {
+    position: absolute;
+    bottom: .15rem;
+    right: .15rem;
+    font-size: 1rem
+}
+
+.attack-list {
+    padding-left: 1.25rem
+}
+
+.attack-list .attack-wrapper {
+    padding-top: .5rem
+}
+
+.attack-list .attack-wrapper .attack {
+    position: relative;
+    background: rgba(255,255,255,0.1);
+    padding: .5rem 4rem .5rem .5rem;
+    min-height: 5.75rem
+}
+
+.attack-list .attack-wrapper .attack .attack-name {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    color: #fff;
+    font-size: 1.375rem
+}
+
+.attack-list .attack-wrapper .attack .attack-type {
+    display: inline-block;
+    color: #fff;
+    font-size: .825rem;
+    padding: .1rem .5rem;
+    border-radius: .25rem;
+    font-family: 'Cinzel', serif
+}
+
+.attack-list .attack-wrapper .attack .attack-ability {
+    font-family: 'Cinzel', serif;
+    color: #fff;
+    font-size: .675rem
+}
+
+.attack-list .attack-wrapper .attack .attack-info {
+    position: absolute;
+    right: .25rem;
+    top: .25rem;
+    font-size: .875rem;
+    font-weight: 700;
+    font-family: 'Cinzel', serif;
+    color: #fff
+}
+
+.ability-list {
+    padding-left: 1.75rem;
+    padding-right: .5rem;
+    overflow: hidden;
+}
+
+.ability-list .ability-wrapper {
+    padding-top: .5rem
+}
+
+.ability-list .ability-wrapper .ability {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    padding: .5rem .5rem .5rem .5rem;
+    background: rgba(0,0,0,0.15);
+}
+
+.ability-list .ability-wrapper .ability .ability-name {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    color: #fff;
+    font-size: 1rem;
+    display: inline
+}
+
+.ability-list .ability-wrapper .ability .ability-text {
+    font-size: .875rem;
+    color: #fff;
+    font-family: serif
+}
+
+.unit-kpis {
+    overflow: hidden;
+    padding: .5rem
+}
+
+.unit-kpis .kpi {
+    position: relative;
+    overflow: hidden;
+    padding: .25rem;
+    border-radius: .5rem;
+    margin-bottom: .5rem;
+    background: rgba(0,0,0,0.35);
+    -webkit-box-shadow: 0px 0px 4px 2px rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 0px 4px 2px rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-family: 'Cinzel', serif;
+    text-align: center
+}
+
+.unit-kpis .kpi .kpi-value {
+    font-size: 1.375rem
+}
+
+.unit-kpis .kpi .kpi-name {
+    font-size: .675rem
+}
+
+.unit-additional-info {
+    padding: .5rem;
+    opacity: .8
+}
+
+.unit-additional-info .info {
+    margin-bottom: .5rem;
+    font-family: 'Cinzel', serif;
+    color: #fff;
+    font-size: .675rem
+}
+
+.unit-additional-info .info .info-name {
+    display: inline-block;
+    margin-right: .25rem;
+    font-weight: 700;
+    font-size: 1rem
+}
+
+hr {
+    opacity: .2;
+    margin: .5rem 1.5rem
+}
+
+.row {
+    float: left;
+    width: 100%;
+}
+
+.row::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.row .elem {
+    float: left;
+}

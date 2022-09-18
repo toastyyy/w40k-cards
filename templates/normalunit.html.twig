@@ -1,0 +1,352 @@
+{% extends 'base_v2.html.twig' %}
+{% block stylesheets %}
+    <style>{{ stylesheet | raw }}</style>
+{% endblock %}
+{% block body %}
+<div class="card-wrapper" style="{% if catalogColors[force['@attributes'].catalogueName] is defined %}background-color: {{ catalogColors[force['@attributes'].catalogueName] }}{% else %}background-color: #414141;{% endif %}">
+    <div class="card-overlay"></div>
+    <div class="card">
+        <div class="unit-image-wrapper">
+            <div class="unit-image" style="background-image: url({{ ((unit['@attributes'].name | split('w/'))[0]) | loadImage }})">
+                <div class="unit-title">
+                    <div class="unit-name">{{ (unit['@attributes'].name | split('w/'))[0] }}</div>
+                    <div class="unit-points">
+                        {{ unit | unitPoints }}PT
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="unit-content text-white">
+            {% if unit.profiles is defined %}
+                {% set profiles = unit.profiles %}
+            {% elseif inherited is defined and inherited.profiles is defined %}
+                {% set profiles = inherited.profiles %}
+            {% endif %}
+            {% if profiles.profile['@attributes'] is defined %}
+                {% set profile = profiles.profile %}
+                <div class="unit-single-profile">
+                    <div class="characteristic-wrapper">
+                        <div class="unit-characteristic speed">
+                            {{ profile.characteristics.characteristic[0] }}
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     aria-hidden="true" role="img" width="1em" height="1em"
+                                     preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                                    <path d="M16.5 5.5a2 2 0 0 0 2-2a2 2 0 0 0-2-2a2 2 0 0 0-2 2a2 2 0 0 0 2 2m-3.6 13.9l1-4.4l2.1 2v6h2v-7.5l-2.1-2l.6-3A7.298 7.298 0 0 0 22 13v-2c-1.76.03-3.4-.89-4.3-2.4l-1-1.6c-.36-.6-1-1-1.7-1c-.3 0-.5.1-.8.1L9 8.3V13h2V9.6l1.8-.7l-1.6 8.1l-4.9-1l-.4 2l7 1.4M4 9a1 1 0 0 1-1-1a1 1 0 0 1 1-1h3v2H4m1-4a1 1 0 0 1-1-1a1 1 0 0 1 1-1h5v2H5m-2 8a1 1 0 0 1-1-1a1 1 0 0 1 1-1h4v2H3z"
+                                          fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="unit-characteristic ws">
+                            {{ profile.characteristics.characteristic[1] }}
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     aria-hidden="true" role="img" width="1em" height="1em"
+                                     preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                                    <g fill="none">
+                                        <path d="M2 19.2L3.8 21m.9-7.2l.9 3.6m0 0l3.6.9m-3.6-.9l-2.7 2.7M16.4 3.9l-9 9l.45 2.25l2.25.45l9-9L20 3l-3.6.9z"
+                                              stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round"/>
+                                        <path d="M22 19.2L20.2 21m-.9-7.2l-.9 3.6m0 0l2.7 2.7m-2.7-2.7l-1.8.45l-1.8.45M9.3 11L4.9 6.6L4 3l3.6.9L12 8.3m.1 5.5l1.8 1.8l2.25-.45l.45-2.25l-1.8-1.8"
+                                              stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round"/>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="unit-characteristic bs">
+                            {{ profile.characteristics.characteristic[2] }}
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     aria-hidden="true" role="img" width="1em" height="1em"
+                                     preserveAspectRatio="xMidYMid meet" viewBox="0 0 48 48">
+                                    <g fill="none">
+                                        <g clip-path="url(#simplesvg-id-a)" stroke="white" stroke-width="4"
+                                           stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M40.85 43.92l-1.574-.314c-2.35-.47-3.42-3.607-2.673-5.884c1.954-5.96.522-13.61-.27-16.913c-.246-1.024-1.058-1.794-2.08-2.05l-2.263-.565a3 3 0 0 1-2.183-2.183l-.565-2.262c-.256-1.023-1.025-1.834-2.05-2.08c-3.302-.792-10.954-2.225-16.913-.27c-2.276.747-5.413-.324-5.883-2.674L4.08 7.151"/>
+                                            <path d="M6 11l32 32"/>
+                                            <path d="M12 36L43 5"/>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="simplesvg-id-a">
+                                                <path fill="#fff" d="M0 0h48v48H0z"/>
+                                            </clipPath>
+                                        </defs>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="unit-characteristic strength">
+                            {{ profile.characteristics.characteristic[3] }}
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     aria-hidden="true" role="img" width="1em" height="1em"
+                                     preserveAspectRatio="xMidYMid meet" viewBox="0 0 48 48">
+                                    <g fill="none">
+                                        <path d="M21.37 36c1.45-5.25 6.52-9 12.36-8.38c5.56.59 9.98 5.28 10.26 10.86c.07 1.47-.13 2.88-.56 4.19c-.26.8-1.04 1.33-1.89 1.33H11.758c-5.048 0-8.834-4.619-7.844-9.569L10 4h12l4 7l-8.57 6.13L15 14"/>
+                                        <path d="M21.37 36c1.45-5.25 6.52-9 12.36-8.38c5.56.59 9.98 5.28 10.26 10.86c.07 1.47-.13 2.88-.56 4.19c-.26.8-1.04 1.33-1.89 1.33H11.758c-5.048 0-8.834-4.619-7.844-9.569L10 4h12l4 7l-8.57 6.13L15 14"
+                                              stroke="currentColor" stroke-width="4" stroke-miterlimit="2"
+                                              stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M17.44 17.13L22 34" stroke="currentColor" stroke-width="4"
+                                              stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="unit-characteristic thoughness">
+                            {{ profile.characteristics.characteristic[4] }}
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     aria-hidden="true" role="img" width="1em" height="1em"
+                                     preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                                    <g fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                       stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3l-8 3v7c0 6 8 10 8 10z"/>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="unit-characteristic wounds">
+                            {% if profile.characteristics.characteristic[5] != 'N/A' %}
+                                {{ profile.characteristics.characteristic[5] }}
+                            {% else %}
+                                -
+                            {% endif %}
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     aria-hidden="true" role="img" width="1em" height="1em"
+                                     preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                                    <g fill="none">
+                                        <path d="M12 21c-.645-.572-1.374-1.167-2.145-1.8h-.01c-2.715-2.22-5.792-4.732-7.151-7.742c-.446-.958-.683-2-.694-3.058A5.39 5.39 0 0 1 7.5 3a6.158 6.158 0 0 1 3.328.983A5.6 5.6 0 0 1 12 5c.344-.39.738-.732 1.173-1.017A6.152 6.152 0 0 1 16.5 3A5.39 5.39 0 0 1 22 8.4a7.422 7.422 0 0 1-.694 3.063c-1.359 3.01-4.435 5.521-7.15 7.737l-.01.008c-.772.629-1.5 1.224-2.145 1.8L12 21zM7.5 5a3.535 3.535 0 0 0-2.5.992A3.342 3.342 0 0 0 4 8.4c.011.77.186 1.53.512 2.228A12.316 12.316 0 0 0 7.069 14.1c.991 1 2.131 1.968 3.117 2.782c.273.225.551.452.829.679l.175.143c.267.218.543.444.81.666l.013-.012l.006-.005h.006l.009-.007h.01l.018-.015l.041-.033l.007-.006l.011-.008h.006l.009-.008l.664-.545l.174-.143c.281-.229.559-.456.832-.681c.986-.814 2.127-1.781 3.118-2.786a12.298 12.298 0 0 0 2.557-3.471c.332-.704.51-1.472.52-2.25A3.343 3.343 0 0 0 19 6a3.535 3.535 0 0 0-2.5-1a3.988 3.988 0 0 0-2.99 1.311L12 8.051l-1.51-1.74A3.988 3.988 0 0 0 7.5 5z"
+                                              fill="white"/>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="unit-characteristic attacks">
+                            {{ profile.characteristics.characteristic[6] }}
+                            <div class="icon">
+                                <img src="data:image/png;base64,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"
+                                     alt=""/>
+                            </div>
+                        </div>
+                        <div class="unit-characteristic leadership">
+                            {{ profile.characteristics.characteristic[7] }}
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     aria-hidden="true" role="img" width="1em" height="1em"
+                                     preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32">
+                                    <path d="M16 16l-1.593 3l-3.407.414l2.5 2.253L13 25l3-1.875L19 25l-.5-3.333l2.5-2.253L17.5 19L16 16z"
+                                          fill="white"/>
+                                    <path d="M12.414 17.414L16 13.834l3.588 3.582L21 16l-5-5l-5 5l1.414 1.414z"
+                                          fill="white"/>
+                                    <path d="M12.414 12.414L16 8.834l3.588 3.582L21 11l-5-5l-5 5l1.414 1.414z"
+                                          fill="white"/>
+                                    <path d="M30.414 17.414a2 2 0 0 0 0-2.828l-5.787-5.787l2.9-2.862a2.002 2.002 0 1 0-1.44-1.388l-2.874 2.836l-5.799-5.8a2 2 0 0 0-2.828 0L8.799 7.374L5.937 4.472A2.002 2.002 0 1 0 4.55 5.914l2.835 2.873l-5.8 5.799a2 2 0 0 0 0 2.828l5.8 5.799l-2.835 2.873a1.998 1.998 0 1 0 1.387 1.442l2.862-2.9l5.787 5.786a2 2 0 0 0 2.828 0l5.8-5.799l2.872 2.836a1.998 1.998 0 1 0 1.442-1.387l-2.9-2.863zM16 29L3 16L16 3l13 13z"
+                                          fill="white"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="unit-characteristic save">
+                            {{ profile.characteristics.characteristic[8] }}
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     aria-hidden="true" role="img" width="1em" height="1em"
+                                     preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024">
+                                    <path d="M512 64L128 192v384c0 212.1 171.9 384 384 384s384-171.9 384-384V192L512 64zm312 512c0 172.3-139.7 312-312 312S200 748.3 200 576V246l312-110l312 110v330z"
+                                          fill="white"/>
+                                    <path d="M378.4 475.1a35.91 35.91 0 0 0-50.9 0a35.91 35.91 0 0 0 0 50.9l129.4 129.4l2.1 2.1a33.98 33.98 0 0 0 48.1 0L730.6 434a33.98 33.98 0 0 0 0-48.1l-2.8-2.8a33.98 33.98 0 0 0-48.1 0L483 579.7L378.4 475.1z"
+                                          fill="white"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            {% elseif profiles.profile is defined %}
+            {% for profile in profiles.profile %}
+                {% if profile['@attributes'] is defined and profile['@attributes'].typeName == 'Unit' %}
+                    <div class="unit-single-profile">
+                        {% if filterProfilesByType(profiles.profile, 'Unit') | length > 1 %}
+                            <div class="unit-profile-name">
+                                {{ profile['@attributes'].name }}
+                            </div>
+                        {% endif %}
+                        <div class="characteristic-wrapper">
+                            <div class="unit-characteristic speed">
+                                {{ profile.characteristics.characteristic[0] }}
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         aria-hidden="true" role="img" width="1em" height="1em"
+                                         preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                                        <path d="M16.5 5.5a2 2 0 0 0 2-2a2 2 0 0 0-2-2a2 2 0 0 0-2 2a2 2 0 0 0 2 2m-3.6 13.9l1-4.4l2.1 2v6h2v-7.5l-2.1-2l.6-3A7.298 7.298 0 0 0 22 13v-2c-1.76.03-3.4-.89-4.3-2.4l-1-1.6c-.36-.6-1-1-1.7-1c-.3 0-.5.1-.8.1L9 8.3V13h2V9.6l1.8-.7l-1.6 8.1l-4.9-1l-.4 2l7 1.4M4 9a1 1 0 0 1-1-1a1 1 0 0 1 1-1h3v2H4m1-4a1 1 0 0 1-1-1a1 1 0 0 1 1-1h5v2H5m-2 8a1 1 0 0 1-1-1a1 1 0 0 1 1-1h4v2H3z"
+                                              fill="currentColor"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="unit-characteristic ws">
+                                {{ profile.characteristics.characteristic[1] }}
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         aria-hidden="true" role="img" width="1em" height="1em"
+                                         preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                                        <g fill="none">
+                                            <path d="M2 19.2L3.8 21m.9-7.2l.9 3.6m0 0l3.6.9m-3.6-.9l-2.7 2.7M16.4 3.9l-9 9l.45 2.25l2.25.45l9-9L20 3l-3.6.9z"
+                                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                  stroke-linejoin="round"/>
+                                            <path d="M22 19.2L20.2 21m-.9-7.2l-.9 3.6m0 0l2.7 2.7m-2.7-2.7l-1.8.45l-1.8.45M9.3 11L4.9 6.6L4 3l3.6.9L12 8.3m.1 5.5l1.8 1.8l2.25-.45l.45-2.25l-1.8-1.8"
+                                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                  stroke-linejoin="round"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="unit-characteristic bs">
+                                {{ profile.characteristics.characteristic[2] }}
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         aria-hidden="true" role="img" width="1em" height="1em"
+                                         preserveAspectRatio="xMidYMid meet" viewBox="0 0 48 48">
+                                        <g fill="none">
+                                            <g clip-path="url(#simplesvg-id-a)" stroke="white" stroke-width="4"
+                                               stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M40.85 43.92l-1.574-.314c-2.35-.47-3.42-3.607-2.673-5.884c1.954-5.96.522-13.61-.27-16.913c-.246-1.024-1.058-1.794-2.08-2.05l-2.263-.565a3 3 0 0 1-2.183-2.183l-.565-2.262c-.256-1.023-1.025-1.834-2.05-2.08c-3.302-.792-10.954-2.225-16.913-.27c-2.276.747-5.413-.324-5.883-2.674L4.08 7.151"/>
+                                                <path d="M6 11l32 32"/>
+                                                <path d="M12 36L43 5"/>
+                                            </g>
+                                            <defs>
+                                                <clipPath id="simplesvg-id-a">
+                                                    <path fill="#fff" d="M0 0h48v48H0z"/>
+                                                </clipPath>
+                                            </defs>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="unit-characteristic strength">
+                                {{ profile.characteristics.characteristic[3] }}
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         aria-hidden="true" role="img" width="1em" height="1em"
+                                         preserveAspectRatio="xMidYMid meet" viewBox="0 0 48 48">
+                                        <g fill="none">
+                                            <path d="M21.37 36c1.45-5.25 6.52-9 12.36-8.38c5.56.59 9.98 5.28 10.26 10.86c.07 1.47-.13 2.88-.56 4.19c-.26.8-1.04 1.33-1.89 1.33H11.758c-5.048 0-8.834-4.619-7.844-9.569L10 4h12l4 7l-8.57 6.13L15 14"/>
+                                            <path d="M21.37 36c1.45-5.25 6.52-9 12.36-8.38c5.56.59 9.98 5.28 10.26 10.86c.07 1.47-.13 2.88-.56 4.19c-.26.8-1.04 1.33-1.89 1.33H11.758c-5.048 0-8.834-4.619-7.844-9.569L10 4h12l4 7l-8.57 6.13L15 14"
+                                                  stroke="currentColor" stroke-width="4" stroke-miterlimit="2"
+                                                  stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M17.44 17.13L22 34" stroke="currentColor" stroke-width="4"
+                                                  stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="unit-characteristic thoughness">
+                                {{ profile.characteristics.characteristic[4] }}
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         aria-hidden="true" role="img" width="1em" height="1em"
+                                         preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                                        <g fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                           stroke-linejoin="round">
+                                            <path d="M12 22s8-4 8-10V5l-8-3l-8 3v7c0 6 8 10 8 10z"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="unit-characteristic wounds">
+                                {% if profile.characteristics.characteristic[5] != 'N/A' %}
+                                    {{ profile.characteristics.characteristic[5] }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         aria-hidden="true" role="img" width="1em" height="1em"
+                                         preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                                        <g fill="none">
+                                            <path d="M12 21c-.645-.572-1.374-1.167-2.145-1.8h-.01c-2.715-2.22-5.792-4.732-7.151-7.742c-.446-.958-.683-2-.694-3.058A5.39 5.39 0 0 1 7.5 3a6.158 6.158 0 0 1 3.328.983A5.6 5.6 0 0 1 12 5c.344-.39.738-.732 1.173-1.017A6.152 6.152 0 0 1 16.5 3A5.39 5.39 0 0 1 22 8.4a7.422 7.422 0 0 1-.694 3.063c-1.359 3.01-4.435 5.521-7.15 7.737l-.01.008c-.772.629-1.5 1.224-2.145 1.8L12 21zM7.5 5a3.535 3.535 0 0 0-2.5.992A3.342 3.342 0 0 0 4 8.4c.011.77.186 1.53.512 2.228A12.316 12.316 0 0 0 7.069 14.1c.991 1 2.131 1.968 3.117 2.782c.273.225.551.452.829.679l.175.143c.267.218.543.444.81.666l.013-.012l.006-.005h.006l.009-.007h.01l.018-.015l.041-.033l.007-.006l.011-.008h.006l.009-.008l.664-.545l.174-.143c.281-.229.559-.456.832-.681c.986-.814 2.127-1.781 3.118-2.786a12.298 12.298 0 0 0 2.557-3.471c.332-.704.51-1.472.52-2.25A3.343 3.343 0 0 0 19 6a3.535 3.535 0 0 0-2.5-1a3.988 3.988 0 0 0-2.99 1.311L12 8.051l-1.51-1.74A3.988 3.988 0 0 0 7.5 5z"
+                                                  fill="white"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="unit-characteristic attacks">
+                                {{ profile.characteristics.characteristic[6] }}
+                                <div class="icon">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAAErCAYAAABHI+8YAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5gEQCRQVLRIkIQAACQZJREFUeNrt3UF220YQRVFSR3tOlhCvmpl4YMtiRERodFX9++Y5MQuoqwYlUbebJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJOnP7kYgaXWPx+PxnxDd75daBD5Jl0O3G0HwSdoK3Q78wCdpO3RX4wc+SSWguxI/8EkqA91V+IFPUinorsDv3SWXQJcW+CTQxeVRVwJdD6xOfNx14pNA51FXEujAJwl04JMEPPBJAl6r3oxAgh74JEFveH6OT4JefahO/pU1Jz4Jeh51JUEPfJKgN+3R2Qgk6JVGasHn8TnxSdDzqCsJeuCTBL1pj89GIEGvLFCL/tiQE58EPY+6kqAHPknQm/YIbQQS9EritOj9PSc+CXqHIFqJ0ZX5IFIJepefuMAnQa8NdFNQB58Uil7lE93qfxv4pBD0Jj+6gk+CHujAJ+WgtxK7Sd+p9uMsEvTiTqrgk6AXF/gk6IFPEvSqv27wSdAb01WvCXwS9DzqSoIe+CToRaM38ZNmwCdBL+71gU+CnkddCXrQA58EvVj0pn58Pvgk6MW9VvBJ0POoK0EPeuCToBeJ3uQ/jwk+QQ96ca8bfIIe9DzqStCD3uTHXPAJetCLQ+92u90crwU96G2b0a4ZOPEJetCLOemBT9CDXiR64BP0oBeH3u3mPT5BD3qB83DiE/SgFxf4BD3ogU+CHvSm5z0+QQ96cbNx4hP0oOfEJ0EPetPn48Qn6EHPiU+CHvSmzwh8gh704mYEPkEPenEzAp+gB724GYFP0INe1IzAJ+hBLw498Al60ItDD3yCHvTi0AOfoAe9OPTAJ+hBLw498Al60ItDD3yCHvTi0AOfLDT04tADnyw09OLQA58sNPTi0AOfLDT04tADnyw09OLQA58sNPTi0AOfLDT04tADnyw09OLQA58stBnFoQc+WWgzikMPfLLQZhSHHvhkoc0oDj3wyUKbURx64JOFNqM49MAnC21GceiBTxbajOLQA58stBlFGgA+WWgzAp9koc0IfJKFNiPwSRbajMAn6FloMwKfoAc9MwKfoAc9MwKfoAc96IFP0IMe9MAnCw096IFPFhp60AOfLLQZQQ98stBmJPDJQpuRwCcLbUYCnyy0GYFP0LPQZgQ+Qc9CmxH4BD3omRH4BD3oQQ98gh70oAc+WWjoQQ98stDQgx74ZKHNCHrgk4U2I+iBTxbajAQ+WWgzEvhkoc1I4IOehTYjgQ96FtqMBD7oQc+MwCfoQc+MwCfoQQ964BP0oAc98MlCQw964JOFNiPogU8W2oygBz5ZaDMS+GShzUjgk4U2I4FPFtqMBD7oWWgzEvigBz0z0oHejEDQg54Tnyw19KDnxCcnPehBD3yCHvSg51FXM5cbetBz4pOTHvSgN6R3Izhn6SYtAfSg51EXeI8dC7Fr0aEHPfABb+tyXL3w0INeSt7jW7Rs1RYWetAT+C5Zti74QQ964NPoBTYz6Al8kHINoAc+VVrmtKWDnsDntBf12qEn8MHFbKAn8Al60BP4BD3oCXxTm7qM0BP4nHCi/m3QE/gEf+gJfIIe9AQ+QQ96Al8aAN2XFHoCX9EswxqgoCfwCaTQE/hUEauJH8QKPf12PxjBnmU9uoid/twk9AQ++J22jBV/APrj64CeOuTPS2rUIy309Ere49PMRxnoCXxOStA7//pNu4YTX9PTe8Sa7EOp4zc4ktH7av4dT5kTXxP4hsEHvz3oHZl5Jyimvi6PuoLexV8EO3xhSnqkBV/wyRJ6rqvXBL64Y71rdf2yV4Tiuye9SfiBT9ALOCV5ugCfZTcH4IBPFgN6U6+xb2SAz8nKdfEFTuAT9Kbi56QHPgB4zVH4AQ98lgF65f6/Xa/3pC+44Gt6oVNOfVNf56q/b7IKVb+yJigEvb6qPyDtqQF88PO64OceO/aa0FHnxvzODTbpK37VRVs54//7mldfdx9LBb8WC98dwORfQ6v2+YyT30oB3zD4OiPo19Dq/CW78e8fY20ufJ0w9Gtor88CeuAbBd+um243hn4N7dhMKr7XCD74jbjx0l5vB/yABz4QDJiDX0N7fUYeb8EHvuazmbhknb+bHvm730ird2NPuBE/m9f0BeuIX+rHr4HPqU+h+CXfZxas8E0NQPeJewt88Tc0CN0r7iPwxd/MbmD3i3sGfL6Su6ndL+4N8KXB52Z3z7gXwBcPn5vffeO6gy8ePguRde+4vs97N4JDN+4/kxfRoqyHyEfE18hHzx9D76/pJ5Jfc9XbnsJ++CLmURd6Hp2iHnldJ/BBz4JFoefagA96EIxEzzUBH/QsWiR6rgn4oGfRItFzTcAHPYsWiZ5rAj7oWbRI9FyTP/NzfNBTAHpV/01OfNBz6oOe6+LEBz1Bz8nPiQ96Tn1AcW2c+KAn6Dn5gQ96GgjIypNZKn73TjfVGTcA9DxOdYHj4+yu/H+Br/CNdPRiQQ983U968BsG33cu6CsXDHrg63rSg9/5vU24ib767wui9+P+IURC71V4vOc34MR35qCfPBpURO/vlBtwGuqVvpHh5NcUvhUX7tcL1hW9KRBCb/2s4Ae+3y7YJPS6QjhpcSoDA79G8IX9/NCp6HWYJ/SunRX8wBeHXsX5TlmWTqDArzh80Js9c6e9fXOCH/igd/E18M2MGnOC39e93xSH3mc38HeXxc8i1pnTz2/u+dBR8EFvFYTAq3s94Qc+6DnBxc0Tfs/zNzegp8FfRHwBAx/0BF6BD3paDU4VdOBXAL5BFwF6TkpP741pJ79JePrmBvQU9IXdNzx+zmHn/7zxBYBeUCs/FbzL7vmVNfBBD35jcPjqdfl0FvhBT5/erxNw+Pi6fBAp/KAngS8SP+hJ4IvCD3oS+LLw84OfEvjgJwl88JMEPvhJAh/8JIEPfpK21uJjqUAjKe7EV/HkB2PJiQ82ksAHP0ngg5+kKoZ0/sfvfs8PwJITH3gkgQ9+kjzqDnrsBa7kxOfkJwl88JMEPvhJquLE1Be28j0/uErgi8IPepJHXY+9kpz4Jp/8QCqBLwo/6EngiwEQeBL4YgAEniRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiSN7l9FufvlNsRezwAAAABJRU5ErkJggg=="
+                                         alt=""/>
+                                </div>
+                            </div>
+                            <div class="unit-characteristic leadership">
+                                {{ profile.characteristics.characteristic[7] }}
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         aria-hidden="true" role="img" width="1em" height="1em"
+                                         preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32">
+                                        <path d="M16 16l-1.593 3l-3.407.414l2.5 2.253L13 25l3-1.875L19 25l-.5-3.333l2.5-2.253L17.5 19L16 16z"
+                                              fill="white"/>
+                                        <path d="M12.414 17.414L16 13.834l3.588 3.582L21 16l-5-5l-5 5l1.414 1.414z"
+                                              fill="white"/>
+                                        <path d="M12.414 12.414L16 8.834l3.588 3.582L21 11l-5-5l-5 5l1.414 1.414z"
+                                              fill="white"/>
+                                        <path d="M30.414 17.414a2 2 0 0 0 0-2.828l-5.787-5.787l2.9-2.862a2.002 2.002 0 1 0-1.44-1.388l-2.874 2.836l-5.799-5.8a2 2 0 0 0-2.828 0L8.799 7.374L5.937 4.472A2.002 2.002 0 1 0 4.55 5.914l2.835 2.873l-5.8 5.799a2 2 0 0 0 0 2.828l5.8 5.799l-2.835 2.873a1.998 1.998 0 1 0 1.387 1.442l2.862-2.9l5.787 5.786a2 2 0 0 0 2.828 0l5.8-5.799l2.872 2.836a1.998 1.998 0 1 0 1.442-1.387l-2.9-2.863zM16 29L3 16L16 3l13 13z"
+                                              fill="white"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="unit-characteristic save">
+                                {{ profile.characteristics.characteristic[8] }}
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         aria-hidden="true" role="img" width="1em" height="1em"
+                                         preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024">
+                                        <path d="M512 64L128 192v384c0 212.1 171.9 384 384 384s384-171.9 384-384V192L512 64zm312 512c0 172.3-139.7 312-312 312S200 748.3 200 576V246l312-110l312 110v330z"
+                                              fill="white"/>
+                                        <path d="M378.4 475.1a35.91 35.91 0 0 0-50.9 0a35.91 35.91 0 0 0 0 50.9l129.4 129.4l2.1 2.1a33.98 33.98 0 0 0 48.1 0L730.6 434a33.98 33.98 0 0 0 0-48.1l-2.8-2.8a33.98 33.98 0 0 0-48.1 0L483 579.7L378.4 475.1z"
+                                              fill="white"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="card-footer">
+
+
+            <hr>
+            {% if unit.rules is defined %}
+                {% set ruleUnit = unit %}
+            {% elseif inherited.rules is defined %}
+                {% set ruleUnit = inherited %}
+            {% endif %}
+
+            {% if ruleUnit.rules is defined %}
+                <span class="footer-title">Rules</span>
+                {% for rule in ruleUnit.rules.rule %}
+                    {% if rule['@attributes'] is defined %}
+                        {{ rule['@attributes'].name }}{% if not loop.last %},{% endif %}
+                    {% endif %}
+                {% endfor %}<br>
+                <span class="footer-title">Factions</span>
+                {% for rule in ruleUnit.categories.category %}
+                    {% if rule['@attributes'] is defined and rule['@attributes'].name[:9] == 'Faction: ' %}
+                        {{ rule['@attributes'].name[9:] }}{% if not loop.last %},{% endif %}
+                    {% endif %}
+                {% endfor %}<br>
+                <span class="footer-title">Keywords</span>
+                {% for rule in ruleUnit.categories.category %}
+                    {% if rule['@attributes'] is defined and rule['@attributes'].name[:9] != 'Faction: ' %}
+                        {{ rule['@attributes'].name }}{% if not loop.last %},{% endif %}
+                    {% endif %}
+                {% endfor %}<br>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

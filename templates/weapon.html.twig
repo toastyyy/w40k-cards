@@ -1,0 +1,65 @@
+{% extends 'base_v2.html.twig' %}
+{% block stylesheets %}
+    <style>{{ stylesheet | raw }}</style>
+{% endblock %}
+{% block body %}
+{% if profile.characteristics.characteristic[1] != '-' %}
+<div class="card-wrapper" style="background-color: #592d28">
+    <div class="card-overlay"></div>
+    <div class="card weapon">
+        <div class="unit-image-wrapper">
+            <div class="unit-image" style="background-image: url({{ (unit['@attributes'].name | hasImage('weapon'))
+            ? unit['@attributes'].name | loadImage('weapon')
+            : owner['@attributes'].name | loadImage('unit')
+            }})">
+                <div class="unit-title">
+                    <div class="unit-name">{{ profile['@attributes'].name }}</div>
+                    <div class="weapon-type">{{ profile.characteristics.characteristic[1] }}</div>
+                    <div class="unit-points">
+                        {{ unit | unitPoints }}PT
+                    </div>
+                </div>
+
+                <div class="unit-owner">
+                    {{ (owner['@attributes'].name | split(' w/'))[0] }}s weapon
+                </div>
+            </div>
+        </div>
+
+        <div class="card-content">
+            <div class="weapon-text">
+                {{ profile.characteristics.characteristic[5] }}
+            </div>
+
+            <div class="weapon-characteristics">
+                <div class="weapon-characteristic distance">
+                    {{ profile.characteristics.characteristic[0] }}
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M4 5c0-1.1.9-2 2-2s2 .9 2 2s-.9 2-2 2s-2-.9-2-2zm4.78 3.58a6.95 6.95 0 0 0-5.56 0A2.01 2.01 0 0 0 2 10.43V11h8v-.57c0-.81-.48-1.53-1.22-1.85zM18 7c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2zm2.78 1.58a6.95 6.95 0 0 0-5.56 0A2.01 2.01 0 0 0 14 10.43V11h8v-.57c0-.81-.48-1.53-1.22-1.85zm.87 8.07l-2.79-2.79a.501.501 0 0 0-.86.35V16H6v-1.79c0-.45-.54-.67-.85-.35l-2.79 2.79c-.2.2-.2.51 0 .71l2.79 2.79a.5.5 0 0 0 .85-.36V18h12v1.79c0 .45.54.67.85.35l2.79-2.79c.2-.19.2-.51.01-.7z" fill="currentColor"/></svg>
+                    </div>
+                </div>
+                <div class="weapon-characteristic strength">
+                    {{ profile.characteristics.characteristic[2] }}
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 48 48"><g fill="none"><path d="M21.37 36c1.45-5.25 6.52-9 12.36-8.38c5.56.59 9.98 5.28 10.26 10.86c.07 1.47-.13 2.88-.56 4.19c-.26.8-1.04 1.33-1.89 1.33H11.758c-5.048 0-8.834-4.619-7.844-9.569L10 4h12l4 7l-8.57 6.13L15 14"/><path d="M21.37 36c1.45-5.25 6.52-9 12.36-8.38c5.56.59 9.98 5.28 10.26 10.86c.07 1.47-.13 2.88-.56 4.19c-.26.8-1.04 1.33-1.89 1.33H11.758c-5.048 0-8.834-4.619-7.844-9.569L10 4h12l4 7l-8.57 6.13L15 14" stroke="currentColor" stroke-width="4" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.44 17.13L22 34" stroke="currentColor" stroke-width="4" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+                    </div>
+                </div>
+                <div class="weapon-characteristic penetration">
+                    {{ profile.characteristics.characteristic[3] }}
+                    <div class="icon">
+                        <svg class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M16 30A14.016 14.016 0 0 1 2 16h2A12 12 0 1 0 16 4V2a14 14 0 0 1 0 28z" fill="white"/><path d="M4 12v-2h4.586L2 3.414L3.414 2L10 8.586V4h2v8H4z" fill="white"/><path d="M16 10v6h-6a6 6 0 1 0 6-6z" fill="white"/></svg>
+                    </div>
+                </div>
+                <div class="weapon-characteristic damage">
+                    {{ profile.characteristics.characteristic[4] }}
+                    <div class="icon">
+                        <svg class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M20.16 4.61A6.27 6.27 0 0 0 12 4a6.27 6.27 0 0 0-8.16 9.48l7.45 7.46a1 1 0 0 0 1.42 0l7.45-7.46a6.27 6.27 0 0 0 0-8.87zm-1.41 7.45L12 18.81l-6.75-6.75a4.26 4.26 0 0 1 5.54-6.45l-1.71 4a1 1 0 0 0 0 .83a1 1 0 0 0 .65.53l2.77.7l-1.4 2.89a1 1 0 0 0 .46 1.34a1 1 0 0 0 .44.1a1 1 0 0 0 .9-.56l2-4a1 1 0 0 0 0-.86a1.05 1.05 0 0 0-.67-.55l-2.83-.71l1.45-3.39a4.26 4.26 0 0 1 5.92 6.13z" fill="white"/></svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,309 @@
+body {
+    font-size: 0;
+}
+
+.document-wrapper {
+    height: 97mm;
+    width: 65mm;
+}
+.card-wrapper {
+    font-size: 1rem;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: inline-block;
+    float: left;
+
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.card-overlay {
+    position: absolute;
+    content: '';
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 8;
+    background-size: cover;
+    background-image: url(/assets/bg-texture.png);
+}
+
+.card-wrapper::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    z-index: 1000;
+    position: absolute;
+    border: 7mm solid rgba(0, 0, 0, 0.55);
+}
+
+.card-wrapper .card {
+    position: absolute;
+    z-index: 99;
+    top: 4mm;
+    right: 4mm;
+    left: 4mm;
+    bottom: 4mm;
+    border-radius: 5mm;
+}
+
+.card-wrapper .card .unit-name {
+    font-family: 'Cinzel', serif;
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 700;
+    text-shadow: 0 0 1px 2px rgba(0,0,0,0.3);
+    padding: 3mm 0mm 0mm 4mm;
+    display: block;
+}
+
+.card .unit-image-wrapper {
+    margin: -4mm;
+    width: calc(100% + 8mm);
+}
+
+.card .unit-image-wrapper .unit-image {
+    height: 55mm;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.unit-title {
+    position: relative;
+    z-index: 10;
+    padding-right: 15mm;
+    padding-left: 4mm;
+    padding-top: 4mm;
+    text-shadow: 0 0 3px rgba(0,0,0,0.7);
+}
+
+.unit-title .unit-points {
+    position: absolute;
+    right: 9mm;
+    top: 5.5mm;
+    font-family: 'Cinzel', serif;
+    color: #fff;
+    font-size: .6rem;
+    padding-top: .5rem;
+    font-weight: 700;
+}
+
+.unit-profile {
+    border-radius: 1mm;
+    padding: 1.5mm 2mm 0 2mm;
+    background: rgba(0,0,0,0.3);
+    margin-bottom: 1mm;
+}
+
+.unit-profile .unit-profile-name {
+    font-size: .5rem;
+    font-weight: 700;
+    padding-left: 1mm;
+    text-shadow: 0 0 2px rgba(0,0,0,0.3);
+    font-family: 'Cinzel', serif;
+    color: #fff;
+}
+
+.unit-single-profile {
+    border-radius: 1mm;
+    padding: 5.5mm 6mm 0 6mm;
+    margin: 0 auto 1mm auto;
+}
+
+
+
+.unit-single-profile .unit-profile-name {
+    font-size: .5rem;
+    font-weight: 700;
+    padding-left: 1mm;
+    text-shadow: 0 0 2px rgba(0,0,0,0.3);
+    font-family: 'Cinzel', serif;
+    color: #fff;
+}
+
+.unit-single-profile .characteristic-wrapper {
+    padding: 1mm;
+    background: rgba(0,0,0,0.3);
+    border-radius: 2mm;
+}
+
+.characteristic-wrapper::after {
+    content: '';
+    clear: both;
+    display: block;
+    height: 0;
+    width: 80%;
+}
+
+.characteristic-wrapper .unit-characteristic {
+    float: left;
+    width: 11.1%;
+    color: #fff;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    font-family: Rubik, 'sans-serif';
+    font-size: .6rem;
+    text-align: center;
+    padding-bottom: 3.5mm;
+    position: relative;
+}
+.characteristic-wrapper .unit-characteristic .icon {
+    position: absolute;
+    bottom: 1mm;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.characteristic-wrapper .unit-characteristic .icon svg,img {
+    height: 3mm;
+    display: inline-block;
+}
+
+.characteristic-wrapper .unit-characteristic:last-child {
+    border-right: 0;
+}
+
+.card-footer {
+    position: absolute;
+    bottom: 1mm;
+    left: 3mm;
+    right: 3mm;
+    z-index: 100;
+    padding: .5mm .5mm 2mm .5mm;
+    color: #fff;
+    font-size: .3rem;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    text-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+.card-footer .footer-title {
+    font-size: .4rem;
+}
+
+.card.mega .unit-image-wrapper {
+    height: calc(100% + 8mm);
+    position: relative;
+}
+
+.card.mega .unit-image-wrapper::after {
+    content: '';
+    display: block;
+    background: linear-gradient(0deg, rgba(0,0,0,0.6294803565957633) 0%, rgba(0,0,0,0.07765962830444673) 100%);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 2;
+    position: absolute;
+}
+
+.card.mega .unit-image {
+    height: 100%;
+}
+.card.mega .card-content {
+    position: relative;
+    z-index:5;
+}
+
+hr {
+    height: 1px;
+    border: 0;
+    width: 90%;
+    margin: 1mm auto .5mm auto;
+    background: rgba(255,255,255,0.2);
+}
+
+
+.card.weapon .unit-image {
+    height: 35mm;
+    position: relative;
+}
+
+.card.ability .unit-image {
+    height: 35mm;
+    position: relative;
+}
+
+.unit-owner {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: .5mm;
+    padding-left: 1.5mm;
+    padding-right: 1.5mm;
+    left: 7mm;
+    padding-top: .5mm;
+    color: #fff;
+    font-family: 'Cinzel', serif;
+    background: rgba(201, 0, 0, 0.3);
+    font-size: .5rem;
+    border-style: solid;
+    border-color: rgba(172, 118, 65,0.4);
+    border-top-right-radius: 2mm;
+    border-width: 2px 2px 0 0;
+}
+
+.card.ability .unit-owner {
+    background: rgba(0, 90, 201, 0.3);
+}
+
+.weapon-text {
+    color: #fff;
+    font-family: 'Cinzel', serif;
+    font-size: .5rem;
+    text-shadow: 0 0 2px rgba(0,0,0,0.6);
+    padding: 6mm 4mm 0 4mm;
+}
+
+.weapon-type {
+    font-family: 'Cinzel', serif;
+    color: #fff;
+    font-size: .5rem;
+    background: #000;
+    margin-left: 4mm;
+    padding: 0 1mm;
+    display: inline-block;
+    margin-top: -1rem;
+}
+
+.weapon-characteristics {
+    background: rgba(0,0,0,0.5);
+    border-radius: 2mm;
+    position: absolute;
+    bottom: 5mm;
+    left: 5mm;
+    right: 5mm;
+    box-shadow: 0 0 5px 1px rgba(255, 220, 0, 0.2);
+}
+.weapon-characteristics::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.weapon-characteristic {
+    float: left;
+    font-family: Rubik, 'sans-serif';
+    width: 25%;
+    color: #fff;
+    font-size: .7rem;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 5mm;
+    padding-top: 1mm;
+}
+
+.weapon-characteristic .icon {
+    position: absolute;
+    bottom: 1mm;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.weapon-characteristic .icon svg,img {
+    height: 3mm;
+}

@@ -1,0 +1,33 @@
+{% extends 'base_v2.html.twig' %}
+{% block stylesheets %}
+    <style>{{ stylesheet | raw }}</style>
+{% endblock %}
+{% block body %}
+    <div class="card-wrapper" style="background-color: #7c158c">
+        <div class="card-overlay"></div>
+        <div class="card ability">
+            <div class="unit-image-wrapper">
+                <div class="unit-image" style="background-image: url({{ (unit['@attributes'].name | hasImage('psy'))
+                ? unit['@attributes'].name | loadImage('psy')
+                : owner['@attributes'].name | loadImage('unit') }})">
+                    <div class="unit-title">
+                        <div class="unit-name">{{ unit['@attributes'].name }}</div>
+                        <div class="weapon-type">Psy</div>
+                    </div>
+
+                    <div class="unit-owner">
+                        {{ (owner['@attributes'].name | split(' w/'))[0] }}s psy
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-content">
+                <div class="weapon-text">
+                    Cast: {{ unit.characteristics.characteristic[0] }}<br>
+                    Range: {{ unit.characteristics.characteristic[1] }}<br>
+                    Text: {{ unit.characteristics.characteristic[2] }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

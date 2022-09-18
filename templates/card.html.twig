@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Warhammer Card</title>
+    <link href="https://api.w40k.csc.cx/assets/design.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rubik:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="card-wrapper" style="background-color: {{ data.colorDark }}">
+    <div class="card-overlay"></div>
+    <div class="card">
+        <div class="row w-full h-full">
+            <div class="w-1/3 elem h-full">
+                <div class="card-image w-full h-1/2 p-2" style="background-image: url({{ data.image }})">
+                    <div class="life-box relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M923 283.6a260.04 260.04 0 0 0-56.9-82.8a264.4 264.4 0 0 0-84-55.5A265.34 265.34 0 0 0 679.7 125c-49.3 0-97.4 13.5-139.2 39c-10 6.1-19.5 12.8-28.5 20.1c-9-7.3-18.5-14-28.5-20.1c-41.8-25.5-89.9-39-139.2-39c-35.5 0-69.9 6.8-102.4 20.3c-31.4 13-59.7 31.7-84 55.5a258.44 258.44 0 0 0-56.9 82.8c-13.9 32.3-21 66.6-21 101.9c0 33.3 6.8 68 20.3 103.3c11.3 29.5 27.5 60.1 48.2 91c32.8 48.9 77.9 99.9 133.9 151.6c92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3c56-51.7 101.1-102.7 133.9-151.6c20.7-30.9 37-61.5 48.2-91c13.5-35.3 20.3-70 20.3-103.3c.1-35.3-7-69.6-20.9-101.9z" fill="#f44336"/></svg>
+                        <div class="life-amount">{{ data.wounds }}</div>
+                    </div>
+                    <div class="movement-box bg-blue-800 text-white relative">
+                        <div class="movement-amount">{{ data.movementSpeed }}</div>
+                        <div class="movement-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none"><path d="M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6h10v10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="unit-kpis row -mx-1">
+                    <div class="w-1/3 elem px-1">
+                        <div class="kpi">
+                            <div class="kpi-value">{{ data.weaponSkill }} / {{ data.ballisticSkill }}</div>
+                            <div class="kpi-name">W/B Skill</div>
+                        </div>
+                    </div>
+                    <div class="w-1/3 elem px-1">
+                        <div class="kpi">
+                            <div class="kpi-value">{{ data.strength }}</div>
+                            <div class="kpi-name">Strength</div>
+                        </div>
+                    </div>
+                    <div class="w-1/3 elem px-1">
+                        <div class="kpi">
+                            <div class="kpi-value">{{ data.toughness }}</div>
+                            <div class="kpi-name">Toughness</div>
+                        </div>
+                    </div>
+                    <div class="w-1/3 elem px-1">
+                        <div class="kpi">
+                            <div class="kpi-value">{{ data.attack }}</div>
+                            <div class="kpi-name">Attack</div>
+                        </div>
+                    </div>
+                    <div class="w-1/3 elem px-1">
+                        <div class="kpi">
+                            <div class="kpi-value">{{ data.save }}</div>
+                            <div class="kpi-name">Save</div>
+                        </div>
+                    </div>
+                    <div class="w-1/3 elem px-1">
+                        <div class="kpi">
+                            <div class="kpi-value">{{ data.leadership }}</div>
+                            <div class="kpi-name">Leadership</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="unit-additional-info">
+                    {% for info in data.infos %}
+                        <div class="info">
+                            <div class="info-name">{{ info.title }}</div>
+                            {{ info.text }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="w-2/3 elem h-full">
+                <div class="unit-name">{{ data.unitName }}</div>
+                <div class="unit-points">{{ data.points }}PT</div>
+                <div class="unit-powerlevel">{{ data.powerLevel }}</div>
+
+                <div class="attack-list row">
+                    {% for attack in data.attacks %}
+                        <div class="attack-wrapper elem w-1/2 px-2">
+                            <div class="attack">
+                                <div class="attack-name">{{ attack.name }}</div>
+                                <div class="attack-ability">
+                                  <span class="attack-type" style="background: {{ data.color }}">
+                                    {{ attack.type }}
+                                  </span>
+                                    {{ attack.abilities }}
+                                </div>
+                                <div class="attack-info">
+                                    <div class="attack-strength">
+                                        <svg class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 48 48"><g fill="none"><path d="M21.37 36c1.45-5.25 6.52-9 12.36-8.38c5.56.59 9.98 5.28 10.26 10.86c.07 1.47-.13 2.88-.56 4.19c-.26.8-1.04 1.33-1.89 1.33H11.758c-5.048 0-8.834-4.619-7.844-9.569L10 4h12l4 7l-8.57 6.13L15 14"/><path d="M21.37 36c1.45-5.25 6.52-9 12.36-8.38c5.56.59 9.98 5.28 10.26 10.86c.07 1.47-.13 2.88-.56 4.19c-.26.8-1.04 1.33-1.89 1.33H11.758c-5.048 0-8.834-4.619-7.844-9.569L10 4h12l4 7l-8.57 6.13L15 14" stroke="white" stroke-width="4" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.44 17.13L22 34" stroke="white" stroke-width="4" stroke-miterlimit="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+
+                                        {{ attack.strength }}
+                                    </div>
+                                    <div class="attack-armor-penetration">
+                                        <svg class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M16 30A14.016 14.016 0 0 1 2 16h2A12 12 0 1 0 16 4V2a14 14 0 0 1 0 28z" fill="white"/><path d="M4 12v-2h4.586L2 3.414L3.414 2L10 8.586V4h2v8H4z" fill="white"/><path d="M16 10v6h-6a6 6 0 1 0 6-6z" fill="white"/></svg>
+
+                                        {{ attack.penetration }}
+                                    </div>
+                                    <div class="attack-damage">
+                                        <svg class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M20.16 4.61A6.27 6.27 0 0 0 12 4a6.27 6.27 0 0 0-8.16 9.48l7.45 7.46a1 1 0 0 0 1.42 0l7.45-7.46a6.27 6.27 0 0 0 0-8.87zm-1.41 7.45L12 18.81l-6.75-6.75a4.26 4.26 0 0 1 5.54-6.45l-1.71 4a1 1 0 0 0 0 .83a1 1 0 0 0 .65.53l2.77.7l-1.4 2.89a1 1 0 0 0 .46 1.34a1 1 0 0 0 .44.1a1 1 0 0 0 .9-.56l2-4a1 1 0 0 0 0-.86a1.05 1.05 0 0 0-.67-.55l-2.83-.71l1.45-3.39a4.26 4.26 0 0 1 5.92 6.13z" fill="white"/></svg>
+
+                                        {{ attack.damage }}
+                                    </div>
+                                    <div class="attack-distance">
+                                        <svg class="inline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M4 5c0-1.1.9-2 2-2s2 .9 2 2s-.9 2-2 2s-2-.9-2-2zm4.78 3.58a6.95 6.95 0 0 0-5.56 0A2.01 2.01 0 0 0 2 10.43V11h8v-.57c0-.81-.48-1.53-1.22-1.85zM18 7c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2zm2.78 1.58a6.95 6.95 0 0 0-5.56 0A2.01 2.01 0 0 0 14 10.43V11h8v-.57c0-.81-.48-1.53-1.22-1.85zM22 17l-4-4v3H6v-3l-4 4l4 4v-3h12v3l4-4z" fill="white"/></svg>
+
+                                        {{ attack.distance }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <div class="ability-list row -mx-1">
+                    {% for ability in data.abilities %}
+                        <div class="ability-wrapper elem w-1/2 px-1">
+                            <div class="ability">
+                                <div class="ability-text">
+                                    <div class="ability-name">{{ ability.name }}</div>
+                                    {{ ability.text }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
+</body>
+</html>
