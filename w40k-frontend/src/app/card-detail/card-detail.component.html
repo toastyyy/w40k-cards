@@ -59,7 +59,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    
+
                 </div>
             </mat-tab>
             <mat-tab label="Einheiten">
@@ -131,10 +131,11 @@
                                     </mat-form-field>
                                 </div>
                             </div>
+                          <button (click)="removeUnit(unit)" mat-button color="primary">Einheit entfernen</button>
                         </div>
                   </mat-expansion-panel>
                 </mat-accordion>
-                
+              <button (click)="addUnit()" mat-button color="primary">Einheit hinzufügen</button>
             </mat-tab>
             <mat-tab label="Attacken">
                 <mat-accordion [multi]="false">
@@ -187,9 +188,11 @@
                                     </mat-form-field>
                                 </div>
                             </div>
+                          <button (click)="removeWeapon(weapon)" mat-button color="warn">Bewaffnung entfernen</button>
                         </div>
                     </mat-expansion-panel>
                 </mat-accordion>
+              <button (click)="addWeapon()" mat-button color="primary">Bewaffnung hinzufügen</button>
             </mat-tab>
             <mat-tab label="Fähigkeiten">
                 <mat-accordion [multi]="false">
@@ -212,15 +215,17 @@
                                     </mat-form-field>
                                 </div>
                             </div>
+                          <button (click)="removeAbility(ability)" mat-button color="warn">Fähigkeit entfernen</button>
                         </div>
                     </mat-expansion-panel>
                 </mat-accordion>
+              <button (click)="addAbility()" mat-button color="primary">Fähigkeit hinzufügen</button>
             </mat-tab>
             <mat-tab label="Psy">
                 <div class="p-4">
                     <div class="text-lg font-bold">Psyker</div>
                 </div>
-                
+
                 <mat-accordion [multi]="false">
                     <mat-expansion-panel *ngFor="let psyker of card.psykers" hideToggle>
                         <mat-expansion-panel-header>
@@ -260,7 +265,7 @@
                 <div class="p-4">
                     <div class="text-lg font-bold">Psychic Powers</div>
                 </div>
-                
+
                 <mat-accordion [multi]="false">
                     <mat-expansion-panel *ngFor="let power of card.psychicPowers" hideToggle>
                         <mat-expansion-panel-header>
@@ -309,6 +314,6 @@
                 Karte löschen
             </div>
         </div>
-        
+
     </div>
 </div>

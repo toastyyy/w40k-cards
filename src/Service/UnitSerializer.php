@@ -34,7 +34,7 @@ class UnitSerializer implements UnitSerializerInterface
 
     public function deserialize($data): ?Unit
     {
-        if(isset($data->id)) {
+        if(isset($data->id) && $data->id != null) {
             $unit = $this->em->getRepository(Unit::class)->find($data->id);
         } else {
             $unit = new Unit();

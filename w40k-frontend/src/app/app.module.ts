@@ -45,7 +45,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
         CardsModule,
         MatTabsModule,
         MatIconModule,
-        MatExpansionModule
+        MatExpansionModule,
     ],
   providers: [
     { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }

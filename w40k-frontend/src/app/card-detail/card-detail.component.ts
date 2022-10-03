@@ -5,6 +5,9 @@ import CardModel from 'src/models/card.model';
 import CardService from 'src/service/card.service';
 import { skip, debounceTime } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import UnitModel from "../../models/unit.model";
+import WeaponModel from "../../models/weapon.model";
+import AbilityModel from "../../models/ability.model";
 
 @Component({
   selector: 'app-card-detail',
@@ -55,8 +58,8 @@ export class CardDetailComponent implements OnInit {
   }
 
   saveChanges() {
-      if(this.savingSubject.getValue()) { 
-        return; 
+      if(this.savingSubject.getValue()) {
+        return;
       }
       this.savingSubject.next(true);
       this.cardService.update(this.cardSubject.getValue()).subscribe(result => {
@@ -98,4 +101,73 @@ export class CardDetailComponent implements OnInit {
     this.cardService.generatePdf(fullHtml);
   }
 
+  public addUnit() {
+    let card = this.cardSubject.getValue();
+    card.units.push({
+      attack: 1,
+      leadership: 7,
+      ballisticSkill: '3+',
+      weaponSkill: '3+',
+      name: 'Name',
+      movementSpeed: '6\'\'',
+      points: 0,
+      save: '3+',
+      strength: '4',
+      wounds: 1,
+      toughness: 4
+    });
+    this.cardSubject.next(card);
+
+    this.changedSubject.next(card);
+  }
+
+  public removeUnit(unit: UnitModel) {
+    let card = this.cardSubject.getValue();
+    let index = card.units.indexOf(unit);
+    if(index >= 0) {
+      card.units.splice(index, 1);
+      this.cardSubject.next(card);
+      this.changedSubject.next(card);
+    }
+  }
+
+  public addWeapon() {
+    let card = this.cardSubject.getValue();
+    card.weapons.push({
+      id: null,
+
+    });
+    this.cardSubject.next(card);
+    this.changedSubject.next(card);
+  }
+
+  public removeWeapon(weapon: WeaponModel) {
+    let card = this.cardSubject.getValue();
+    let index = card.weapons.indexOf(weapon);
+    if(index >= 0) {
+      card.weapons.splice(index, 1);
+      this.cardSubject.next(card);
+      this.changedSubject.next(card);
+    }
+  }
+
+  public addAbility() {
+    let card = this.cardSubject.getValue();
+    card.abilities.push({
+      name: '',
+      description: ''
+    });
+    this.cardSubject.next(card);
+    this.changedSubject.next(card);
+  }
+
+  public removeAbility(ability: AbilityModel) {
+    let card = this.cardSubject.getValue();
+    let index = card.abilities.indexOf(ability);
+    if(index >= 0) {
+      card.abilities.splice(index, 1);
+      this.cardSubject.next(card);
+      this.changedSubject.next(card);
+    }
+  }
 }
