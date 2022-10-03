@@ -17,10 +17,34 @@ class RenderController extends AbstractController
     public function renderCardHtml(Request $request, PdfService $pdf) {
         $data = json_decode($request->getContent());
         if($data && isset($data->content)) {
-            // replace style href with absolute url.
-            $content = str_replace('href="styles', 'href="'. $_SERVER['HTTP_ORIGIN']. '/styles', $data->content);
-            $filename = $pdf->createPdf($content, null, '--javascript-delay 1');
-            return new BinaryFileResponse($filename);
+            /* we need to replace the css variables manually since wkhtmltopdf does not support css variables */
+            preg_match_all('/href="styles.(\w+).css"/m', $data->content, $matches, PREG_SET_ORDER, 0);
+
+            if($matches && isset($matches[0])) {
+                $cssContent = file_get_contents($_SERVER['HTTP_ORIGIN']. '/styles.'. $matches[0][1]. '.css');
+
+                preg_match_all('/var\(--([\w|-]+)\)/m', $cssContent, $variables);
+                $replacements = [];
+                foreach($variables as $var) {
+                    if(isset($var[1])) {
+                        // find value defined in $data->content
+                        preg_match_all('/--text-color:([^;]+);/m', $data->content, $variableValue);
+                        if($variableValue && isset($variableValue[0]) && isset($variableValue[0][1])) {
+                            $replacements[$var[0]] = $variableValue[0][1];
+                        }
+                    }
+                }
+
+                foreach($replacements as $var => $value) {
+                    $cssContent = str_replace($var, $value, $cssContent);
+                }
+
+                /* replace stylesheet */
+                $content = str_replace('<link rel="stylesheet" href="styles.'. $matches[0][1] .'.css">', '<style>'. $cssContent. '</style>', $data->content);
+                $filename = $pdf->createPdf($content, null, '--javascript-delay 1');
+                return new BinaryFileResponse($filename);
+            }
+
         }
         return new JsonResponse(null, 400);
     }
