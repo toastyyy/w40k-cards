@@ -62,7 +62,7 @@ class PdfService
         $status = curl_getinfo($ch,CURLINFO_HTTP_CODE);
 
         if($status == 200) {
-            $filename = $this->kernel->getProjectDir(). '/var/pdf/'. substr(md5(time()), 0, 10). '.pdf';
+            $filename = $this->kernel->getProjectDir(). '/'. substr(md5(time()), 0, 10). '.pdf';
             file_put_contents($filename, $result);
             return $filename;
         } else {
