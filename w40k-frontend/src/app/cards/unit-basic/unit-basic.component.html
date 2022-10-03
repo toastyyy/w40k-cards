@@ -2,6 +2,7 @@
   <div class="card" [style.background-image]="'url(' + (card.backgroundImage?.file ? card.backgroundImage?.file : (card.backgroundImage?.content ? card.backgroundImage.content : ''))  + ')'">
     <div class="card-border"></div>
     <div class="card-image-wrapper" [style.background-image]="'url(' + (card.unitImage?.file ? card.unitImage?.file : (card.unitImage?.content ? card.unitImage.content : '')) + ')'">
+      <div style="height: 1em; width: 100%;"></div>
       <div class="card-title-box-wrapper">
         <div class="card-title-box">
           <div class="card-title">{{ card.title }}</div>
@@ -11,7 +12,7 @@
         <div class="card-psyker" *ngIf="card.psykers.length == 1">
             <div class="psyker-cast">
               <div class="dirt">
-                
+
               </div>
               {{ card.psykers[0].cast }}
             </div>
@@ -86,7 +87,7 @@
                   <div class="characteristic-label">D</div>
                   <div class="characteristic-value">{{ weapon.damage }}</div>
                 </div>
-            
+
               </div>
           </div>
           <div style="clear: both;"></div>

@@ -25,12 +25,17 @@ class RenderController extends AbstractController
 
                 preg_match_all('/var\(--([\w|-]+)\)/m', $cssContent, $variables);
                 $replacements = [];
-                foreach($variables as $var) {
-                    if(isset($var[1])) {
-                        // find value defined in $data->content
-                        preg_match_all('/--text-color:([^;]+);/m', $data->content, $variableValue);
-                        if($variableValue && isset($variableValue[0]) && isset($variableValue[0][1])) {
-                            $replacements[$var[0]] = $variableValue[0][1];
+                for($i = 0; $i < count($variables[1]); $i++) {
+                    // find value defined in $data->content
+                    preg_match_all('/--'. $variables[1][$i] .':([^;]+);/m', $data->content, $variableValue);
+                    if($variableValue && isset($variableValue[0]) && !empty($variableValue[0])) {
+                        $replacements[$variables[0][$i]] = $variableValue[1][0];
+                    } else {
+                        switch($variables[1][$i]) {
+                            case 'text-color': $replacements[$variables[0][$i]] = '#fff'; break;
+                            case 'border-color': $replacements[$variables[0][$i]] = '#222'; break;
+                            case 'base-size': $replacements[$variables[0][$i]] = '48px'; break;
+                            case 'bg-color': $replacements[$variables[0][$i]] = 'rgba(255,0,0,0.3)'; break;
                         }
                     }
                 }
@@ -41,7 +46,7 @@ class RenderController extends AbstractController
 
                 /* replace stylesheet */
                 $content = str_replace('<link rel="stylesheet" href="styles.'. $matches[0][1] .'.css">', '<style>'. $cssContent. '</style>', $data->content);
-                $filename = $pdf->createPdf($content, null, '--javascript-delay 1');
+                $filename = $pdf->createPdf($content, null, '--javascript-delay 3 --page-width 210mm --page-height 148mm -L 0 -R 0 -T 0');
                 return new BinaryFileResponse($filename);
             }
 

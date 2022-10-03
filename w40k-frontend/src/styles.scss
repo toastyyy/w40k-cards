@@ -20,7 +20,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       position: relative;
       background: #1c1e08;
       background-size: cover;
-      
+
       .card-border {
         position: absolute;
         top: 0;
@@ -32,7 +32,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         border-style: solid;
         border-color: var(--border-color);
       }
-  
+
       .card-image-wrapper {
         width: 45%;
         height: 14.8em;
@@ -40,12 +40,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         background: #aaa;
         background-size: cover;
         background-position: center;
-  
+
         .card-title-box-wrapper {
             position: relative;
+            display: block;
             width: 7.25em;
             height: 2.5em;
-            margin: 1em auto 0 auto;
+            margin-top: 0;
+            margin-left: auto;
+            margin-bottom: 0;
+            margin-right: auto;
 
             .card-psyker {
               position: absolute;
@@ -86,7 +90,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
               -webkit-clip-path: polygon(0 .5em, .5em 0, 100% 0, 100% 2em, 6.75em 100%, 0 100%);
               clip-path: polygon(0 .5em, .5em 0, 100% 0, 100% 2em, 6.75em 100%, 0 100%);
             }
-            
+
             .card-title {
               font-size: .5em;
               color: #fff;
@@ -94,7 +98,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
               font-family: Cinzel, serif;
               font-weight: 700;
             }
-  
+
             .card-faction-icon {
               position: absolute;
               width: 1.25em;
@@ -104,7 +108,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
               background-size: contain;
               background-position: center center;
             }
-  
+
             .card-quote {
               font-size: .3em;
               line-height: 1em;
@@ -113,13 +117,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
             }
         }
       }
-  
+
       .card-content-wrapper {
         width: 55%;
         height: 14.8em;
         float: left;
       }
-  
+
       .card-units {
         position: absolute;
         bottom: 0;
@@ -141,8 +145,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
           margin-bottom: .1em;
           background-size: cover;
           background-position: center center;
-  
-  
+
+
           .title-row {
             line-height: .65em;
             font-size: .3em;
@@ -153,12 +157,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
             position: relative;
             font-family: Cinzel, serif;
             font-weight: 700;
-  
+
             .name {
               display: inline-block;
               width: 100%;
             }
-  
+
             .ref {
                 position: absolute;
                 font-size: .35em;
@@ -169,7 +173,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
                 transform: translate(0, -50%);
             }
           }
-  
+
           .characteristic {
             display: inline-block;
             width: .9em;
@@ -189,11 +193,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
           }
         }
       }
-  
+
       .card-weapons {
         position: relative;
         padding: .5em 0em .5em .5em;
-  
+
         &::after {
           position: absolute;
           content: '';
@@ -205,7 +209,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
           border-style: solid;
           width: .125em;
         }
-  
+
         &::before {
           content: 'Weapons';
           font-family: Cinzel, serif;
@@ -230,7 +234,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
           margin: .15em;
           padding: .25em;
           text-align: left;
-  
+
           .card-weapon-name {
               font-size: .3em;
               font-family: Cinzel, serif;
@@ -240,25 +244,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
               text-overflow: ellipsis;
               overflow: hidden;
           }
-  
+
           .card-weapon-type {
-            font-size: .25em;
-            font-family: Cinzel, serif;
+              font-size: .225em;
+              font-family: Cinzel, serif;
               font-weight: bold;
               color: var(--text-color);
               opacity: .8;
+              white-space: nowrap;
               line-height: 1.25em;
           }
-  
+
           .card-weapon-ability {
             font-size: .175em;
             max-height: 3em;
             height: 3em;
             overflow: hidden;
             line-height: 1.25em;
-            
+
           }
-  
+
           .card-weapon-characteristics {
               padding: 0;
               .weapon-characteristic {
@@ -266,7 +271,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
                 vertical-align: top;
                 width: 1em;
                 margin: 0 .05em;
-                
+
                 text-align: center;
                 background: rgba(0,0,0,0.1);
                 line-height: .425em;
@@ -283,11 +288,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
           }
         }
       }
-  
+
       .card-abilities {
         position: relative;
         padding: .5em 0em .5em .5em;
-  
+
         &::after {
           position: absolute;
           content: '';
@@ -299,7 +304,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
           border-style: solid;
           width: .125em;
         }
-  
+
         &::before {
           content: 'Abilities';
           font-family: Cinzel, serif;
@@ -313,7 +318,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
           color: rgba(255, 255, 255, 0.5);
           font-size: .25em;
         }
-  
+
         .card-ability {
           width: 42em;
           text-align: left;
