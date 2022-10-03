@@ -17,7 +17,9 @@ class RenderController extends AbstractController
     public function renderCardHtml(Request $request, PdfService $pdf) {
         $data = json_decode($request->getContent());
         if($data && isset($data->content)) {
-            $filename = $pdf->createPdf($data->content, null, '--javascript-delay 1');
+            // replace style href with absolute url.
+            $content = str_replace('href="styles', 'href="'. $_SERVER['HTTP_ORIGIN']. '/styles', $data->content);
+            $filename = $pdf->createPdf($content, null, '--javascript-delay 1');
             return new BinaryFileResponse($filename);
         }
         return new JsonResponse(null, 400);

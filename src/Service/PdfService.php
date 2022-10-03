@@ -19,7 +19,7 @@ class PdfService
     }
 
     public function createPdf($content, $footer = null, $options = '') {
-        $rootDir = $this->kernel->getProjectDir(). '/w40k-renderer';
+        /*$rootDir = $this->kernel->getProjectDir(). '/w40k-renderer';
         file_put_contents($rootDir. '/doc.html', $content);
         exec('cd '. $rootDir. ' && npm run electron-pdf');
         if(file_exists($rootDir. '/doc.pdf')) {
@@ -29,8 +29,8 @@ class PdfService
             return $filename;
         } else{
             return null;
-        }
-        /*
+        }*/
+
         $this->key = $this->container->getParameter('pdf_creator_secret');
 
         if($this->key == null) {
@@ -67,6 +67,6 @@ class PdfService
             return $filename;
         } else {
             return $status. ' '. $result;
-        }*/
+        }
     }
 }

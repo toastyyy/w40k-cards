@@ -22,7 +22,8 @@
         "symfony/runtime": "5.3.*",
         "symfony/twig-bundle": "5.3.*",
         "symfony/yaml": "5.3.*",
-        "twig/twig": "^2.0"
+        "twig/twig": "^2.0",
+        "ext-json": "*"
     },
     "require-dev": {
     },
@@ -34,7 +35,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "composer/package-versions-deprecated": true
         }
     },
     "autoload": {
