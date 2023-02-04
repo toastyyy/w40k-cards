@@ -18,9 +18,7 @@ class RenderController extends AbstractController
         $data = json_decode($request->getContent());
         if($data && isset($data->content)) {
             $content = $data->content;
-            $content = str_replace('background-image: url(', 'background-image: url('. $this->getParameter('frontend_url'), $content);
-            $content = str_replace('background-image: url("', 'background-image: url("'. $this->getParameter('frontend_url'), $content);
-            $content = str_replace('src: url("', 'src: url("'. $this->getParameter('frontend_url'), $content);
+            $content = str_replace('<link rel="stylesheet" href="styles.', '<link rel="stylesheet" href="'. $this->getParameter('frontend_url') . '/styles.', $content);
             $filename = $pdf->createPdf($content, null);
             return new BinaryFileResponse($filename);
         }
