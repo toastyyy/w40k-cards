@@ -6,6 +6,7 @@
 parameters:
     pdf_creator_secret: 3228e18d5eaec634675b19bde73d9634ea508ac756e746d62dabd4851724bbf11b7d2cfee174e33179b9ae3dbc179fb72e0542314ebdabbbb29d6de164d495f9
     frontend_url: '%env(resolve:FRONTEND_URL)%'
+    backend_url: '%env(resolve:BACKEND_URL)%'
 
 services:
     # default configuration for services in *this* file

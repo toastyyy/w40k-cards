@@ -5,22 +5,25 @@ namespace App\Service;
 
 use App\Entity\Medium;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class MediumSerializer implements MediumSerializerInterface
 {
     private $em;
     private $kernel;
-    public function __construct(EntityManagerInterface $em, KernelInterface $kernel) {
+    private $container;
+    public function __construct(EntityManagerInterface $em, KernelInterface $kernel, ContainerInterface $container) {
         $this->em = $em;
         $this->kernel = $kernel;
+        $this->container = $container;
     }
 
     public function serialize(Medium $medium, $mode = 'list')
     {
         return [
             'id' => $medium->getId(),
-            'file' => 'http://'. $_SERVER['SERVER_NAME']. $medium->getFile(),
+            'file' => $this->container->getParameter('backend_url'). $medium->getFile(),
             'size' => $medium->getSize(),
             'type' => $medium->getType()
         ];
