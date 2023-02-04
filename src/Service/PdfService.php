@@ -19,6 +19,7 @@ class PdfService
     }
 
     public function createPdf($content, $footer = null, $options = ['margin' => ['top' => '0', 'left' => '0', 'right' => '0', 'bottom' => '0']]) {
+        file_put_contents($this->kernel->getProjectDir(). '/var/pdf/debug.html', $content);
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL,"http://pdf-service:3000/pdf");
