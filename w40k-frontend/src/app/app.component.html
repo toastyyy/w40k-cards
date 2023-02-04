@@ -1,1 +1,28 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [opened]="opened">
+    <div class="sidenav">
+      <ul>
+        <li>
+          <a>Roster hinzufügen</a>
+        </li>
+        <li>
+          <a>Meine Roster</a>
+        </li>
+        <li>
+          <a>Unterstützen</a>
+        </li>
+      </ul>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <nav>
+      <ul>
+        <li>
+          <a href="#" class="logo"></a>
+        </li>
+      </ul>
+    </nav>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

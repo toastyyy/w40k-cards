@@ -75,6 +75,7 @@ class RosterController extends AbstractController
 
         $this->roster = new Roster();
 
+        /* Each Force contains N selections. */
         if($data) {
             if (isset($data['forces']) && isset($data['forces']['force']) && !$this->isAssociative($data['forces']['force'])) {
                 foreach ($data['forces']['force'] as $force) {
@@ -105,6 +106,7 @@ class RosterController extends AbstractController
 
     private function handleSelection($selection, $force, $owner = null, $card = null)
     {
+        /* A selection can be of type upgrade, model (single figure) or unit. */
         $selection = $this->sanitizeSelection($selection);
         if (isset($selection['@attributes']) && isset($selection['@attributes']['type'])) {
             $type = $selection['@attributes']['type'];
@@ -114,6 +116,10 @@ class RosterController extends AbstractController
                 $this->handleUpgrade($selection, $force, $owner, $card);
             }
         }
+    }
+
+    private function handleCategories($selection, $force, $owner = null, $card = null) {
+
     }
 
     private function sanitizeSelection($selection) {
@@ -181,6 +187,8 @@ class RosterController extends AbstractController
                 $profiles = $owner['profiles']['profile'];
             }
 
+            /* A unit has N profiles each of type Unit, Abilities or Psyker */
+
             foreach($profiles as $profile) {
                 if(isset($profile['@attributes']) && isset($profile['@attributes']['typeName'])) {
                     $type = $profile['@attributes']['typeName'];
@@ -216,13 +224,24 @@ class RosterController extends AbstractController
                 }
             }
 
+            /* A unit can have N rules. */
             if(isset($unit['rules']['rule']['@attributes'])) {
                 $card->setProperty('rules', [$unit['rules']['rule']], 'rules');
             } elseif(isset($unit['rules']['rule'])) {
                 $card->setProperty('rules', $unit['rules']['rule'], 'rules');
             }
+            if(isset($unit['categories']['category']['@attributes'])) {
+                $categories = [$unit['categories']['category']['name']];
+                $card->setKeywords($categories);
+            } elseif(isset($unit['categories']['category'])) {
+                $categories = array_map(function($e) {
+                    return $e['@attributes']['name'];
+                }, $unit['categories']['category']);
+                $card->setKeywords($categories);
+            }
         }
 
+        /* A Unit has N selections each of type */
         if (isset($unit['selections']) && isset($unit['selections']['selection']) && !$this->isAssociative($unit['selections']['selection'])) {
             foreach ($unit['selections']['selection'] as $selection) {
                 if(!isset($selection['@attributes']) && isset($unit['@attributes'])) {
@@ -255,18 +274,9 @@ class RosterController extends AbstractController
         }
     }
 
-    private function handleAbility($unit, $owner = null)
-    {
-        $card->setProperty('name', $unit['@attributes']['name'], 'name');
-        if(isset($unit['characteristics']['characteristic']['@attributes'])) {
-            $card->setProperty('characteristics', [$unit['characteristics']['characteristic']], 'characteristics');
-        } elseif(isset($unit['characteristics']['characteristic'])) {
-            $card->setProperty('characteristics', $unit['characteristics']['characteristic'], 'characteristics');
-        }
-    }
-
     private function handleWeapon($unit, $force, $profile, $owner = null, $card = null)
     {
+        if(!$card) { return; }
         $weapon = new Weapon();
         $weapon->setName($profile['@attributes']['name']);
         $weapon->setRange($profile['characteristics']['characteristic'][0]);
@@ -280,6 +290,7 @@ class RosterController extends AbstractController
 
     private function handlePsy($unit, $force, $owner = null, $card = null)
     {
+        if(!$card) { return; }
         $psy = new PsychicPower();
         $psy->setName($unit['@attributes']['name']);
         $psy->setWarpCharge($unit['characteristics']['characteristic'][0]);

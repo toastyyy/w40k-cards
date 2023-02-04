@@ -6,7 +6,7 @@ export default interface UnitModel {
   ballisticSkill: string;
   strength: string;
   toughness: number;
-  attack: number;
+  attacks: number;
   save: string;
   leadership: number;
   name: string;

@@ -1,4 +1,103 @@
-<div #cardWrapper class="card-wrapper unit-basic" [style.--border-color]="card.borderColor" [style.--text-color]="card.textColor">
+<div #cardCrwapper class="card-wrapper unit-basic" [style.--base-size]="size + 'px'">
+  <div class="card">
+    <div class="card-ribbon"></div>
+    <div class="card-image" [style.background-image]="'url(' + card.unitImage?.file + ')'"></div>
+
+    <div class="card-unit-basic-info" *ngIf="card.units.length > 0">
+      <div class="movement"><span>{{ card.units[0].movementSpeed }}</span></div>
+      <div class="wounds"><span>{{ card.units[0].wounds }}</span></div>
+      <div class="save"><span>{{ card.units[0].save }}</span></div>
+      <div class="leadership"><span>{{ card.units[0].leadership }}</span></div>
+    </div>
+    <div class="card-unit-quote-wrapper">
+      <div>
+        {{ card.quote }}
+      </div>
+    </div>
+    <div class="card-unit-name-box"></div>
+    <div class="card-unit-name">
+      <span class="title">Warscroll</span>
+      <span class="name">{{ card.title }}</span>
+      <span class="subtitle">{{ card.subtitle }}</span>
+    </div>
+    <div class="card-unit-name-chain left"></div>
+    <div class="card-unit-name-chain right"></div>
+
+    <div class="card-content">
+      <table *ngIf="card.units.length > 0">
+        <thead>
+        <tr>
+          <th>Einheit</th>
+          <th>Geschwindigkeit</th>
+          <th>Attacken</th>
+          <th>Stärke</th>
+          <th>Zähigkeit</th>
+          <th>Rettung</th>
+          <th>Führung</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let unit of card.units">
+          <td>{{ unit.name }}</td>
+          <td>{{ unit.movementSpeed }}"</td>
+          <td>{{ unit.attacks }}</td>
+          <td>{{ unit.strength }}</td>
+          <td>{{ unit.toughness }}</td>
+          <td>{{ unit.save }}</td>
+          <td>{{ unit.leadership }}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table *ngIf="card.weapons.length > 0">
+        <thead>
+          <tr>
+            <th>Waffen</th>
+            <th>Reichweite</th>
+            <th>Stärke</th>
+            <th>Durchschlag</th>
+            <th>Schaden</th>
+            <th>Fähigkeit</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let weapon of card.weapons">
+          <td>
+            {{ weapon.name }}
+          </td>
+          <td>
+            {{ weapon.range }}
+          </td>
+          <td>
+            {{ weapon.strength}}
+          </td>
+          <td>
+            {{ weapon.penetration }}
+          </td>
+          <td>
+            {{ weapon.damage }}
+          </td>
+          <td class="text-left">
+            {{ weapon.abilities }}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="content-text">
+        <div *ngFor="let ability of card.abilities" class="ability">
+          <span class="font-bold">{{ ability.name }}</span>
+          {{ ability.description }}
+        </div>
+      </div>
+    </div>
+    <div class="card-keywords">
+      <span *ngFor="let keyword of card.keywords; let i = index"><span *ngIf="i > 0">,</span> {{ keyword }}</span>
+    </div>
+  </div>
+</div>
+
+<!--<div #cardWrapper class="card-wrapper unit-basic" [style.--border-color]="card.borderColor" [style.--text-color]="card.textColor">
   <div class="card" [style.background-image]="'url(' + (card.backgroundImage?.file ? card.backgroundImage?.file : (card.backgroundImage?.content ? card.backgroundImage.content : ''))  + ')'">
     <div class="card-border"></div>
     <div class="card-image-wrapper" [style.background-image]="'url(' + (card.unitImage?.file ? card.unitImage?.file : (card.unitImage?.content ? card.unitImage.content : '')) + ')'">
@@ -100,3 +199,4 @@
     </div>
   </div>
 </div>
+-->

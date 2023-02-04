@@ -8,6 +8,7 @@ import WeaponModel from "./weapon.model";
 export default interface CardModel {
   id?: string;
   title: string;
+  subtitle?: string;
   quote: string;
   points: number;
   abilities: AbilityModel[];
@@ -22,4 +23,5 @@ export default interface CardModel {
   unitImage: MediumModel;
   boxBackground: MediumModel;
   factionLogo: MediumModel;
+  keywords: string[];
 }

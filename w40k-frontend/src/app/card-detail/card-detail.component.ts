@@ -31,10 +31,16 @@ export class CardDetailComponent implements OnInit {
 
   private savingSubject = new BehaviorSubject<boolean>(false);
   public saving$ = this.savingSubject.asObservable();
+  public size;
 
   constructor(private router: Router, private route: ActivatedRoute, private cardService: CardService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.recalculateCardSize();
+    window.onresize = () => {
+      this.recalculateCardSize();
+    };
+
     this.route.paramMap.subscribe(params => {
         let cardId = params.get("cardId");
         this.rosterId = params.get("rosterId");
@@ -51,6 +57,16 @@ export class CardDetailComponent implements OnInit {
     this.changed$.pipe(skip(1), debounceTime(500)).subscribe(result => {
         this.saveChanges();
     });
+  }
+
+  recalculateCardSize() {
+    if(window.innerWidth >= 1600) {
+      this.size = window.innerWidth / 50;
+    } else if (window.innerWidth >= 640) {
+      this.size = window.innerWidth / 40;
+    } else {
+      this.size = window.innerWidth / 26;
+    }
   }
 
   changed() {
@@ -86,7 +102,6 @@ export class CardDetailComponent implements OnInit {
     let headContent = document.getElementsByTagName('head')[0].innerHTML;
 
     let fullHtml = '<!DOCTYPE html><html><head>' + headContent + '</head><body>' + html + '</body></html>';
-    console.log(fullHtml);
     fullHtml = fullHtml
       .replace('--base-size: 20px;', '')
       .replace(/var\(--base-size\)/gm, '40px')
@@ -104,7 +119,7 @@ export class CardDetailComponent implements OnInit {
   public addUnit() {
     let card = this.cardSubject.getValue();
     card.units.push({
-      attack: 1,
+      attacks: 1,
       leadership: 7,
       ballisticSkill: '3+',
       weaponSkill: '3+',

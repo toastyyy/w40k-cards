@@ -8,13 +8,12 @@ import CardModel from "../../../models/card.model";
 })
 export class UnitBasicComponent implements OnInit, AfterViewInit {
   @Input() card: CardModel;
-
-  public baseSize = 10;
+  @Input() size = 20;
 
   constructor(private elem: ElementRef) { }
 
   ngOnInit(): void {
-    
+
   }
 
   ngAfterViewInit(): void {
@@ -27,7 +26,7 @@ export class UnitBasicComponent implements OnInit, AfterViewInit {
       } else {
         console.log('timeout');
         setTimeout(() => {
-          this.inlineStyles()
+          this.inlineStyles();
         }, 1000);
       }
   }
@@ -36,8 +35,8 @@ export class UnitBasicComponent implements OnInit, AfterViewInit {
       let s = getComputedStyle(el);
       for (let key in s) {
           try {
-            if(['color', 'border', 'border-radius', 'background', 'background-color', 'position', 
-            'top', 'left', 'bottom', 'right', 'padding', 'padding-top', 'padding-left', 'padding-right', 
+            if(['color', 'border', 'border-radius', 'background', 'background-color', 'position',
+            'top', 'left', 'bottom', 'right', 'padding', 'padding-top', 'padding-left', 'padding-right',
             'padding-bottom', 'margin', 'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
             'font-size', 'line-height', 'background-size', 'background-position', 'width', 'height', 'max-width',
             'max-height', 'float', 'display', 'text-aign', 'overflow', 'border-width', 'border-style', 'border-color',
@@ -46,9 +45,9 @@ export class UnitBasicComponent implements OnInit, AfterViewInit {
             ].indexOf(s[key]) >= 0) {
               el.style[s[key]] = s.getPropertyValue(s[key]);
             }
-            
+
           } catch(e) {}
-          
+
       }
   }
 

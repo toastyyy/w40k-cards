@@ -20,6 +20,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { MediumComponent } from './medium/medium.component';
 import { MatIconModule } from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatTabsModule,
         MatIconModule,
         MatExpansionModule,
+        MatSidenavModule,
     ],
   providers: [
     { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }

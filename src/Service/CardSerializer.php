@@ -36,9 +36,11 @@ class CardSerializer implements CardSerializerInterface
         $serialized = [
             'id' => $card->getId(),
             'title' => $card->getTitle(),
+            'subtitle' => $card->getSubtitle(),
             'quote' => $card->getQuote(),
             'borderColor' => $card->getBorderColor(),
-            'textColor' => $card->getTextColor()
+            'textColor' => $card->getTextColor(),
+            'keywords' => $card->getKeywords()
         ];
         foreach($card->getProperties() as $prop) {
             $serialized[$prop->getPropertyKey()] = $prop->getPropertyValue();
@@ -98,6 +100,7 @@ class CardSerializer implements CardSerializerInterface
 
         if($card) {
             $card->setTitle($data->title ?? $card->getTitle());
+            $card->setSubtitle($data->subtitle ?? $card->getSubtitle());
             $card->setQuote($data->quote ?? $card->getQuote());
 
             if(isset($data->unitImage)) {

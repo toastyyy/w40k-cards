@@ -1,0 +1,58 @@
+version: '3.6'
+services:
+  mysql-db:
+    container_name: w40k-mysql-db
+    restart: always
+    build:
+      context: ./docker/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: w40k
+      MYSQL_USER: w40k
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+    ports:
+      - '5337:3306'
+    volumes:
+      - ./db-data:/dumps
+      - ./mysql:/var/lib/mysql:delegated
+    networks:
+      - w40k
+  pdf-service:
+    image: paralect/pdf-service
+    ports:
+      - "4444:3000"
+    networks:
+      - w40k
+  php:
+    container_name: w40k-php
+    build:
+      context: ./docker/php
+      args:
+        TIMEZONE: ${TIMEZONE}
+        ENABLE_XDEBUG: ${ENABLE_XDEBUG}
+    volumes:
+      - ./:/var/www/symfony/
+    depends_on:
+      - mysql-db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      PHP_IDE_CONFIG: "serverName=docker_w40k"
+    networks:
+      - w40k
+
+  nginx:
+    container_name: w40k-nginx
+    build:
+      context: ./docker/nginx
+    volumes:
+      - ./:/var/www/symfony/
+    depends_on:
+      - php
+    ports:
+      - 8401:80
+    networks:
+      - w40k
+networks:
+  w40k:
+    driver: bridge

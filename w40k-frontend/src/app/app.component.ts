@@ -6,5 +6,6 @@ import {Component, ViewChild} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'w40k-frontend';
+  title = 'Warhammer Card Generator';
+  opened = false;
 }

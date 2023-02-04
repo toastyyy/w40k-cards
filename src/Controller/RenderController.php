@@ -17,8 +17,9 @@ class RenderController extends AbstractController
     public function renderCardHtml(Request $request, PdfService $pdf) {
         $data = json_decode($request->getContent());
         if($data && isset($data->content)) {
+            $content = $data->content;
             /* we need to replace the css variables manually since wkhtmltopdf does not support css variables */
-            preg_match_all('/href="styles.(\w+).css"/m', $data->content, $matches, PREG_SET_ORDER, 0);
+            preg_match_all('/href="styles.(\w+).css"/m', $content, $matches, PREG_SET_ORDER, 0);
 
             if($matches && isset($matches[0])) {
                 $cssContent = file_get_contents($_SERVER['HTTP_ORIGIN']. '/styles.'. $matches[0][1]. '.css');
@@ -45,11 +46,14 @@ class RenderController extends AbstractController
                 }
 
                 /* replace stylesheet */
-                $content = str_replace('<link rel="stylesheet" href="styles.'. $matches[0][1] .'.css">', '<style>'. $cssContent. '</style>', $data->content);
-                $filename = $pdf->createPdf($content, null, '--javascript-delay 3 --page-width 210mm --page-height 148mm -L 0 -R 0 -T 0');
-                return new BinaryFileResponse($filename);
-            }
+                $content = str_replace('<link rel="stylesheet" href="styles.'. $matches[0][1] .'.css">', '<style>'. $cssContent. '</style>', $content);
 
+            }
+            $content = str_replace('background-image: url(', 'background-image: url('. $this->getParameter('frontend_url'), $content);
+            $content = str_replace('background-image: url("', 'background-image: url("'. $this->getParameter('frontend_url'), $content);
+            $content = str_replace('src: url("', 'src: url("'. $this->getParameter('frontend_url'), $content);
+            $filename = $pdf->createPdf($content, null);
+            return new BinaryFileResponse($filename);
         }
         return new JsonResponse(null, 400);
     }
@@ -63,7 +67,7 @@ class RenderController extends AbstractController
         ]);
 
 
-        $filename = $pdf->createPdf($rendered, null, '--javascript-delay 1');
+        $filename = $pdf->createPdf($rendered, null);
 
         return new BinaryFileResponse($filename);
     }

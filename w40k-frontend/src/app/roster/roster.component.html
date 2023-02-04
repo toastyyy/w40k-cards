@@ -1,5 +1,21 @@
 <div class="w-full flex flex-wrap" *ngIf="(roster$ | async) as roster">
-  <div class="w-1/3 p-4 cursor-pointer hover:bg-gray-200" *ngFor="let card of roster.cards">
-      <app-unit-basic (click)="editCard(card)" [card]="card"></app-unit-basic>
+  <div class="w-full lg:w-1/3 xl:w-1/4 cursor-pointer text-center" *ngFor="let card of roster.cards">
+    <div class="card-list-entry-wrapper">
+      <div class="card-list-entry">
+        <app-unit-basic (click)="editCard(card)" [card]="card"></app-unit-basic>
+      </div>
+      <div class="card-title">{{ card.title }}</div>
+    </div>
+  </div>
+  <div class="w-full lg:w-1/3 xl:w-1/4 cursor-pointer text-center">
+    <div class="card-list-entry-wrapper">
+      <div class="card-list-entry relative">
+        <div class="absolute vertical-center left-0 right-0 text-center text-5xl opacity-50">
+          +
+        </div>
+        <app-unit-basic [card]="null"></app-unit-basic>
+      </div>
+      <div class="card-title">Neue Karte hinzufügen</div>
+    </div>
   </div>
 </div>

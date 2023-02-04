@@ -18,19 +18,39 @@ class PdfService
         $this->kernel = $kernel;
     }
 
-    public function createPdf($content, $footer = null, $options = '') {
-        /*$rootDir = $this->kernel->getProjectDir(). '/w40k-renderer';
-        file_put_contents($rootDir. '/doc.html', $content);
-        exec('cd '. $rootDir. ' && npm run electron-pdf');
-        if(file_exists($rootDir. '/doc.pdf')) {
-            $result = file_get_contents($rootDir. '/doc.pdf');
+    public function createPdf($content, $footer = null, $options = ['margin' => ['top' => '0', 'left' => '0', 'right' => '0', 'bottom' => '0']]) {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL,"http://pdf-service:3000/pdf");
+        curl_setopt($ch, CURLOPT_POST, 1);
+
+        $content = json_encode([
+            'html' => $content,
+            'options' => $options
+        ]);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Content-Length: '. strlen($content)
+        ]);
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $result = curl_exec($ch);
+        $status = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+
+        curl_close($ch);
+
+        if($status == 200) {
             $filename = $this->kernel->getProjectDir(). '/var/pdf/'. substr(md5(time()), 0, 10). '.pdf';
             file_put_contents($filename, $result);
             return $filename;
-        } else{
-            return null;
-        }*/
+        } else {
+            return $status. ' '. $result;
+        }
 
+        /*
         $this->key = $this->container->getParameter('pdf_creator_secret');
 
         if($this->key == null) {
@@ -67,6 +87,6 @@ class PdfService
             return $filename;
         } else {
             return $status. ' '. $result;
-        }
+        }*/
     }
 }

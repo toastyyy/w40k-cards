@@ -81,7 +81,7 @@ class Render2Controller extends AbstractController
             'catalogColors' => $catalogColors
         ]);
 
-        $filename = $pdf->createPdf($rendered, null, '--javascript-delay 1');
+        $filename = $pdf->createPdf($rendered, null);
 
         return new BinaryFileResponse($filename);
     }

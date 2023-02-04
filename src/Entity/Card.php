@@ -25,6 +25,11 @@ class Card
     private $title;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $subtitle;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $quote;
@@ -105,9 +110,15 @@ class Card
      */
     private $borderColor;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $keywords;
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
+        $this->keywords = [];
         $this->properties = new ArrayCollection();
         $this->weapons = new ArrayCollection();
         $this->abilities = new ArrayCollection();
@@ -454,5 +465,37 @@ class Card
 
     public function setBorderColor($borderColor) {
         $this->borderColor = $borderColor;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubtitle()
+    {
+        return $this->subtitle;
+    }
+
+    /**
+     * @param mixed $subtitle
+     */
+    public function setSubtitle($subtitle): void
+    {
+        $this->subtitle = $subtitle;
+    }
+
+    /**
+     * @return array
+     */
+    public function getKeywords(): array
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * @param array $keywords
+     */
+    public function setKeywords(array $keywords): void
+    {
+        $this->keywords = $keywords;
     }
 }

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import CardModel from 'src/models/card.model';
 
 @Component({
@@ -9,10 +9,12 @@ import CardModel from 'src/models/card.model';
 })
 export class CardEditorDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: CardEditorDialogModel) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: CardEditorDialogModel, private dialog: MatDialogRef<CardEditorDialogComponent>) {}
 
   ngOnInit(): void {
   }
+
+
 
 }
 

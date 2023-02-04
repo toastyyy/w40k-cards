@@ -1,17 +1,16 @@
-<div class="flex w-full h-full" *ngIf="(card$ | async) as card">
+<div class="card-detail-wrapper" *ngIf="(card$ | async) as card">
     <div class="card-container">
         <div class="absolute left-0 right-0 vertical-center text-center">
-            <div class="inline-block w-2/3">
-                <app-unit-basic #cardContainer [card]="card"></app-unit-basic>
+            <div class="inline-block shadow-xl">
+                <app-unit-basic [size]="size" #cardContainer [card]="card"></app-unit-basic>
             </div>
         </div>
-        <div [routerLink]="['/roster', rosterId]" class="absolute top-0 left-0 p-4 text-blue-500 text-lg cursor-pointer hover:underline">
-            &laquo; Zurück zum Roster
+      <div class="absolute right-0 bottom-0 mb-2 mr-4">
+        <div class="py-2 px-3 rounded bg-blue-400 text-white shadow-lg font-bold" (click)="showPDF(cardContainer)">
+          PDF Download anfordern
         </div>
 
-        <div class="absolute top-0 right-0 p-4 text-blue-500 text-lg cursor-pointer hover:underline" (click)="showPDF(cardContainer)">
-            PDF anzeigen
-        </div>
+      </div>
     </div>
     <div class="card-form">
         <mat-tab-group>
@@ -25,38 +24,20 @@
                             </mat-form-field>
                         </div>
                         <div class="w-full px-2">
+                          <mat-form-field class="w-full">
+                            <mat-label>Untertitel </mat-label>
+                            <textarea rows="3" matInput [(ngModel)]="card.subtitle" (ngModelChange)="changed()"></textarea>
+                          </mat-form-field>
+                        </div>
+                        <div class="w-full px-2">
                             <mat-form-field class="w-full">
-                                <mat-label>Zitat / Untertitel</mat-label>
+                                <mat-label>Zitat </mat-label>
                                 <textarea rows="3" matInput [(ngModel)]="card.quote" (ngModelChange)="changed()"></textarea>
                             </mat-form-field>
                         </div>
                         <div class="w-1/4 p-2">
-                            <mat-label>Fraktions-Emblem</mat-label>
-                            <app-medium (changed)="card.factionLogo = $event;changed()" [medium]="card.factionLogo"></app-medium>
-                        </div>
-                        <div class="w-1/4 p-2">
-                            <mat-label>Hintergrund</mat-label>
-                            <app-medium (changed)="card.backgroundImage = $event;changed()" [medium]="card.backgroundImage"></app-medium>
-                        </div>
-                        <div class="w-1/4 p-2">
-                            <mat-label>Box-Hintergrund</mat-label>
-                            <app-medium (changed)="card.boxBackground = $event;changed()" [medium]="card.boxBackground"></app-medium>
-                        </div>
-                        <div class="w-1/4 p-2">
                             <mat-label>Einheitenbild</mat-label>
                             <app-medium (changed)="card.unitImage = $event;changed()" [medium]="card.unitImage"></app-medium>
-                        </div>
-                        <div class="w-1/2 px-2">
-                            <mat-form-field class="w-full">
-                                <mat-label>Textfarbe</mat-label>
-                                <input type="text" matInput [(ngModel)]="card.textColor" (ngModelChange)="changed()"/>
-                            </mat-form-field>
-                        </div>
-                        <div class="w-1/2 px-2">
-                            <mat-form-field class="w-full">
-                                <mat-label>Rahmenfarbe</mat-label>
-                                <input type="text" matInput [(ngModel)]="card.borderColor" (ngModelChange)="changed()"/>
-                            </mat-form-field>
                         </div>
                     </div>
 

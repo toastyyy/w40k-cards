@@ -4,3 +4,43 @@
   padding: 0 1rem;
   margin: 2rem auto 0 auto;
 }
+
+.sidenav {
+  width: 24rem;
+  background: #111;
+  height: 100%;
+}
+
+nav {
+  position: fixed;
+  height: 5rem;
+  top: 0;
+  width: 100%;
+  background-image: url("/assets/bg-texture.png");
+  background-size: cover;
+  color: #fff;
+  z-index: 9999;
+  &::before {
+    background: #0b1762;
+    position: absolute;
+    content: '';
+    left: -1px; right: 0; bottom: 0; top: 0;
+    opacity: .8;
+    z-index: 1;
+  }
+
+  ul {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+:host::ng-deep {
+  mat-sidenav-container {
+    height: 100%;
+    mat-sidenav-content {
+      height: 100%;
+      padding-top: 5rem;
+    }
+  }
+}

@@ -1,5 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Fonts */
+@font-face {
+  font-family: "Figural Std";
+  font-weight: 500;
+  src:url("/assets/fonts/Figural Std Book.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Figural Std";
+  font-weight: 600;
+  src:url("/assets/fonts/Figural Std Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MinionPro";
+  font-weight: 700;
+  src:url("/assets/fonts/MinionPro-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MinionPro";
+  font-weight: 700;
+  font-style: italic;
+  src:url("/assets/fonts/MinionPro-BoldIt.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MinionPro";
+  font-weight: 400;
+  font-style: italic;
+  src:url("/assets/fonts/MinionPro-It.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MinionPro";
+  font-weight: 400;
+  src:url("/assets/fonts/MinionPro-Regular.otf") format("opentype");
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .vertical-center {
@@ -17,10 +56,276 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     .card {
       width: 21em;
       height: 14.8em;
+      border-radius: .25em;
+      line-height: .35em;
+      background-image: url(/assets/blank-page.jpg);
       position: relative;
-      background: #1c1e08;
-      background-size: cover;
+      overflow: hidden;
 
+      .card-ribbon {
+        position: absolute;
+        left: 1em;
+        top: 0;
+        bottom: 0;
+        width: 5em;
+        background: url("/assets/ribbon.png");
+        background-size: 100% auto;
+        background-position: bottom;
+      }
+
+      .card-image {
+        position: absolute;
+        top: 4em;
+        width: 5.525em;
+        height: 8.5em;
+        left: 0;
+        background-size: cover;
+        background-position: top left;
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%, rgba(0,0,0,0) 100%);
+      }
+
+      .card-unit-name-box {
+        position: absolute;
+        top: .75em;
+        left: 20.5em;
+        width: 1.75em;
+        height: 14.5em;
+        background-image: url(/assets/ribbon.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        transform: rotate(90deg);
+        transform-origin: 0 0;
+      }
+
+      .card-unit-name-chain {
+        width: .25em;
+        height: 2.5em;
+        position: absolute;
+
+        background-image: url(/assets/chain.png);
+        background-size: 100% auto;
+        background-position: bottom left;
+
+        &.left {
+          top: 0;
+          left: 6em;
+        }
+
+        &.right {
+          top: 0;
+          left: 20.25em;
+        }
+      }
+
+      .card-unit-basic-info {
+        position: absolute;
+        left: 1.25em;
+        width: 4.5em;
+        height: 5em;
+        background-image: url("/assets/stats.png");
+        background-size: 100% auto;
+        background-position: left bottom;
+
+        .movement {
+          display: block;
+          position: absolute;
+          top: 1.125em;
+          left: 1.875em;
+          font-family: "Figural Std", serif;
+          font-weight: 700;
+          width: .875em;
+          span {
+            font-size: .6em;
+          }
+        }
+
+        .leadership {
+          display: block;
+          position: absolute;
+          top: 2.475em;
+          left: 1.875em;
+          font-family: "Figural Std", serif;
+          font-weight: 700;
+          width: .875em;
+          span {
+            font-size: .6em;
+          }
+        }
+
+        .save {
+          display: block;
+          position: absolute;
+          top: 1.825em;
+          left: 2.625em;
+          font-family: "Figural Std", serif;
+          font-weight: 700;
+          width: .875em;
+          span {
+            font-size: .6em;
+          }
+        }
+
+        .wounds {
+          display: block;
+          position: absolute;
+          top: 1.825em;
+          left: 1.125em;
+          font-family: "Figural Std", serif;
+          font-weight: 700;
+          width: .875em;
+          span {
+            font-size: .6em;
+          }
+        }
+      }
+
+      .card-unit-quote-wrapper {
+        position: absolute;
+        bottom: .5em;
+        left: 1.75em;
+        width: 3.5em;
+        &>div {
+          font-size: .3em;
+          font-family: MinionPro;
+          font-weight: 400;
+          font-style: italic;
+        }
+      }
+
+      .card-unit-name {
+        position: absolute;
+        left: 7.05em;
+        top: .9em;
+        height: 1.5em;
+        width: 12em;
+        text-align: center;
+        font-family: "MinionPro", serif;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: rgba(0,0,0,0.9);
+
+        .title {
+          font-size: .4em;
+          font-weight: 400;
+          display: block;
+        }
+        .name {
+          font-size: .65em;
+          display: block;
+          margin: .25em 0;
+        }
+        .subtitle {
+          font-size: .35em;
+          font-weight: 800;
+          display: block;
+        }
+      }
+
+      .card-content {
+        left: 6em;
+        width: 14.5em;
+        top: 3em;
+        height: 10em;
+        position: absolute;
+
+        .content-text {
+          text-align: left;
+          column-count: 2;
+          column-gap: 2em;
+          column-fill: auto;
+          font-size: .25em;
+          font-family: "MinionPro";
+          font-style: italic;
+          height: 20em;
+
+          .ability {
+            margin-bottom: .5em;
+          }
+        }
+
+        table {
+          width: 100%;
+          font-size: .3em;
+          text-align: left;
+          margin-bottom: .5em;
+          thead {
+            tr {
+              border-top: 2px solid rgba(0,0,0,0.7);
+              border-bottom: 2px solid rgba(0,0,0,0.7);
+              th {
+                padding: .2em .25em;
+                background: #ddd;
+                color: #111;
+                font-family: "MinionPro", serif;
+                font-weight: 700;
+              }
+            }
+          }
+
+          tbody {
+            border-bottom: 2px solid rgba(0,0,0,0.7);
+            tr {
+              td {
+                padding: .2em .25em;
+                font-family: "MinionPro", serif;
+                &:first-child {
+                  font-weight: bold;
+                }
+
+                &:last-of-type {
+                  line-height: .875em;
+                  font-size: 1em;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .card-keywords {
+        bottom: .25em;
+        left: 6em;
+        width: 14.5em;
+        background: #fff;
+        border: 2px solid #ac8947;
+        position: absolute;
+        height: 1.25em;
+        text-align: left;
+        padding-left: 2em;
+        line-height: .2em;
+        &>span {
+
+          font-size: .25em;
+          font-family: MinionPro, serif;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          padding: 0 .5em;
+          background: #ac8947;
+          color: rgba(0,0,0, 0.8);
+          width: 1.875em;
+        }
+
+        &::after {
+          position: absolute;
+          left: 1em;
+          top: 50%;
+          transform: translate(0, -50%);
+          content: 'Keywords';
+          font-size: .3em;
+          font-family: MinionPro, sans;
+          font-weight: 700;
+
+        }
+      }
       .card-border {
         position: absolute;
         top: 0;
@@ -31,6 +336,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         border-width: .35em;
         border-style: solid;
         border-color: var(--border-color);
+        opacity: .2;
       }
 
       .card-image-wrapper {
