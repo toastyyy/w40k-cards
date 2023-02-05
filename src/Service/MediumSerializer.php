@@ -4,6 +4,7 @@
 namespace App\Service;
 
 use App\Entity\Medium;
+use CURLFile;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -24,6 +25,7 @@ class MediumSerializer implements MediumSerializerInterface
         return [
             'id' => $medium->getId(),
             'file' => $this->container->getParameter('backend_url'). $medium->getFile(),
+            'knockedOutBgFile' => $this->container->getParameter('backend_url'). $medium->getKnockedOutBgFile(),
             'size' => $medium->getSize(),
             'type' => $medium->getType()
         ];
@@ -53,6 +55,31 @@ class MediumSerializer implements MediumSerializerInterface
                     $absolutePath = $this->kernel->getProjectDir(). '/public/uploads/'. $newFilename;
                     file_put_contents($absolutePath, $decoded);
                     $medium->setFile('/uploads/'. $newFilename);
+
+                    /* automatically remove background */
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'http://background-remover:5000',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => array('file'=> new CURLFILE($this->kernel->getProjectDir() .'/public/uploads/'. $newFilename)),
+                    ));
+
+                    $response = curl_exec($curl);
+
+                    curl_close($curl);
+
+                    $newBgRemoveFilename = $medium->getId(). '.bgremoved.'. $suffix;
+                    $absoluteBgRemovePath = $this->kernel->getProjectDir(). '/public/uploads/'. $newBgRemoveFilename;
+                    file_put_contents($absoluteBgRemovePath, $response);
+                    $medium->setKnockedOutBgFile('/uploads/'. $newBgRemoveFilename);
+
                     $medium->setSize(0);
                     $medium->setType($type);
                     return $medium;

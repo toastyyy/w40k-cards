@@ -24,4 +24,8 @@ export default interface CardModel {
   boxBackground: MediumModel;
   factionLogo: MediumModel;
   keywords: string[];
+  useAutomaticBackgroundRemoval: boolean;
+  imageTranslateX: number;
+  imageTranslateY: number;
+  imageScale: number;
 }

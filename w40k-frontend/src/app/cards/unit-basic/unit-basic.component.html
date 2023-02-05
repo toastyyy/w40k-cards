@@ -1,7 +1,7 @@
 <div #cardCrwapper class="card-wrapper unit-basic" [style.--base-size]="size + 'px'">
   <div class="card">
     <div class="card-ribbon"></div>
-    <div class="card-image" [style.background-image]="'url(' + card.unitImage?.file + ')'"></div>
+    <div class="card-image" [style.background-position]="'left ' + card.imageTranslateX + 'em top ' + card.imageTranslateY + 'em'" [style.background-size]="(card.imageScale * 100) + '% auto'" [style.background-image]="'url(' + (card.useAutomaticBackgroundRemoval ? card.unitImage?.knockedOutBgFile : card.unitImage?.file) + ')'"></div>
 
     <div class="card-unit-basic-info" *ngIf="card.units.length > 0">
       <div class="movement"><span>{{ card.units[0].movementSpeed }}</span></div>

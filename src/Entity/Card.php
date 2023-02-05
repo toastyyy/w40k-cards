@@ -115,9 +115,30 @@ class Card
      */
     private $keywords;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $useAutomaticBackgroundRemoval;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $imageTranslateX;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $imageTranslateY;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $imageScale;
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
+        $this->useAutomaticBackgroundRemoval = true;
         $this->keywords = [];
         $this->properties = new ArrayCollection();
         $this->weapons = new ArrayCollection();
@@ -126,6 +147,9 @@ class Card
         $this->psychicPowers = new ArrayCollection();
         $this->explosions = new ArrayCollection();
         $this->units = new ArrayCollection();
+        $this->imageTranslateX = 0.0;
+        $this->imageTranslateY = 0.0;
+        $this->imageScale = 0.0;
     }
 
     /**
@@ -497,5 +521,60 @@ class Card
     public function setKeywords(array $keywords): void
     {
         $this->keywords = $keywords;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUseAutomaticBackgroundRemoval()
+    {
+        return $this->useAutomaticBackgroundRemoval;
+    }
+
+    /**
+     * @param bool $useAutomaticBackgroundRemoval
+     */
+    public function setUseAutomaticBackgroundRemoval(bool $useAutomaticBackgroundRemoval): void
+    {
+        $this->useAutomaticBackgroundRemoval = $useAutomaticBackgroundRemoval;
+    }
+
+    public function getImageTranslateX()
+    {
+        if(!$this->imageTranslateX) { return 0; }
+        return $this->imageTranslateX;
+    }
+
+    public function setImageTranslateX($imageTranslateX): void
+    {
+        $this->imageTranslateX = $imageTranslateX;
+    }
+
+    public function getImageTranslateY()
+    {
+        if(!$this->imageTranslateY) { return 0; }
+        return $this->imageTranslateY;
+    }
+
+    public function setImageTranslateY($imageTranslateY): void
+    {
+        $this->imageTranslateY = $imageTranslateY;
+    }
+
+    /**
+     * @return float
+     */
+    public function getImageScale()
+    {
+        if(!$this->imageScale) { return 1; }
+        return $this->imageScale;
+    }
+
+    /**
+     * @param float $imageScale
+     */
+    public function setImageScale(float $imageScale): void
+    {
+        $this->imageScale = $imageScale;
     }
 }

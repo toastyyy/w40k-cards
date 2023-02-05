@@ -40,8 +40,13 @@ class CardSerializer implements CardSerializerInterface
             'quote' => $card->getQuote(),
             'borderColor' => $card->getBorderColor(),
             'textColor' => $card->getTextColor(),
-            'keywords' => $card->getKeywords()
+            'keywords' => $card->getKeywords(),
+            'useAutomaticBackgroundRemoval' => $card->isUseAutomaticBackgroundRemoval(),
+            'imageTranslateX' => $card->getImageTranslateX(),
+            'imageTranslateY' => $card->getImageTranslateY(),
+            'imageScale' => $card->getImageScale()
         ];
+
         foreach($card->getProperties() as $prop) {
             $serialized[$prop->getPropertyKey()] = $prop->getPropertyValue();
         }
@@ -102,6 +107,10 @@ class CardSerializer implements CardSerializerInterface
             $card->setTitle($data->title ?? $card->getTitle());
             $card->setSubtitle($data->subtitle ?? $card->getSubtitle());
             $card->setQuote($data->quote ?? $card->getQuote());
+            $card->setUseAutomaticBackgroundRemoval(isset($data->useAutomaticBackgroundRemoval) ? $data->useAutomaticBackgroundRemoval : $card->isUseAutomaticBackgroundRemoval());
+            $card->setImageTranslateX(isset($data->imageTranslateX) ? $data->imageTranslateX : $card->getImageTranslateX());
+            $card->setImageTranslateY(isset($data->imageTranslateY) ? $data->imageTranslateY : $card->getImageTranslateY());
+            $card->setImageScale(isset($data->imageScale) ? $data->imageScale : $card->getImageScale());
 
             if(isset($data->unitImage)) {
                 $card->setUnitImage($this->mediumSerializer->deserialize($data->unitImage));

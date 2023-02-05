@@ -21,6 +21,12 @@ services:
     image: paralect/pdf-service
     networks:
       - w40k
+  background-remover:
+    container_name: w-40k-bg-remover
+    build:
+      context: ./docker/rembg
+    networks:
+      - w40k
   php:
     container_name: w40k-php
     build:

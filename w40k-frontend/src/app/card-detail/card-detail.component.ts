@@ -113,7 +113,11 @@ export class CardDetailComponent implements OnInit {
       .replace(/var\(--text-color\)/gm, this.cardSubject.getValue().textColor)
       ;
 
-    this.cardService.generatePdf(fullHtml);
+    this.cardService.generatePdf(fullHtml).subscribe(result => {
+      this.downloadingSubject.next(false);
+    }, error => {
+      this.downloadingSubject.next(false);
+    });
   }
 
   public addUnit() {

@@ -23,6 +23,11 @@ class Medium {
     private $file;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $knockedOutBgFile;
+
+    /**
      * @ORM\Column(type="string", name="filetype", length=50, nullable=true)
      */
     private $type;
@@ -63,5 +68,21 @@ class Medium {
 
     public function setSize($size) {
         $this->size = $size;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKnockedOutBgFile()
+    {
+        return $this->knockedOutBgFile;
+    }
+
+    /**
+     * @param mixed $knockedOutBgFile
+     */
+    public function setKnockedOutBgFile($knockedOutBgFile): void
+    {
+        $this->knockedOutBgFile = $knockedOutBgFile;
     }
 }

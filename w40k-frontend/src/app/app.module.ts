@@ -21,6 +21,9 @@ import { MediumComponent } from './medium/medium.component';
 import { MatIconModule } from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatRippleModule} from "@angular/material/core";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSliderModule} from "@angular/material/slider";
 
 @NgModule({
   declarations: [
@@ -48,6 +51,9 @@ import {MatSidenavModule} from "@angular/material/sidenav";
         MatIconModule,
         MatExpansionModule,
         MatSidenavModule,
+        MatRippleModule,
+        MatCheckboxModule,
+        MatSliderModule,
     ],
   providers: [
     { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
