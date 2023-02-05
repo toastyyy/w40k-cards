@@ -19,8 +19,6 @@ services:
       - w40k
   pdf-service:
     image: paralect/pdf-service
-    ports:
-      - "4444:3000"
     networks:
       - w40k
   php:
