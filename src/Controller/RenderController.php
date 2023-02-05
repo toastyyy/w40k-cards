@@ -19,6 +19,9 @@ class RenderController extends AbstractController
         if($data && isset($data->content)) {
             $content = $data->content;
             $content = str_replace('<link rel="stylesheet" href="styles.', '<link rel="stylesheet" href="'. $this->getParameter('frontend_url') . '/styles.', $content);
+            $re = '/style\="--base-size:([^"])+"/m';
+            $subst = "style=\"--base-size:50px;\"";
+            $content = preg_replace($re, $subst, $content);
             $filename = $pdf->createPdf($content, null);
             return new BinaryFileResponse($filename);
         }
