@@ -528,6 +528,7 @@ class Card
      */
     public function isUseAutomaticBackgroundRemoval()
     {
+        if($this->useAutomaticBackgroundRemoval === null) { return false; }
         return $this->useAutomaticBackgroundRemoval;
     }
 
