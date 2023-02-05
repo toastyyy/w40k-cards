@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import CardModel from 'src/models/card.model';
 import CardService from 'src/service/card.service';
 import { skip, debounceTime } from 'rxjs/operators';
@@ -32,6 +32,8 @@ export class CardDetailComponent implements OnInit {
   private savingSubject = new BehaviorSubject<boolean>(false);
   public saving$ = this.savingSubject.asObservable();
   public size;
+
+  private saveSubscription: Subscription;
 
   constructor(private router: Router, private route: ActivatedRoute, private cardService: CardService, private snackBar: MatSnackBar) { }
 
@@ -74,12 +76,10 @@ export class CardDetailComponent implements OnInit {
   }
 
   saveChanges() {
-      if(this.savingSubject.getValue()) {
-        return;
-      }
-      this.savingSubject.next(true);
-      this.cardService.update(this.cardSubject.getValue()).subscribe(result => {
+      if(this.saveSubscription) { this.saveSubscription.unsubscribe(); }
+      this.saveSubscription = this.cardService.update(this.cardSubject.getValue()).subscribe(result => {
           this.snackBar.open('Änderungen gespeichert', null, { duration: 2000 });
+          this.cardSubject.next(result as any);
           this.savingSubject.next(false);
       }, error => {
           this.snackBar.open('Fehler beim Speichern', null, { duration: 2000 });
