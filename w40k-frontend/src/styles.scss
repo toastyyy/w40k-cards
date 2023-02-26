@@ -58,26 +58,59 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       height: 14.8em;
       border-radius: .25em;
       line-height: .35em;
-      background-image: url(/assets/blank-page.jpg);
+
+      &.basic-light {
+        background-image: url(/assets/basic-light.jpg);
+      }
+      &.basic-dark {
+        background-image: url(/assets/basic-dark.jpg);
+      }
+      &.skull-dark {
+        background-image: url(/assets/skull-dark.png);
+      }
+      &.skull-light {
+        background-image: url(/assets/skull-light.png);
+      }
+      &.imperium-light {
+        background-image: url(/assets/imperium-light.png);
+      }
+      &.imperium-dark {
+        background-image: url(/assets/imperium-dark.png);
+      }
+      &.artwork1-light {
+        background-image: url(/assets/artwork1-light.jpg);
+      }
+      &.artwork1-dark {
+        background-image: url(/assets/artwork1-dark.jpg);
+      }
+      background-size: cover;
       position: relative;
       overflow: hidden;
 
-      .card-ribbon {
-        position: absolute;
-        left: 1em;
-        top: 0;
-        bottom: 0;
-        width: 5em;
-        background: url("/assets/ribbon.png");
-        background-size: 100% auto;
-        background-position: bottom;
+      &.aos {
+        .card-ribbon {
+          --saturation: 100%;
+          --brightness: 100%;
+          --hue: 0deg;
+          position: absolute;
+          left: 1em;
+          top: 0;
+          bottom: 0;
+          width: 5em;
+          background: url("/assets/ribbon.png");
+          background-size: 100% auto;
+          background-position: bottom;
+          //filter: saturate(var(--saturation)) brightness(var(--brightness)) hue-rotate(var(--hue));
+        }
       }
+
 
       .card-image {
         position: absolute;
         top: 4em;
         width: 5.525em;
         height: 8.5em;
+        z-index: 4;
         left: 0;
         background-size: cover;
         background-position: top left;
@@ -172,6 +205,74 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
         .wounds {
           display: block;
+          position: absolute;
+          top: 1.825em;
+          left: 1.125em;
+          font-family: "Figural Std", serif;
+          font-weight: 700;
+          width: .875em;
+          text-align: center;
+          span {
+            font-size: .6em;
+          }
+        }
+        .weapon-skill {
+          display: none;
+          position: absolute;
+          top: 1.825em;
+          left: 1.125em;
+          font-family: "Figural Std", serif;
+          font-weight: 700;
+          width: .875em;
+          text-align: center;
+          span {
+            font-size: .6em;
+          }
+        }
+
+        .strength {
+          display: none;
+          position: absolute;
+          top: 1.825em;
+          left: 1.125em;
+          font-family: "Figural Std", serif;
+          font-weight: 700;
+          width: .875em;
+          text-align: center;
+          span {
+            font-size: .6em;
+          }
+        }
+
+        .toughness {
+          display: none;
+          position: absolute;
+          top: 1.825em;
+          left: 1.125em;
+          font-family: "Figural Std", serif;
+          font-weight: 700;
+          width: .875em;
+          text-align: center;
+          span {
+            font-size: .6em;
+          }
+        }
+        .attacks {
+          display: none;
+          position: absolute;
+          top: 1.825em;
+          left: 1.125em;
+          font-family: "Figural Std", serif;
+          font-weight: 700;
+          width: .875em;
+          text-align: center;
+          span {
+            font-size: .6em;
+          }
+        }
+
+        .ballistic-skill {
+          display: none;
           position: absolute;
           top: 1.825em;
           left: 1.125em;
@@ -289,20 +390,166 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         }
       }
 
+      &.w40k {
+        .card-content {
+          left: 7.75em;
+          width: 12.75em;
+        }
+
+        .card-keywords {
+          left: 7.75em;
+          width: 12.75em;
+        }
+
+        .card-image {
+          width: 6em;
+          height: 11em;
+          top: 1em;
+        }
+        .card-ribbon {
+          --saturation: 100%;
+          --brightness: 100%;
+          --hue: 0deg;
+          position: absolute;
+          left: .5em;
+          top: 0;
+          bottom: 0;
+          width: 7em;
+          background: url("/assets/w40k-ribbon.png");
+          background-size: 100% auto;
+          background-position: bottom;
+          //filter: saturate(var(--saturation)) brightness(var(--brightness)) hue-rotate(var(--hue));
+        }
+
+        .card-unit-basic-info {
+          position: absolute;
+          left: 5.5em;
+          width: 1.5em;
+          height: 8em;
+          top: .875em;
+          background-image: none;
+          color: #fff;
+          font-family: MinionPro, serif;
+          .movement {
+              text-align: left;
+              left: .75em;
+              top: .25em;
+              span {
+                font-size: .375em;
+              }
+          }
+          .weapon-skill {
+            display: block;
+            text-align: left;
+            left: .75em;
+            top: 1.125em;
+            span {
+              font-size: .375em;
+            }
+          }
+          .ballistic-skill {
+            display: block;
+            text-align: left;
+            left: .75em;
+            top: 2em;
+            span {
+              font-size: .375em;
+            }
+          }
+          .strength {
+            display: block;
+            text-align: left;
+            left: .75em;
+            top: 2.875em;
+            span {
+              font-size: .375em;
+            }
+          }
+
+          .toughness {
+            display: block;
+            text-align: left;
+            left: .75em;
+            top: 3.7em;
+            span {
+              font-size: .375em;
+            }
+          }
+
+          .wounds {
+            text-align: left;
+            left: .75em;
+            top: 4.575em;
+            span {
+              font-size: .375em;
+            }
+          }
+
+          .attacks {
+            display: block;
+            text-align: left;
+            left: .75em;
+            top: 5.45em;
+            span {
+              font-size: .375em;
+            }
+          }
+
+          .leadership {
+            display: block;
+            text-align: left;
+            left: .75em;
+            top: 6.275em;
+            span {
+              font-size: .375em;
+            }
+          }
+          .save {
+            display: block;
+            text-align: left;
+            left: .75em;
+            top: 7.175em;
+            span {
+              font-size: .375em;
+            }
+          }
+        }
+
+        .card-unit-name-chain {
+          display: none;
+        }
+
+        .card-unit-name-box {
+          display: none;
+        }
+
+        .card-unit-quote-wrapper {
+          left: 2.5em;
+          text-align: left;
+          width: 3em;
+          bottom: 1em;
+          &>div {
+            font-size: .275em;
+          }
+        }
+      }
+
       .card-keywords {
+        --keyword-color: #ac8947;
         bottom: .25em;
         left: 6em;
         width: 14.5em;
         background: #fff;
-        border: 2px solid #ac8947;
+        border: 2px solid var(--keyword-color);
         position: absolute;
         height: 1.25em;
         text-align: left;
         padding-left: 2em;
-        line-height: .2em;
+        line-height: .01em;
         &>span {
 
-          font-size: .25em;
+          font-size: .225em;
+
           font-family: MinionPro, serif;
           font-weight: 700;
           text-transform: uppercase;
@@ -311,11 +558,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         &::before {
           content: '';
           position: absolute;
-          top: 0;
+          top: -1px;
           left: 0;
-          bottom: 0;
+          bottom: -1px;
           padding: 0 .5em;
-          background: #ac8947;
+          background: var(--keyword-color);
           color: rgba(0,0,0, 0.8);
           width: 1.875em;
         }

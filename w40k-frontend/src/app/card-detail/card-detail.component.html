@@ -47,18 +47,17 @@
                       </div>
                       <div class="w-full p-2">
                         Bild Verschiebung X-Achse
-                        <mat-slider (ngModelChange)="changed()" [(ngModel)]="card.imageTranslateX" [min]="-3" [max]="3" [step]="0.01"></mat-slider>
+                        <mat-slider class="w-full" (input)="card.imageTranslateX = $event.value; changed()" [value]="card.imageTranslateX" [min]="-3" [max]="3" [step]="0.01"></mat-slider>
                       </div>
                       <div class="w-full p-2">
                         Bild Verschiebung Y-Achse
-                        <mat-slider (ngModelChange)="changed()" [(ngModel)]="card.imageTranslateY" [min]="-3" [max]="3" [step]="0.01"></mat-slider>
+                        <mat-slider class="w-full" (input)="card.imageTranslateY = $event.value; changed()" [value]="card.imageTranslateY" [min]="-3" [max]="3" [step]="0.01"></mat-slider>
                       </div>
                       <div class="w-full p-2">
                         Bild Skalierung
-                        <mat-slider (ngModelChange)="changed()" [(ngModel)]="card.imageScale" [min]="0.1" [max]="2" [step]="0.01"></mat-slider>
+                        <mat-slider class="w-full" (input)="card.imageScale = $event.value; changed()" [value]="card.imageScale" [min]="0.1" [max]="2" [step]="0.01"></mat-slider>
                       </div>
                     </div>
-
                 </div>
             </mat-tab>
             <mat-tab label="Einheiten">
@@ -110,6 +109,12 @@
                                         <mat-label>A</mat-label>
                                         <input matInput type="text" [(ngModel)]="unit.attacks" (ngModelChange)="changed()" />
                                     </mat-form-field>
+                                </div>
+                                <div class="w-1/4 px-2">
+                                  <mat-form-field class="w-full">
+                                    <mat-label>Wounds</mat-label>
+                                    <input matInput type="text" [(ngModel)]="unit.wounds" (ngModelChange)="changed()" />
+                                  </mat-form-field>
                                 </div>
                                 <div class="w-1/4 px-2">
                                     <mat-form-field class="w-full">
@@ -307,6 +312,125 @@
                     </mat-expansion-panel>
                 </mat-accordion>
             </mat-tab>
+          <mat-tab label="Design">
+            <div class="flex flex-wrap">
+              <div class="w-full p-2">
+                <div class="bg-white rounded-lg shadow-lg p-3 border-b-2 border-gray-200">
+                  <div class="text-lg font-bold px-2">Ribbon-Farbeinstellungen</div>
+                  <div class="w-full p-2">
+                    Helligkeit
+                    <mat-slider class="w-full" (input)="card.color1lightness = $event.value; changed()" [value]="card.color1lightness" [min]="0" [max]="300" [step]="1"></mat-slider>
+                  </div>
+                  <div class="w-full p-2">
+                    Sättigung
+                    <mat-slider class="w-full" (input)="card.color1saturation = $event.value; changed()" [value]="card.color1saturation" [min]="0" [max]="500" [step]="1"></mat-slider>
+                  </div>
+                  <div class="w-full p-2">
+                    Farbton
+                    <mat-slider class="w-full" (input)="card.color1hue = $event.value; changed()" [value]="card.color1hue" [min]="0" [max]="360" [step]="1"></mat-slider>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-full p-2">
+              <div class="p-3 bg-white rounded-lg shadow-lg border-b-2 border-gray-200">
+
+                <div class="flex flex-wrap -mx-2">
+                  <div class="w-full text-lg font-bold px-2">Farben</div>
+                  <div class="w-full lg:w-1/3 px-2">
+                    <mat-form-field class="w-full">
+                      <mat-label>Farbe 1</mat-label>
+                      <input type="color" matInput [(ngModel)]="card.textColor1" (ngModelChange)="changed()" />
+                    </mat-form-field>
+                  </div>
+                  <div class="w-full lg:w-1/3 px-2">
+                    <mat-form-field class="w-full">
+                      <mat-label>Farbe 2</mat-label>
+                      <input type="color" matInput [(ngModel)]="card.textColor2" (ngModelChange)="changed()" />
+                    </mat-form-field>
+                  </div>
+                  <div class="w-full lg:w-1/3 px-2">
+                    <mat-form-field class="w-full">
+                      <mat-label>Farbe 3</mat-label>
+                      <input type="color" matInput [(ngModel)]="card.textColor3" (ngModelChange)="changed()" />
+                    </mat-form-field>
+                  </div>
+                  <div class="w-full lg:w-1/3 px-2">
+                    <mat-form-field class="w-full">
+                      <mat-label>Farbe 4</mat-label>
+                      <input type="color" matInput [(ngModel)]="card.textColor4" (ngModelChange)="changed()" />
+                    </mat-form-field>
+                  </div>
+                  <div class="w-full lg:w-1/3 px-2">
+                    <mat-form-field class="w-full">
+                      <mat-label>Farbe 5</mat-label>
+                      <input type="color" matInput [(ngModel)]="card.bgColor1" (ngModelChange)="changed()" />
+                    </mat-form-field>
+                  </div>
+                  <div class="w-full lg:w-1/3 px-2">
+                    <mat-form-field class="w-full">
+                      <mat-label>Farbe 6</mat-label>
+                      <input type="color" matInput [(ngModel)]="card.bgColor2" (ngModelChange)="changed()" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-full p-2">
+              <div class="p-3 bg-white rounded-lg shadow-lg border-b-2 border-gray-200">
+                <div class="flex flex-wrap -mx-2">
+                  <div class="w-full text-lg font-bold px-2">Hintergrund</div>
+                  <div class="w-full lg:w-1/3 px-2">
+                    <mat-form-field class="w-full">
+                      <mat-label>Hintergrundbild</mat-label>
+                      <mat-select [(ngModel)]="card.bgStyle" (ngModelChange)="changed()">
+                        <mat-option value="basic-light">Basis (hell)</mat-option>
+                        <mat-option value="basic-dark">Basis (dunkel)</mat-option>
+                        <mat-option value="skull-light">Totenkopf (hell)</mat-option>
+                        <mat-option value="skull-dark">Totenkopf (dunkel)</mat-option>
+                        <mat-option value="imperium-light">Imperium (hell)</mat-option>
+                        <mat-option value="imperium-dark">Imperium (dunkel)</mat-option>
+                        <mat-option value="artwork1-light">Artwork 1 (hell)</mat-option>
+                        <mat-option value="artwork1-dark">Artwork 1 (dunkel)</mat-option>
+                        <mat-option value="custom">Angepasst</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="w-full lg:w-1/3 px-2" *ngIf="card.bgStyle == 'custom'">
+                    <mat-label>Hintergrundbild</mat-label>
+                    <app-medium (changed)="card.backgroundImage = $event;changed()" [medium]="card.backgroundImage"></app-medium>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-full p-2">
+              <div class="p-3 bg-white rounded-lg shadow-lg border-b-2 border-gray-200">
+                <div class="flex flex-wrap -mx-2">
+                  <div class="w-full text-lg font-bold px-2">KPI-Stil</div>
+                  <div class="w-full lg:w-1/3 px-2">
+                    <mat-form-field class="w-full">
+                      <mat-label>Karten-Stil</mat-label>
+                      <mat-select [(ngModel)]="card.kpiStyle" (ngModelChange)="changed()">
+                        <mat-option value="aos">Age of Sigmar</mat-option>
+                        <mat-option value="w40k">Warhammer 40k</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="w-full lg:w-1/3 px-2" *ngIf="card.bgStyle == 'custom'">
+                    <mat-label>Hintergrundbild</mat-label>
+                    <app-medium (changed)="card.backgroundImage = $event;changed()" [medium]="card.backgroundImage"></app-medium>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="font-bold py-2 text-blue-500 px-4 hover:underline cursor-pointer" (click)="applyStyle()">
+              Stil auf alle Karten im Roster anwenden
+            </div>
+          </mat-tab>
         </mat-tab-group>
         <div class="p-4">
             <div (click)="delete()" class="py-2 px-4 inline-block bg-red-500 text-white font-bold rounded cursor-pointer hover:bg-red-600">

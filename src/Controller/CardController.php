@@ -16,6 +16,49 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CardController extends AbstractController
 {
+
+    /**
+     * @Route("/{id}/apply-style", methods={"POST"}, name="apply_style")
+     */
+    public function applyStyle(Request $request, $id) {
+        $card = $this->getDoctrine()->getRepository(Card::class)->find($id);
+        if($card) {
+            /* @var $card Card */
+            foreach($card->getRoster()->getCards() as $c) {
+                $c->setBgColor1($card->getBgColor1());
+                $c->setBgColor2($card->getBgColor2());
+                $c->setTextColor1($card->getTextColor1());
+                $c->setTextColor2($card->getTextColor2());
+                $c->setTextColor3($card->getTextColor3());
+                $c->setTextColor4($card->getTextColor4());
+                $c->setBgStyle($card->getBgStyle());
+                $c->setBackgroundImage($card->getBackgroundImage());
+                $c->setColor1lightness($card->getColor1lightness());
+                $c->setColor1saturation($card->getColor1saturation());
+                $c->setColor1hue($card->getColor1hue());
+                $c->setKpiStyle($card->getKpiStyle());
+            }
+            $this->getDoctrine()->getManager()->flush();
+            return new JsonResponse(null, 204);
+        }
+        return new JsonResponse(null, 404);
+    }
+
+    /**
+     * @Route("/{id}/clone", methods={"POST"}, name="clone")
+     */
+    public function cloneCard(CardSerializerInterface $cardSerializer, $id) {
+        $card = $this->getDoctrine()->getRepository(Card::class)->find($id);
+        if($card) {
+            /* @var $card Card */
+            $newCard = clone $card;
+            $this->getDoctrine()->getManager()->persist($newCard);
+            $this->getDoctrine()->getManager()->flush();
+            return new JsonResponse($cardSerializer->serialize($newCard, 'show'));
+        }
+        return new JsonResponse(null, 404);
+    }
+    
     /**
      * @Route("/{id}", name="show", methods={"GET"})
      */
@@ -66,4 +109,5 @@ class CardController extends AbstractController
         }
         return new JsonResponse(null, 404);
     }
+
 }

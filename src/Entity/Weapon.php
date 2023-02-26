@@ -71,10 +71,6 @@ class Weapon {
         return $this->id;
     }
 
-    public function getUnit() {
-        return $this->unit;
-    }
-
     public function getName() {
         return $this->name;
     }
@@ -146,5 +142,10 @@ class Weapon {
 
     public function setCard($card) {
         $this->card = $card;
+    }
+
+    public function __clone()
+    {
+        $this->id = Uuid::uuid4();
     }
 }

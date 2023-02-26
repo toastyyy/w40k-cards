@@ -24,6 +24,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatRippleModule} from "@angular/material/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSliderModule} from "@angular/material/slider";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {MatSliderModule} from "@angular/material/slider";
         MatRippleModule,
         MatCheckboxModule,
         MatSliderModule,
+        MatSelectModule,
     ],
   providers: [
     { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }

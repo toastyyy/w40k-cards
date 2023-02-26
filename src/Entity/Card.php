@@ -86,7 +86,7 @@ class Card
     private $factionLogo;
 
     /**
-     *@ORM\ManyToOne(targetEntity=Medium::class, cascade={"ALL"})
+     *@ORM\ManyToOne(targetEntity=Medium::class, cascade={"PERSIST"})
      */
     private $backgroundImage;
 
@@ -135,6 +135,67 @@ class Card
      */
     private $imageScale;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $color1hue;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $color1lightness;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $color1saturation;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $textColor1;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $textColor2;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $textColor3;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $textColor4;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $bgColor1;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $bgColor2;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $bgStyle;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Model::class, mappedBy="card", orphanRemoval=true)
+     */
+    private $models;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $kpiStyle;
+
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
@@ -150,6 +211,19 @@ class Card
         $this->imageTranslateX = 0.0;
         $this->imageTranslateY = 0.0;
         $this->imageScale = 0.0;
+        $this->points = 0;
+        $this->color1saturation = 100;
+        $this->color1lightness = 100;
+        $this->color1hue = 0;
+        $this->textColor1 = '#000000';
+        $this->textColor2 = '#000000';
+        $this->textColor3 = '#000000';
+        $this->textColor4 = '#000000';
+        $this->bgColor1 = '#ddd';
+        $this->bgColor2 = '#ac8947';
+        $this->bgStyle = 'default';
+        $this->kpiStyle = 'aos';
+        $this->models = new ArrayCollection();
     }
 
     /**
@@ -281,13 +355,13 @@ class Card
         foreach($this->abilities as $ability) {
             if(!$abilities->contains($ability)) {
                 $this->abilities->removeElement($ability);
-                $ability->setUnit(null);
+                $ability->setCard(null);
             }
         }
         foreach($abilities as $ability) {
             if(!$this->abilities->contains($ability)) {
                 $this->abilities->add($ability);
-                $ability->setUnit($this);
+                $ability->setCard($this);
             }
         }
     }
@@ -577,5 +651,289 @@ class Card
     public function setImageScale(float $imageScale): void
     {
         $this->imageScale = $imageScale;
+    }
+
+    /**
+     * @return int
+     */
+    public function getColor1hue(): int
+    {
+        if($this->color1hue === null) { return 0; }
+        return $this->color1hue;
+    }
+
+    /**
+     * @param int $color1hue
+     */
+    public function setColor1hue(int $color1hue): void
+    {
+        $this->color1hue = $color1hue;
+    }
+
+    /**
+     * @return int
+     */
+    public function getColor1lightness(): int
+    {
+        if($this->color1lightness === null) { return 100; }
+        return $this->color1lightness;
+    }
+
+    /**
+     * @param int $color1lightness
+     */
+    public function setColor1lightness(int $color1lightness): void
+    {
+        $this->color1lightness = $color1lightness;
+    }
+
+    /**
+     * @return int
+     */
+    public function getColor1saturation(): int
+    {
+        if($this->color1saturation === null) { return 100; }
+        return $this->color1saturation;
+    }
+
+    /**
+     * @param int $color1saturation
+     */
+    public function setColor1saturation(int $color1saturation): void
+    {
+        $this->color1saturation = $color1saturation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTextColor1(): string
+    {
+        if($this->textColor1 === null) { return '#000000'; }
+        return $this->textColor1;
+    }
+
+    /**
+     * @param string $textColor1
+     */
+    public function setTextColor1(string $textColor1): void
+    {
+        $this->textColor1 = $textColor1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTextColor2(): string
+    {
+        if($this->textColor2 === null) { return '#000000'; }
+        return $this->textColor2;
+    }
+
+    /**
+     * @param string $textColor2
+     */
+    public function setTextColor2(string $textColor2): void
+    {
+        $this->textColor2 = $textColor2;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTextColor3(): string
+    {
+        if($this->textColor3 === null) { return '#000000'; }
+        return $this->textColor3;
+    }
+
+    /**
+     * @param string $textColor3
+     */
+    public function setTextColor3(string $textColor3): void
+    {
+        $this->textColor3 = $textColor3;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTextColor4(): string
+    {
+        if($this->textColor4 === null) { return '#000000'; }
+        return $this->textColor4;
+    }
+
+    /**
+     * @param string $textColor4
+     */
+    public function setTextColor4(string $textColor4): void
+    {
+        $this->textColor4 = $textColor4;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBgColor1(): string
+    {
+        if($this->bgColor1 === null) { return '#ac8947'; }
+        return $this->bgColor1;
+    }
+
+    /**
+     * @param string $bgColor1
+     */
+    public function setBgColor1(string $bgColor1): void
+    {
+        $this->bgColor1 = $bgColor1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBgColor2(): string
+    {
+        if($this->bgColor2 === null) { return '#dddddd'; }
+        return $this->bgColor2;
+    }
+
+    /**
+     * @param string $bgColor2
+     */
+    public function setBgColor2(string $bgColor2): void
+    {
+        $this->bgColor2 = $bgColor2;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBgStyle(): string
+    {
+        if($this->bgStyle === null) { return 'basic-light'; }
+        return $this->bgStyle;
+    }
+
+    /**
+     * @param string $bgStyle
+     */
+    public function setBgStyle(string $bgStyle): void
+    {
+        $this->bgStyle = $bgStyle;
+    }
+
+    /**
+     * @return Collection<int, Model>
+     */
+    public function getModels(): Collection
+    {
+        return $this->models;
+    }
+
+    public function addModel(Model $model): self
+    {
+        if (!$this->models->contains($model)) {
+            $this->models[] = $model;
+            $model->setCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModel(Model $model): self
+    {
+        if ($this->models->removeElement($model)) {
+            // set the owning side to null (unless already changed)
+            if ($model->getCard() === $this) {
+                $model->setCard(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __clone()
+    {
+        $this->id = Uuid::uuid4();
+        $units = new ArrayCollection();
+        foreach($this->getUnits() as $u) {
+            $nu = clone $u;
+            $nu->setCard($this);
+            $units->add($nu);
+        }
+        $this->units = $units;
+        $abilities = new ArrayCollection();
+        foreach($this->getAbilities() as $a) {
+            $na = clone $a;
+            $na->setCard($this);
+            $abilities->add($na);
+        }
+        $this->abilities = $abilities;
+
+        $properties = new ArrayCollection();
+        foreach($this->getProperties() as $p) {
+            $np = clone $p;
+            $np->setCard($this);
+            $properties->add($np);
+        }
+        $this->properties = $properties;
+
+        $weapons = new ArrayCollection();
+        foreach($this->getWeapons() as $w) {
+            $nw = clone $w;
+            $nw->setCard($this);
+            $weapons->add($nw);
+        }
+        $this->weapons = $weapons;
+
+        $psykers = new ArrayCollection();
+        foreach($this->getPsykers() as $p) {
+            $np = clone $p;
+            $np->setCard($this);
+            $psykers->add($np);
+        }
+        $this->psykers = $psykers;
+
+        $powers = new ArrayCollection();
+        foreach($this->getPsychicPowers() as $pp) {
+            $npp = clone $pp;
+            $npp->setCard($this);
+            $powers->add($npp);
+        }
+        $this->psychicPowers = $powers;
+
+        $models = new ArrayCollection();
+        foreach($this->getModels() as $m) {
+            $nm = clone $m;
+            $nm->setCard($this);
+            $models->add($nm);
+        }
+        $this->models = $models;
+
+        $explosions = new ArrayCollection();
+        foreach ($this->getExplosions() as $e) {
+            $ne = clone $e;
+            $ne->setCard($this);
+            $explosions->add($ne);
+        }
+        $this->explosions = $explosions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKpiStyle(): string
+    {
+        if(!$this->kpiStyle) { return 'aos'; }
+        return $this->kpiStyle;
+    }
+
+    /**
+     * @param string $kpiStyle
+     */
+    public function setKpiStyle(string $kpiStyle): void
+    {
+        $this->kpiStyle = $kpiStyle;
     }
 }

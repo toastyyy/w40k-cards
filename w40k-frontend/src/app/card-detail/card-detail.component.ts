@@ -8,6 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import UnitModel from "../../models/unit.model";
 import WeaponModel from "../../models/weapon.model";
 import AbilityModel from "../../models/ability.model";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../dialogs/confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-card-detail',
@@ -35,7 +37,7 @@ export class CardDetailComponent implements OnInit {
 
   private saveSubscription: Subscription;
 
-  constructor(private router: Router, private route: ActivatedRoute, private cardService: CardService, private snackBar: MatSnackBar) { }
+  constructor(private router: Router, private route: ActivatedRoute, private cardService: CardService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.recalculateCardSize();
@@ -79,7 +81,7 @@ export class CardDetailComponent implements OnInit {
       if(this.saveSubscription) { this.saveSubscription.unsubscribe(); }
       this.saveSubscription = this.cardService.update(this.cardSubject.getValue()).subscribe(result => {
           this.snackBar.open('Änderungen gespeichert', null, { duration: 2000 });
-          this.cardSubject.next(result as any);
+          //this.cardSubject.next(result as any);
           this.savingSubject.next(false);
       }, error => {
           this.snackBar.open('Fehler beim Speichern', null, { duration: 2000 });
@@ -92,6 +94,27 @@ export class CardDetailComponent implements OnInit {
       if(result) {
           this.snackBar.open('Karte entfernt', null, { duration: 2000 });
           this.router.navigate(['roster', this.rosterId]);
+      }
+    });
+  }
+
+  public applyStyle() {
+    let dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Stil anwenden?',
+        text: 'Damit werden vorhandene Stileinstellungen im Roster unwiderruflich überschrieben. Fortfahren?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.cardService.applyStyle(this.cardSubject.getValue().id).subscribe(r => {
+            if(r) {
+              this.snackBar.open('Stil übernommen', null, { duration: 3000 });
+            } else {
+              this.snackBar.open('Ein Fehler ist aufgetreten', null, { duration: 3000 });
+            }
+        });
       }
     });
   }

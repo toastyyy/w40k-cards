@@ -1,6 +1,7 @@
 <div #cardCrwapper class="card-wrapper unit-basic" [style.--base-size]="size + 'px'">
-  <div class="card">
-    <div class="card-ribbon"></div>
+  <div class="card" [ngClass]="card.bgStyle + ' ' + card.kpiStyle" [style.background-image]="card.bgStyle == 'custom' ?  ('url(' + card.backgroundImage?.file + ')') : null">
+    '
+    <div class="card-ribbon" [style.filter]="bypassSecurityStyle('saturate(' + card.color1saturation + '%) brightness(' + card.color1lightness + '%) hue-rotate(' + card.color1hue + 'deg)')"></div>
     <div class="card-image" [style.background-position]="'left ' + card.imageTranslateX + 'em top ' + card.imageTranslateY + 'em'" [style.background-size]="(card.imageScale * 100) + '% auto'" [style.background-image]="'url(' + (card.useAutomaticBackgroundRemoval ? card.unitImage?.knockedOutBgFile : card.unitImage?.file) + ')'"></div>
 
     <div class="card-unit-basic-info" *ngIf="card.units.length > 0">
@@ -8,14 +9,19 @@
       <div class="wounds"><span>{{ card.units[0].wounds }}</span></div>
       <div class="save"><span>{{ card.units[0].save }}</span></div>
       <div class="leadership"><span>{{ card.units[0].leadership }}</span></div>
+      <div class="ballistic-skill"><span>{{ card.units[0].ballisticSkill }}</span></div>
+      <div class="weapon-skill"><span>{{ card.units[0].weaponSkill }}</span></div>
+      <div class="strength"><span>{{ card.units[0].strength }}</span></div>
+      <div class="toughness"><span>{{ card.units[0].toughness }}</span></div>
+      <div class="attacks"><span>{{ card.units[0].attacks }}</span></div>
     </div>
     <div class="card-unit-quote-wrapper">
-      <div>
+      <div [style.color]="card.textColor1">
         {{ card.quote }}
       </div>
     </div>
-    <div class="card-unit-name-box"></div>
-    <div class="card-unit-name">
+    <div class="card-unit-name-box" [style.filter]="bypassSecurityStyle('saturate(' + card.color1saturation + '%) brightness(' + card.color1lightness + '%) hue-rotate(' + card.color1hue + 'deg)')"></div>
+    <div class="card-unit-name" [style.color]="card.textColor1">
       <span class="title">Warscroll</span>
       <span class="name">{{ card.title }}</span>
       <span class="subtitle">{{ card.subtitle }}</span>
@@ -26,18 +32,18 @@
     <div class="card-content">
       <table *ngIf="card.units.length > 0">
         <thead>
-        <tr>
-          <th>Einheit</th>
-          <th>Geschwindigkeit</th>
-          <th>Attacken</th>
-          <th>Stärke</th>
-          <th>Zähigkeit</th>
-          <th>Rettung</th>
-          <th>Führung</th>
+        <tr [style.color]="card.textColor2">
+          <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Einheit</th>
+          <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Geschwindigkeit</th>
+          <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Attacken</th>
+          <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Stärke</th>
+          <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Zähigkeit</th>
+          <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Rettung</th>
+          <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Führung</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let unit of card.units">
+        <tr *ngFor="let unit of card.units" [style.color]="card.textColor3">
           <td>{{ unit.name }}</td>
           <td>{{ unit.movementSpeed }}"</td>
           <td>{{ unit.attacks }}</td>
@@ -51,17 +57,17 @@
 
       <table *ngIf="card.weapons.length > 0">
         <thead>
-          <tr>
-            <th>Waffen</th>
-            <th>Reichweite</th>
-            <th>Stärke</th>
-            <th>Durchschlag</th>
-            <th>Schaden</th>
-            <th>Fähigkeit</th>
+          <tr [style.color]="card.textColor2">
+            <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Waffen</th>
+            <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Reichweite</th>
+            <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Stärke</th>
+            <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Durchschlag</th>
+            <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Schaden</th>
+            <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Fähigkeit</th>
           </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let weapon of card.weapons">
+        <tr *ngFor="let weapon of card.weapons" [style.color]="card.textColor3">
           <td>
             {{ weapon.name }}
           </td>
@@ -85,13 +91,13 @@
       </table>
 
       <div class="content-text">
-        <div *ngFor="let ability of card.abilities" class="ability">
+        <div *ngFor="let ability of card.abilities" class="ability" [style.color]="card.textColor3">
           <span class="font-bold">{{ ability.name }}</span>
           {{ ability.description }}
         </div>
       </div>
     </div>
-    <div class="card-keywords">
+    <div class="card-keywords" [style.--keyword-color]="card.bgColor1">
       <span *ngFor="let keyword of card.keywords; let i = index"><span *ngIf="i > 0">,</span> {{ keyword }}</span>
     </div>
   </div>

@@ -5,6 +5,7 @@ namespace App\Service;
 
 
 use App\Entity\Card;
+use App\Entity\Roster;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -44,7 +45,18 @@ class CardSerializer implements CardSerializerInterface
             'useAutomaticBackgroundRemoval' => $card->isUseAutomaticBackgroundRemoval(),
             'imageTranslateX' => $card->getImageTranslateX(),
             'imageTranslateY' => $card->getImageTranslateY(),
-            'imageScale' => $card->getImageScale()
+            'imageScale' => $card->getImageScale(),
+            'color1hue' => $card->getColor1hue(),
+            'color1saturation' => $card->getColor1saturation(),
+            'color1lightness' => $card->getColor1lightness(),
+            'textColor1' => $card->getTextColor1(),
+            'textColor2' => $card->getTextColor2(),
+            'textColor3' => $card->getTextColor3(),
+            'textColor4' => $card->getTextColor4(),
+            'bgColor1' => $card->getBgColor1(),
+            'bgColor2' => $card->getBgColor2(),
+            'bgStyle' => $card->getBgStyle(),
+            'kpiStyle' => $card->getKpiStyle()
         ];
 
         foreach($card->getProperties() as $prop) {
@@ -111,6 +123,17 @@ class CardSerializer implements CardSerializerInterface
             $card->setImageTranslateX(isset($data->imageTranslateX) ? $data->imageTranslateX : $card->getImageTranslateX());
             $card->setImageTranslateY(isset($data->imageTranslateY) ? $data->imageTranslateY : $card->getImageTranslateY());
             $card->setImageScale(isset($data->imageScale) ? $data->imageScale : $card->getImageScale());
+            $card->setColor1hue(isset($data->color1hue) ? $data->color1hue : $card->getColor1hue());
+            $card->setColor1saturation(isset($data->color1saturation) ? $data->color1saturation : $card->getColor1saturation());
+            $card->setColor1lightness(isset($data->color1lightness) ? $data->color1lightness : $card->getColor1lightness());
+            $card->setTextColor1(isset($data->textColor1) ? $data->textColor1 : $card->getTextColor1());
+            $card->setTextColor2(isset($data->textColor2) ? $data->textColor2 : $card->getTextColor2());
+            $card->setTextColor3(isset($data->textColor3) ? $data->textColor3 : $card->getTextColor3());
+            $card->setTextColor4(isset($data->textColor4) ? $data->textColor4 : $card->getTextColor4());
+            $card->setBgColor1(isset($data->bgColor1) ? $data->bgColor1 : $card->getBgColor1());
+            $card->setBgColor2(isset($data->bgColor2) ? $data->bgColor2 : $card->getBgColor2());
+            $card->setBgStyle(isset($data->bgStyle) ? $data->bgStyle : $card->getBgStyle());
+            $card->setKpiStyle(isset($data->kpiStyle) ? $data->kpiStyle : $card->getKpiStyle());
 
             if(isset($data->unitImage)) {
                 $card->setUnitImage($this->mediumSerializer->deserialize($data->unitImage));
@@ -123,6 +146,13 @@ class CardSerializer implements CardSerializerInterface
             }
             if(isset($data->boxBackground)) {
                 $card->setBoxBackground($this->mediumSerializer->deserialize($data->boxBackground));
+            }
+            if(isset($data->roster) && isset($data->roster->id)) {
+                $roster = $this->em->getRepository(Roster::class)
+                    ->find($data->roster->id);
+                if($roster) {
+                    $card->setRoster($roster);
+                }
             }
 
             if(isset($data->units) && is_array($data->units)) {

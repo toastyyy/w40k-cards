@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import CardModel from "../../../models/card.model";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-unit-basic',
@@ -10,7 +11,7 @@ export class UnitBasicComponent implements OnInit, AfterViewInit {
   @Input() card: CardModel;
   @Input() size = 20;
 
-  constructor(private elem: ElementRef) { }
+  constructor(private elem: ElementRef, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
 
@@ -29,6 +30,11 @@ export class UnitBasicComponent implements OnInit, AfterViewInit {
           this.inlineStyles();
         }, 1000);
       }
+  }
+
+  public bypassSecurityStyle(str) {
+    console.log(str);
+    return this.sanitizer.bypassSecurityTrustStyle(str);
   }
 
   private applyStyle(el) {

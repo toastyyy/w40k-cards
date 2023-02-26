@@ -40,4 +40,11 @@ export default class CardService {
       return of(blob);
     }));
   }
+
+  public applyStyle(cardId: string): Observable<boolean> {
+    return this.http.post<any>(environment.apiUrl + '/cards/' + cardId + '/apply-style', {}).pipe(
+      switchMap(_ => of(true)),
+      catchError(_ => of(false))
+    );
+  }
 }

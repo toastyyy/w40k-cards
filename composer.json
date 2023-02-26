@@ -26,6 +26,7 @@
         "ext-json": "*"
     },
     "require-dev": {
+        "symfony/maker-bundle": "^1.39"
     },
     "config": {
         "optimize-autoloader": true,

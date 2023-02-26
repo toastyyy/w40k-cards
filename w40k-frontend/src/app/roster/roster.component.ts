@@ -6,6 +6,7 @@ import RosterModel from "../../models/roster.model";
 import CardModel from 'src/models/card.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CardEditorDialogComponent } from '../dialogs/card-editor-dialog/card-editor-dialog.component';
+import CardService from "../../service/card.service";
 
 @Component({
   selector: 'app-roster',
@@ -19,7 +20,8 @@ export class RosterComponent implements OnInit {
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
-  constructor(private rosterService: RosterService, private route: ActivatedRoute, private dialog: MatDialog, private router: Router) { }
+  constructor(private rosterService: RosterService, private route: ActivatedRoute, private dialog: MatDialog, private router: Router,
+              private cardService: CardService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -34,6 +36,20 @@ export class RosterComponent implements OnInit {
   public editCard(card: CardModel) {
     console.log(['roster', this.rosterSubject.getValue().id, card.id]);
     this.router.navigate(['roster', this.rosterSubject.getValue().id, card.id]);
+  }
+
+  public addCard() {
+    this.cardService.create({
+      title: 'Neue Karte',
+      weapons: [],
+      units: [],
+      abilities: [],
+      roster: {
+        id: this.rosterSubject.getValue().id
+      }
+    }).subscribe(result => {
+      this.editCard(result);
+    });
   }
 
 }

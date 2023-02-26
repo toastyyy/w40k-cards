@@ -85,24 +85,12 @@ class Unit {
 
     public function __construct() {
         $this->id = Uuid::uuid4();
-        $this->characteristics = new ArrayCollection();
     }
 
     public function getId() {
         return $this->id;
     }
 
-    public function getCharacteristics() {
-        return $this->characteristics;
-    }
-
-    public function getPsies() {
-        return $this->psies;
-    }
-
-    public function getExplosions() {
-        return $this->explosions;
-    }
 
     public function getPoints() {
         return $this->points;
@@ -214,5 +202,10 @@ class Unit {
 
     public function setMovementSpeed($speed) {
         $this->movementSpeed = $speed;
+    }
+
+    public function __clone()
+    {
+        $this->id = Uuid::uuid4();
     }
 }

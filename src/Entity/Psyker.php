@@ -104,4 +104,9 @@ class Psyker {
     public function setCard($card) {
         $this->card = $card;
     }
+
+    public function __clone()
+    {
+        $this->id = Uuid::uuid4();
+    }
 }

@@ -1,6 +1,8 @@
 <div mat-dialog-title>{{ title }}</div>
 <div mat-dialog-content>
-  {{ text }}
+  <div class="mb-4">
+    {{ text }}
+  </div>
 
   <button mat-button (click)="confirm()">Bestätigen</button>
   <button color="primary" mat-button (click)="dismiss()">Abbrechen</button>
