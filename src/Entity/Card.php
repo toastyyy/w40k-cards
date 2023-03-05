@@ -77,6 +77,7 @@ class Card
 
      /**
      * @ORM\OneToMany(targetEntity=Unit::class, mappedBy="card", cascade={"ALL"})
+      * @ORM\OrderBy({"name":"ASC"})
      */
     private $units;
 
