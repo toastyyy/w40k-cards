@@ -59,6 +59,7 @@
         <thead>
           <tr [style.color]="card.textColor2">
             <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Waffen</th>
+            <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Typ</th>
             <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Reichweite</th>
             <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Stärke</th>
             <th [style.background-color]="card.bgColor2" [style.color]="card.textColor4">Durchschlag</th>
@@ -70,6 +71,9 @@
         <tr *ngFor="let weapon of card.weapons" [style.color]="card.textColor3">
           <td>
             {{ weapon.name }}
+          </td>
+          <td>
+            {{ weapon.type }}
           </td>
           <td>
             {{ weapon.range }}
