@@ -53,6 +53,42 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --base-size: 20px;
     --bg-color: rgba(255, 0, 0, 0.3);
     font-size: var(--base-size);
+
+  &.card-backside {
+    transform: rotate(180deg);
+  }
+
+  .frontpage-unit-name-wrapper {
+    position: absolute;
+    bottom: 2em;
+    left: 0;
+    right: 0;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 1.4em;
+    color: var(--text-color);
+    font-family: MinionPro, serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+  }
+
+    &.hide-sidebar {
+        .card-ribbon { display: none !important; }
+      .card-image { display: none !important; }
+      .card-content {
+        left: 1em !important;
+        width: 19.5em !important;
+
+        .content-text {
+          height: 40em !important;
+        }
+      }
+      .card-unit-name {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+      }
+    }
     .card {
       width: 21em;
       height: 14.8em;
@@ -344,7 +380,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
           font-size: .25em;
           font-family: "MinionPro";
           font-style: italic;
-          height: 20em;
+          height: 12.5em;
 
           .ability {
             margin-bottom: .5em;
@@ -545,14 +581,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         height: 1.25em;
         text-align: left;
         padding-left: 2em;
-        line-height: .01em;
+        vertical-align: top;
+        padding-top: .25em;
         &>span {
-
+          line-height: 1em;
           font-size: .225em;
-
           font-family: MinionPro, serif;
           font-weight: 700;
           text-transform: uppercase;
+          display: inline-block;
+          float: left;
         }
 
         &::before {

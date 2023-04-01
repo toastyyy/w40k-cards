@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @ORM\Entity
  */
-class Explosion {
+class Explosion implements SelectionInterface {
 
     /**
      * @ORM\Id()

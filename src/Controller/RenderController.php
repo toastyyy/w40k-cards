@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Card;
 use App\Service\PdfService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -12,17 +13,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class RenderController extends AbstractController
 {
     /**
-     * @Route("/render-card", name="render_card")
+     * @Route("/render-card/{id}", name="render_card")
      */
-    public function renderCardHtml(Request $request, PdfService $pdf) {
+    public function renderCardHtml(Request $request, PdfService $pdf, $id) {
         $data = json_decode($request->getContent());
-        if($data && isset($data->content)) {
+        $card = $this->getDoctrine()->getRepository(Card::class)->find($id);
+        if($data && isset($data->content) && $card) {
             $content = $data->content;
             $content = str_replace('<link rel="stylesheet" href="styles.', '<link rel="stylesheet" href="'. $this->getParameter('frontend_url') . '/styles.', $content);
             $re = '/style\="--base-size:([^"])+"/m';
+            $options = [
+                'margin' => ['top' => '0', 'left' => '0', 'right' => '0', 'bottom' => '0'],
+                'scale' => 0.6
+            ];
+            if($card->getBig()) {
+                $options['landscape'] = true;
+                //$options['format'] = 'A4';
+            } else {
+                //$options['format'] = 'A4';
+            }
             $subst = "style=\"--base-size:50px;\"";
             $content = preg_replace($re, $subst, $content);
-            $filename = $pdf->createPdf($content, null);
+
+
+            $filename = $pdf->createPdf($content, null, $options);
             return new BinaryFileResponse($filename);
         }
         return new JsonResponse(null, 400);

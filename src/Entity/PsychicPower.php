@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @ORM\Entity
  */
-class PsychicPower {
+class PsychicPower implements SelectionInterface {
 
     /**
      * @ORM\Id()
@@ -68,6 +68,14 @@ class PsychicPower {
         return $this->range;
     }
 
+    /**
+     * @param mixed $range
+     */
+    public function setRange($range): void
+    {
+        $this->range = $range;
+    }
+
     public function getDetails() {
         return $this->details;
     }
@@ -99,6 +107,8 @@ class PsychicPower {
     public function setCard($card) {
         $this->card = $card;
     }
+
+
 
     public function __clone()
     {

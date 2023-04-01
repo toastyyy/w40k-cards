@@ -1,12 +1,15 @@
 <div class="card-detail-wrapper" *ngIf="(card$ | async) as card">
     <div class="card-container">
         <div class="absolute left-0 right-0 vertical-center text-center">
-            <div class="inline-block shadow-xl">
-                <app-unit-basic [size]="size" #cardContainer [card]="card"></app-unit-basic>
+            <div class="inline-block shadow-xl" [class.hidden]="!card.big">
+              <app-unit-multicard [card]="card" [size]="size" #multiCardContainer></app-unit-multicard>
             </div>
+          <div class="inline-block shadow-xl" [class.hidden]="card.big">
+            <app-unit-basic [size]="size" #normalCardContainer [card]="card" [class.hidden]="card.big"></app-unit-basic>
+          </div>
         </div>
       <div class="absolute right-0 bottom-0 mb-2 mr-4">
-        <div *ngIf="!(downloading$ | async)" class="py-2 px-3 rounded bg-blue-400 text-white shadow-lg font-bold cursor-pointer hover:bg-blue-500" (click)="showPDF(cardContainer)" matRipple>
+        <div *ngIf="!(downloading$ | async)" class="py-2 px-3 rounded bg-blue-400 text-white shadow-lg font-bold cursor-pointer hover:bg-blue-500" (click)="showPDF()" matRipple>
           PDF Download anfordern
         </div>
         <div *ngIf="(downloading$ | async)" class="py-2 px-3 rounded bg-gray-400 text-white shadow-lg font-bold">
@@ -19,12 +22,15 @@
             <mat-tab label="Grundeinstellungen">
                 <div class="p-4">
                     <div class="flex flex-wrap -mx-2">
-                        <div class="w-full px-2">
+                        <div class="w-2/3 px-2">
                             <mat-form-field class="w-full">
                                 <mat-label>Kartentitel</mat-label>
                                 <input type="text" matInput [(ngModel)]="card.title" (ngModelChange)="changed()"/>
                             </mat-form-field>
                         </div>
+                      <div class="w-1/3 px-2">
+                          <mat-checkbox [(ngModel)]="card.big" (ngModelChange)="changed()">Große Karte</mat-checkbox>
+                      </div>
                         <div class="w-full px-2">
                           <mat-form-field class="w-full">
                             <mat-label>Untertitel </mat-label>
@@ -382,7 +388,7 @@
               <div class="p-3 bg-white rounded-lg shadow-lg border-b-2 border-gray-200">
                 <div class="flex flex-wrap -mx-2">
                   <div class="w-full text-lg font-bold px-2">Hintergrund</div>
-                  <div class="w-full lg:w-1/3 px-2">
+                  <div class="w-full lg:w-2/3 px-2">
                     <mat-form-field class="w-full">
                       <mat-label>Hintergrundbild</mat-label>
                       <mat-select [(ngModel)]="card.bgStyle" (ngModelChange)="changed()">
@@ -401,6 +407,15 @@
                   <div class="w-full lg:w-1/3 px-2" *ngIf="card.bgStyle == 'custom'">
                     <mat-label>Hintergrundbild</mat-label>
                     <app-medium (changed)="card.backgroundImage = $event;changed()" [medium]="card.backgroundImage"></app-medium>
+                  </div>
+
+                  <div class="w-full lg:w-1/2 px-2">
+                    <mat-label>Rückseite</mat-label>
+                    <app-medium (changed)="card.backsideImage = $event;changed()" [medium]="card.backsideImage"></app-medium>
+                  </div>
+                  <div class="w-full lg:w-1/2 px-2">
+                    <mat-label>Vorderseite (nur mehrseitige Karten)</mat-label>
+                    <app-medium (changed)="card.frontpageImage = $event;changed()" [medium]="card.frontpageImage"></app-medium>
                   </div>
                 </div>
               </div>

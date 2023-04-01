@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @ORM\Entity
  */
-class Weapon {
+class Weapon implements SelectionInterface {
 
     /**
      * @ORM\Id()
@@ -63,8 +63,14 @@ class Weapon {
      */
     private $card;
 
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $quantity;
+
     public function __construct() {
         $this->id = Uuid::uuid4();
+        $this->quantity = 1;
     }
 
     public function getId() {
@@ -147,5 +153,21 @@ class Weapon {
     public function __clone()
     {
         $this->id = Uuid::uuid4();
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     */
+    public function setQuantity(int $quantity): void
+    {
+        $this->quantity = $quantity;
     }
 }

@@ -12,6 +12,7 @@ use App\Entity\Psyker;
 use App\Entity\PsychicPower;
 use App\Entity\Weapon;
 use App\Entity\Roster;
+use App\Parser\CardParser;
 use App\Service\RosterSerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,7 +39,7 @@ class RosterController extends AbstractController
     /**
      * @Route("", methods={"POST"}, name="create")
      */
-    public function create(Request $request, KernelInterface $kernel, RosterSerializerInterface $rosterSerializer) {
+    public function create(Request $request, KernelInterface $kernel, RosterSerializerInterface $rosterSerializer, CardParser $cardParser) {
         $data = $request->getContent();
         $data = json_decode($data);
 
@@ -81,7 +82,11 @@ class RosterController extends AbstractController
                 foreach ($data['forces']['force'] as $force) {
                     if (isset($force['selections']) && isset($force['selections']['selection']) && !$this->isAssociative($force['selections']['selection'])) {
                         foreach ($force['selections']['selection'] as $selection) {
-                            $this->handleSelection($selection, $force, null);
+                            $card = $cardParser->parse($selection);
+                            if($card && $card->getTitle()) {
+                                $this->roster->addCard($card);
+                            }
+                            //$this->handleSelection($selection, $force, null);
                         }
                     }
                 }
@@ -89,7 +94,11 @@ class RosterController extends AbstractController
                 $force = $data['forces']['force'];
                 if (isset($force['selections']) && isset($force['selections']['selection']) && !$this->isAssociative($force['selections']['selection'])) {
                     foreach ($force['selections']['selection'] as $selection) {
-                        $this->handleSelection($selection, $force, null);
+                        $card = $cardParser->parse($selection);
+                        if($card && $card->getTitle()) {
+                            $this->roster->addCard($card);
+                        }
+                        //$this->handleSelection($selection, $force, null);
                     }
                 }
             }

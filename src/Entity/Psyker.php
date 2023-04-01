@@ -10,7 +10,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @ORM\Entity
  */
-class Psyker {
+class Psyker implements SelectionInterface {
 
     /**
      * @ORM\Id()

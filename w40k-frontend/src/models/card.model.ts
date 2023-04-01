@@ -24,6 +24,8 @@ export default interface CardModel {
   unitImage?: MediumModel;
   boxBackground?: MediumModel;
   factionLogo?: MediumModel;
+  backsideImage?: MediumModel;
+  frontpageImage?: MediumModel;
   keywords?: string[];
   useAutomaticBackgroundRemoval?: boolean;
   imageTranslateX?: number;
@@ -42,4 +44,6 @@ export default interface CardModel {
   bgColor2?: string;
   bgStyle?: string;
   kpiStyle?: string;
+
+  big?: boolean;
 }

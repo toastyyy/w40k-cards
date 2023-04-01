@@ -9,13 +9,18 @@ use Ramsey\Uuid\Uuid;
 /**
  * @ORM\Entity
  */
-class Unit {
+class Unit implements SelectionInterface {
 
     /**
      * @ORM\Id()
      * @ORM\Column(type="string", length=160)
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $quantity;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -85,6 +90,8 @@ class Unit {
 
     public function __construct() {
         $this->id = Uuid::uuid4();
+        $this->quantity = 1;
+        $this->points = 0;
     }
 
     public function getId() {
@@ -207,5 +214,21 @@ class Unit {
     public function __clone()
     {
         $this->id = Uuid::uuid4();
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     */
+    public function setQuantity(int $quantity): void
+    {
+        $this->quantity = $quantity;
     }
 }

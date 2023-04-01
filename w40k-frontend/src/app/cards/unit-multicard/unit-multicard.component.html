@@ -1,0 +1,10 @@
+<div #cardCrwapper class="card-wrapper unit-basic" [style.--base-size]="size + 'px'">
+  <div class="flex">
+    <div>
+      <app-unit-basic [card]="cardLeft" [size]="size / 2" backsideMode="frontpage"></app-unit-basic>
+    </div>
+    <div>
+      <app-unit-basic [card]="cardRight" [size]="size / 2" [hideSidebar]="true" backsideMode="backside"></app-unit-basic>
+    </div>
+  </div>
+</div>

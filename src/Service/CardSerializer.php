@@ -41,7 +41,6 @@ class CardSerializer implements CardSerializerInterface
             'quote' => $card->getQuote(),
             'borderColor' => $card->getBorderColor(),
             'textColor' => $card->getTextColor(),
-            'keywords' => $card->getKeywords(),
             'useAutomaticBackgroundRemoval' => $card->isUseAutomaticBackgroundRemoval(),
             'imageTranslateX' => $card->getImageTranslateX(),
             'imageTranslateY' => $card->getImageTranslateY(),
@@ -56,7 +55,8 @@ class CardSerializer implements CardSerializerInterface
             'bgColor1' => $card->getBgColor1(),
             'bgColor2' => $card->getBgColor2(),
             'bgStyle' => $card->getBgStyle(),
-            'kpiStyle' => $card->getKpiStyle()
+            'kpiStyle' => $card->getKpiStyle(),
+            'big' => $card->getBig()
         ];
 
         foreach($card->getProperties() as $prop) {
@@ -99,7 +99,15 @@ class CardSerializer implements CardSerializerInterface
         }
         $serialized['explosions'] = $explosions;
 
+        $keywords = [];
+        foreach($card->getCategories() as $cat) {
+            $keywords[] = $cat->getText();
+        }
+        $serialized['keywords'] = $keywords;
+
         $serialized['backgroundImage'] = $card->getBackgroundImage() ? $this->mediumSerializer->serialize($card->getBackgroundImage()) : null;
+        $serialized['backsideImage'] = $card->getBacksideImage() ? $this->mediumSerializer->serialize($card->getBacksideImage()) : null;
+        $serialized['frontpageImage'] = $card->getFrontpageImage() ? $this->mediumSerializer->serialize($card->getFrontpageImage()) : null;
         $serialized['factionLogo'] = $card->getFactionLogo() ? $this->mediumSerializer->serialize($card->getFactionLogo()) : null;
         $serialized['boxBackground'] = $card->getBoxBackground() ? $this->mediumSerializer->serialize($card->getBoxBackground()) : null;
         $serialized['unitImage'] = $card->getUnitImage() ? $this->mediumSerializer->serialize($card->getUnitImage()) : null;
@@ -119,6 +127,7 @@ class CardSerializer implements CardSerializerInterface
             $card->setTitle($data->title ?? $card->getTitle());
             $card->setSubtitle($data->subtitle ?? $card->getSubtitle());
             $card->setQuote($data->quote ?? $card->getQuote());
+            $card->setBig(isset($data->big) ? $data->big : $card->getBig());
             $card->setUseAutomaticBackgroundRemoval(isset($data->useAutomaticBackgroundRemoval) ? $data->useAutomaticBackgroundRemoval : $card->isUseAutomaticBackgroundRemoval());
             $card->setImageTranslateX(isset($data->imageTranslateX) ? $data->imageTranslateX : $card->getImageTranslateX());
             $card->setImageTranslateY(isset($data->imageTranslateY) ? $data->imageTranslateY : $card->getImageTranslateY());
@@ -143,6 +152,12 @@ class CardSerializer implements CardSerializerInterface
             }
             if(isset($data->backgroundImage)) {
                 $card->setBackgroundImage($this->mediumSerializer->deserialize($data->backgroundImage));
+            }
+            if(isset($data->backsideImage)) {
+                $card->setBacksideImage($this->mediumSerializer->deserialize($data->backsideImage));
+            }
+            if(isset($data->frontpageImage)) {
+                $card->setFrontpageImage($this->mediumSerializer->deserialize($data->frontpageImage));
             }
             if(isset($data->boxBackground)) {
                 $card->setBoxBackground($this->mediumSerializer->deserialize($data->boxBackground));

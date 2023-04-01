@@ -27,7 +27,7 @@ class PdfService
 
         $content = json_encode([
             'html' => $content,
-            'options' => $options
+            'options' => $options,
         ]);
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, [

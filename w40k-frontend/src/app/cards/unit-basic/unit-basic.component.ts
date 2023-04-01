@@ -10,6 +10,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class UnitBasicComponent implements OnInit, AfterViewInit {
   @Input() card: CardModel;
   @Input() size = 20;
+  @Input() hideSidebar = false;
+  @Input() backsideMode: 'none'|'frontpage'|'backside' = 'none';
 
   constructor(private elem: ElementRef, private sanitizer: DomSanitizer) { }
 
@@ -25,7 +27,6 @@ export class UnitBasicComponent implements OnInit, AfterViewInit {
       if(this.elem) {
         this.recursiveInlineStyling(this.elem.nativeElement);
       } else {
-        console.log('timeout');
         setTimeout(() => {
           this.inlineStyles();
         }, 1000);
@@ -33,7 +34,6 @@ export class UnitBasicComponent implements OnInit, AfterViewInit {
   }
 
   public bypassSecurityStyle(str) {
-    console.log(str);
     return this.sanitizer.bypassSecurityTrustStyle(str);
   }
 

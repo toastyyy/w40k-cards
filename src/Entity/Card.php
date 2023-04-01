@@ -92,6 +92,16 @@ class Card
     private $backgroundImage;
 
     /**
+     *@ORM\ManyToOne(targetEntity=Medium::class, cascade={"PERSIST"})
+     */
+    private $backsideImage;
+
+    /**
+     *@ORM\ManyToOne(targetEntity=Medium::class, cascade={"PERSIST"})
+     */
+    private $frontpageImage;
+
+    /**
      *@ORM\ManyToOne(targetEntity=Medium::class, cascade={"ALL"})
      */
     private $boxBackground;
@@ -187,7 +197,7 @@ class Card
     private $bgStyle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Model::class, mappedBy="card", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Model::class, mappedBy="card", orphanRemoval=true, cascade={"ALL"})
      */
     private $models;
 
@@ -195,6 +205,21 @@ class Card
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $kpiStyle;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rule::class, mappedBy="card", orphanRemoval=true, cascade={"ALL"})
+     */
+    private $rules;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="card", orphanRemoval=true, cascade={"ALL"})
+     */
+    private $categories;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $big;
 
 
     public function __construct()
@@ -225,6 +250,9 @@ class Card
         $this->bgStyle = 'default';
         $this->kpiStyle = 'aos';
         $this->models = new ArrayCollection();
+        $this->rules = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->big = false;
     }
 
     /**
@@ -489,6 +517,19 @@ class Card
             $this->weapons->add($weapon);
             $weapon->setCard($this);
         }
+    }
+
+    /**
+     * @param $name
+     * @return Weapon|null
+     */
+    public function getWeaponByName($name) {
+        foreach($this->getWeapons() as $weapon) {
+            if($weapon->getName() == $name) {
+                return $weapon;
+            }
+        }
+        return null;
     }
 
     public function addPsychicPower(PsychicPower $psy) {
@@ -936,5 +977,113 @@ class Card
     public function setKpiStyle(string $kpiStyle): void
     {
         $this->kpiStyle = $kpiStyle;
+    }
+
+    /**
+     * @return Collection<int, Rule>
+     */
+    public function getRules(): Collection
+    {
+        return $this->rules;
+    }
+
+    public function addRule(Rule $rule): self
+    {
+        if (!$this->rules->contains($rule)) {
+            $this->rules[] = $rule;
+            $rule->setCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRule(Rule $rule): self
+    {
+        if ($this->rules->removeElement($rule)) {
+            // set the owning side to null (unless already changed)
+            if ($rule->getCard() === $this) {
+                $rule->setCard(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->setCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getCard() === $this) {
+                $category->setCard(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBacksideImage()
+    {
+        return $this->backsideImage;
+    }
+
+    /**
+     * @param mixed $backsideImage
+     */
+    public function setBacksideImage($backsideImage): void
+    {
+        $this->backsideImage = $backsideImage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFrontpageImage()
+    {
+        return $this->frontpageImage;
+    }
+
+    /**
+     * @param mixed $frontpageImage
+     */
+    public function setFrontpageImage($frontpageImage): void
+    {
+        $this->frontpageImage = $frontpageImage;
+    }
+
+    /**
+     * @return false
+     */
+    public function getBig(): bool
+    {
+        return $this->big || false;
+    }
+
+    /**
+     * @param false $big
+     */
+    public function setBig(bool $big): void
+    {
+        $this->big = $big;
     }
 }

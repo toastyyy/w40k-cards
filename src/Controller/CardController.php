@@ -33,6 +33,8 @@ class CardController extends AbstractController
                 $c->setTextColor4($card->getTextColor4());
                 $c->setBgStyle($card->getBgStyle());
                 $c->setBackgroundImage($card->getBackgroundImage());
+                $c->setFrontpageImage($card->getFrontpageImage());
+                $c->setBacksideImage($card->getBacksideImage());
                 $c->setColor1lightness($card->getColor1lightness());
                 $c->setColor1saturation($card->getColor1saturation());
                 $c->setColor1hue($card->getColor1hue());

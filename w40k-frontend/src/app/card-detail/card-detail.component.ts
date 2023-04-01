@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {BehaviorSubject, Subscription} from 'rxjs';
 import CardModel from 'src/models/card.model';
@@ -10,6 +10,7 @@ import WeaponModel from "../../models/weapon.model";
 import AbilityModel from "../../models/ability.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../dialogs/confirm-dialog/confirm-dialog.component";
+import {UnitMulticardComponent} from "../cards/unit-multicard/unit-multicard.component";
 
 @Component({
   selector: 'app-card-detail',
@@ -37,6 +38,10 @@ export class CardDetailComponent implements OnInit {
 
   private saveSubscription: Subscription;
 
+  @ViewChild("multiCardContainer") multiCardContainer: UnitMulticardComponent;
+  @ViewChild("multiCardContainer", { read: ElementRef }) multiCardContainerNative: ElementRef;
+  @ViewChild("normalCardContainer", { read: ElementRef }) normalCardContainer: ElementRef;
+
   constructor(private router: Router, private route: ActivatedRoute, private cardService: CardService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -59,6 +64,7 @@ export class CardDetailComponent implements OnInit {
     });
 
     this.changed$.pipe(skip(1), debounceTime(500)).subscribe(result => {
+        this.multiCardContainer.generateSubCards();
         this.saveChanges();
     });
   }
@@ -119,9 +125,15 @@ export class CardDetailComponent implements OnInit {
     });
   }
 
-  public showPDF(card) {
+  public showPDF() {
     this.downloadingSubject.next(true);
-    let html = card.elem.nativeElement.innerHTML;
+    let html = null;
+    if(this.cardSubject.getValue().big) {
+      html = this.multiCardContainerNative.nativeElement.innerHTML;
+    } else {
+      html = this.normalCardContainer.nativeElement.innerHTML;
+    }
+
     let headContent = document.getElementsByTagName('head')[0].innerHTML;
 
     let fullHtml = '<!DOCTYPE html><html><head>' + headContent + '</head><body>' + html + '</body></html>';
@@ -136,7 +148,7 @@ export class CardDetailComponent implements OnInit {
       .replace(/var\(--text-color\)/gm, this.cardSubject.getValue().textColor)
       ;
 
-    this.cardService.generatePdf(fullHtml).subscribe(result => {
+    this.cardService.generatePdf(fullHtml, this.cardSubject.getValue()).subscribe(result => {
       this.downloadingSubject.next(false);
     }, error => {
       this.downloadingSubject.next(false);
