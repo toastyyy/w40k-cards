@@ -26,6 +26,7 @@ class WeaponSerializer implements WeaponSerializerInterface
             'damage' => $weapon->getDamage(),
             'abilities' => $weapon->getAbilities(),
             'ref' => $weapon->getRef(),
+            'quantity' => $weapon->getQuantity()
         ];
     }
 
@@ -46,6 +47,7 @@ class WeaponSerializer implements WeaponSerializerInterface
             $weapon->setDamage($data->damage ?? $weapon->getDamage());
             $weapon->setAbilities($data->abilities ?? $weapon->getAbilities());
             $weapon->setRef($data->ref ?? $weapon->getRef());
+            $weapon->setQuantity($data->quantity ?? $weapon->getQuantity());
             return $weapon;
         }
         return null;
