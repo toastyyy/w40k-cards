@@ -29,10 +29,16 @@ class Roster
      */
     private $cards;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created;
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
         $this->cards = new ArrayCollection();
+        $this->created = new \DateTime();
     }
 
     /**
@@ -90,5 +96,21 @@ class Roster
     public function addCard(Card $card) {
         $this->cards->add($card);
         $card->setRoster($this);
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param \DateTime $created
+     */
+    public function setCreated($created): void
+    {
+        $this->created = $created;
     }
 }

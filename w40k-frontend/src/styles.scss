@@ -76,6 +76,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     &.hide-sidebar {
         .card-ribbon { display: none !important; }
       .card-image { display: none !important; }
+      .card-unit-quote-wrapper { display: none !important; }
       .card-content {
         left: 1em !important;
         width: 19.5em !important;
@@ -83,6 +84,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         .content-text {
           height: 40em !important;
         }
+      }
+      .card-keywords {
+        left: 1em !important;
+        width: 19.5em !important;
       }
       .card-unit-name {
         left: 50% !important;

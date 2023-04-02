@@ -77,7 +77,7 @@ class Card
 
      /**
      * @ORM\OneToMany(targetEntity=Unit::class, mappedBy="card", cascade={"ALL"})
-      * @ORM\OrderBy({"name":"ASC"})
+     * @ORM\OrderBy({"name":"ASC"})
      */
     private $units;
 
@@ -460,13 +460,13 @@ class Card
         foreach($this->units as $unit) {
             if(!$units->contains($unit)) {
                 $this->units->removeElement($unit);
-                $unit->setUnit(null);
+                $unit->setCard(null);
             }
         }
         foreach($units as $unit) {
             if(!$this->units->contains($unit)) {
                 $this->units->add($unit);
-                $unit->setUnit($this);
+                $unit->setCard($this);
             }
         }
     }

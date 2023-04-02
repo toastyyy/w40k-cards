@@ -10,8 +10,8 @@ export class UnitMulticardComponent implements OnInit, OnChanges {
   @Input() card: CardModel;
   @Input() size = 20;
 
-  private cardLeft: CardModel;
-  private cardRight: CardModel;
+  public cardLeft: CardModel;
+  public cardRight: CardModel;
 
   constructor() { }
 

@@ -114,6 +114,13 @@
       </table>
 
       <div class="content-text">
+        <div *ngFor="let psyker of card.psykers" class="ability" [style.color]="card.textColor3">
+          <span class="font-bold">Psyker</span>
+          {{ psyker.name }} kann {{ psyker.cast }} Psykräfte einsetzen und {{ psyker.deny }} abwehren. {{ psyker.ref }}
+        </div>
+        <div *ngFor="let psychicPower of card.psychicPowers" class="ability" [style.color]="card.textColor3">
+          <span class="font-bold">{{ psychicPower.name }}</span>
+        </div>
         <div *ngFor="let ability of card.abilities" class="ability" [style.color]="card.textColor3">
           <span class="font-bold">{{ ability.name }}</span>
           {{ ability.description }}
